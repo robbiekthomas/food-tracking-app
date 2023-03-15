@@ -1,0 +1,77 @@
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS userDetails CASCADE;
+DROP TABLE IF EXISTS user_edits CASCADE;
+DROP TABLE IF EXISTS habitGoals CASCADE;
+DROP TABLE IF EXISTS habitGoal_logs CASCADE;
+DROP TABLE IF EXISTS foods CASCADE;
+DROP TABLE IF EXISTS meals CASCADE;
+DROP TABLE IF EXISTS food_logs CASCADE;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  start_date DATE DEFAULT CURRENT_DATE,
+  birthdate DATE NOT NULL,
+  sex VARCHAR(16) NOT NULL
+);
+
+CREATE TABLE userDetails (
+  id SERIAL PRIMARY KEY NOT NULL,
+  weight SMALLINT NOT NULL,
+  height SMALLINT,
+  weight_units VARCHAR(2) DEFAULT "lb",
+  measurement_units VARCHAR(2) DEFAULT "cm",
+  body_fat_percentage TINYINT NOT NULL,
+  waist_circumference SMALLINT,
+  hip_circumference SMALLINT,
+  neck_circumference SMALLINT,
+  enable_body_fat_calculation BOOLEAN DEFAULT FALSE,
+  enable_weight_change_calculation BOOLEAN DEFAULT TRUE, 
+  main_goal VARCHAR(20) DEFAULT "maintain",
+  date_updated DATE DEFAUlT CURRENT_DATE
+);
+
+CREATE TABLE user_edits (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  userDetails_id INTEGER REFERENCES userDetails(id) ON DELETE CASCADE,
+);
+
+CREATE TABLE habitGoals (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+);
+
+CREATE TABLE habitGoal_logs (
+  id SERIAL PRIMARY KEY NOT NULL,
+  goal_id INTEGER REFERENCES habitGoals(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  is_complete BOOLEAN DEFAULT FALSE,
+  date DATE DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE foods (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  grams_per_serving SMALLINT,
+  carbs SMALLINT,
+  fat SMALLINT,
+  protein SMALLINT
+);
+
+CREATE TABLE meals (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(20) NOT NULL,
+);
+
+CREATE TABLE food_logs (
+  id SERIAL PRIMARY KEY NOT NULL,
+  food_id INTEGER REFERENCES food(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  meal_id INTEGER REFERENCES meal(id) ON DELETE CASCADE,
+  servings SMALLINT DEFAULT 1,
+  date DATE DEFAULT CURRENT_DATE
+);
