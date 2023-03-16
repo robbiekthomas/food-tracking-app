@@ -29,14 +29,14 @@ CREATE TABLE userDetails (
   neck_circumference SMALLINT,
   enable_body_fat_calculation BOOLEAN DEFAULT FALSE,
   enable_weight_change_calculation BOOLEAN DEFAULT TRUE, 
-  main_goal VARCHAR(20),
-  date_updated DATE DEFAUlT CURRENT_DATE
+  main_goal VARCHAR(20)
 );
 
 CREATE TABLE user_edits (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  userDetails_id INTEGER REFERENCES userDetails(id) ON DELETE CASCADE
+  userDetails_id INTEGER REFERENCES userDetails(id) ON DELETE CASCADE,
+  date_updated DATE DEFAUlT CURRENT_DATE
 );
 
 CREATE TABLE habitGoals (
@@ -56,6 +56,7 @@ CREATE TABLE foods (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   grams_per_serving SMALLINT,
+  calories SMALLINT,
   carbs SMALLINT,
   fat SMALLINT,
   protein SMALLINT
