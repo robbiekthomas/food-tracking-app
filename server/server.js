@@ -1,3 +1,6 @@
+// load .env data into process.env
+require("dotenv").config();
+
 const express = require("express");
 
 const app = express();
@@ -10,6 +13,7 @@ const dbClient = require("./db/connection");
 app.use(express.json());
 
 //routes
+const databaseController = require('./routes/dbController');
 
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`);
