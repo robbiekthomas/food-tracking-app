@@ -14,7 +14,8 @@ CREATE TABLE users (
   password_hash VARCHAR(255) NOT NULL,
   start_date DATE DEFAULT CURRENT_DATE,
   birthdate DATE NOT NULL,
-  sex VARCHAR(16) NOT NULL
+  sex VARCHAR(16) NOT NULL,
+  date_updated DATE DEFAUlT CURRENT_DATE
 );
 
 CREATE TABLE userDetails (
@@ -29,14 +30,14 @@ CREATE TABLE userDetails (
   neck_circumference SMALLINT,
   enable_body_fat_calculation BOOLEAN DEFAULT FALSE,
   enable_weight_change_calculation BOOLEAN DEFAULT TRUE, 
-  main_goal VARCHAR(20)
+  main_goal VARCHAR(20),
+  date_updated DATE DEFAUlT CURRENT_DATE
 );
 
 CREATE TABLE user_edits (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  userDetails_id INTEGER REFERENCES userDetails(id) ON DELETE CASCADE,
-  date_updated DATE DEFAUlT CURRENT_DATE
+  userDetails_id INTEGER REFERENCES userDetails(id) ON DELETE CASCADE
 );
 
 CREATE TABLE habitGoals (
@@ -73,5 +74,8 @@ CREATE TABLE food_logs (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   meal_id INTEGER REFERENCES meals(id) ON DELETE CASCADE,
   servings SMALLINT DEFAULT 1,
+  hunger_before SMALLINT,
+  hunger_after SMALLINT,
+  feeling_after_eating VARCHAR(50),
   date DATE DEFAULT CURRENT_DATE
 );
