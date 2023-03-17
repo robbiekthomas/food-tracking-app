@@ -25,6 +25,10 @@ app.get('/', (req, res) => {
 })
 //const databaseController = require('./routes/dbController');
 
+
+app.use('/api', databaseController)
+
+
 app.listen(port, () => {
   console.log(`app is listening on port ${port}`);
 });
