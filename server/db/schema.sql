@@ -31,21 +31,18 @@ CREATE TABLE userDetails (
   enable_body_fat_calculation BOOLEAN DEFAULT FALSE,
   enable_weight_change_calculation BOOLEAN DEFAULT TRUE, 
   main_goal VARCHAR(20),
-  date_updated DATE DEFAUlT CURRENT_DATE
+  date_updated DATE DEFAUlT CURRENT_DATE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
 );
 
-CREATE TABLE user_edits (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  userDetails_id INTEGER REFERENCES userDetails(id) ON DELETE CASCADE
-);
+
 
 CREATE TABLE habitGoals (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE habitGoal_logs (
+CREATE TABLE habitGoals (
   id SERIAL PRIMARY KEY,
   goal_id INTEGER REFERENCES habitGoals(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,

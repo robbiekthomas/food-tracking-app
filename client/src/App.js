@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { getUserRow } from './api-requests';
 import './App.css';
 
+import DashboardPage from './pages/DashboardPage';
+import LandingPage from './pages/LandingPage';
+import TrackingPage from './pages/TrackingPage';
+
+
 function App() {
-  const [test, setTest] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/test')
-      .then((response) => {
-        console.log(response.data);
-        setTest(response.data);
-      })
-      .catch((err) => {
-
-      })
-  }, []);
 
   return (
-    <ul>
-      {Object.values(test).map((item, index) => (
-        <li key={index}>{item}</li>
-      ))}
-    </ul>
+    <BrowserRouter>
+    
+      <Routes>
+        <Route path="/tracking-page" element={(<TrackingPage />)} />
+        <Route path="/landing-page" element={(<LandingPage />)} />
+        <Route path="/dashboard-page" element={(<DashboardPage />)} />
+      </Routes>
+
+    </BrowserRouter>
   );
 }
 
