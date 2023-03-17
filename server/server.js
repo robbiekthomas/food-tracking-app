@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const port = 8000;
-const users = require('./routes/test')
 
 
 // middleware
@@ -23,10 +22,12 @@ app.get('/', (req, res) => {
 })
 
 //import router
-const databaseController = require('./routes/dbController');
+const dashboardController = require('./routes/dashboardRoute');
+const trackerController = require('./routes/trackerRoute');
 
 //use router
-app.use('/api/test', databaseController);
+app.use('/api/dashboard', dashboardController);
+app.use('/api/tracker', trackerController);
 
 
 app.listen(port, () => {
