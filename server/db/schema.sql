@@ -8,11 +8,11 @@ DROP TABLE IF EXISTS food_logs CASCADE; --foods
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
+  sub VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
-  password_hash VARCHAR(255) NOT NULL,
-  birthdate DATE NOT NULL,
-  sex VARCHAR(16) NOT NULL,
+  birthdate DATE,
+  sex VARCHAR(16),
   date_updated DATE DEFAUlT CURRENT_DATE
 );
 
