@@ -13,18 +13,23 @@ const EditProfileForm = () => {
   const [birthdate, setBirthdate] = useState("")
   const [sex, setSex] = useState("")
 
+
+  //handle input changes
   const onNameChange = (e) => setName(e.target.value);
   const onEmailChange = (e) => setEmail(e.target.value);
   const onBirthdateChange = (e) => setBirthdate(e.target.value);
   const onSexChange = (e) => setSex(e.target.value);
 
+
   //will store the users old data technically then get submitted as package for post request
   const [inputs, setUserInputs] = useState({
+    id:'0',
     name: '',
     email: '',
     birthdate: '',
     sex: ''
   });
+
 
   //gets user from the database
   useEffect(() => {
@@ -38,7 +43,7 @@ const EditProfileForm = () => {
   }, []);
 
 
-
+//check inputs bufore updating db
   const validateSubmission = () => {
     const submissionValues = ({
       ...inputs,
@@ -48,24 +53,23 @@ const EditProfileForm = () => {
       sex
     });
 
-    //setUserInputs(submissionValues);
     updateDatabase(submissionValues);
-  }
+  };
 
 
+  //post updates -> server -> db
   const updateDatabase = (values) => {
+    console.log(1, values);
     const url = 'http://localhost:8000/api/dashboard/user/insert';
     
-    console.log(values);
     axios.post(url, values)
       .then((res) => {
         console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(1, err);
       });
-  }
-
+  };
 
 
   return (
@@ -104,11 +108,8 @@ const EditProfileForm = () => {
         <Button variant="contained" onClick={validateSubmission}>Input Data</Button>
       </form>
 
-
-
-
     </>
-  )
-}
+  );
+};
 
 export default EditProfileForm;
