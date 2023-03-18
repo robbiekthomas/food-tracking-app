@@ -5,7 +5,7 @@ const UserProfile = () => {
   const { user, isAuthenticated } = useAuth0();
 
   return (
-    // Log Out Button shows only when the user is authenticated
+    
     isAuthenticated && (
       <div>
         <img src={user.picture} alt={user.name} />
