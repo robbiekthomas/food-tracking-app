@@ -7,7 +7,7 @@ const LoginButton = () => {
   return (
     //Login Button only shows when the user is NOT authenticated
     !isAuthenticated && (
-      <button onClick={() => loginWithRedirect()} >
+      <button className="bg-blue-500 text-white font-medium px-4 py-2 rounded hover:bg-blue-600" onClick={() => loginWithRedirect()} >
         Log In
       </button>
     )
