@@ -6,10 +6,6 @@ INSERT INTO userDetails (weight, height, weight_units, measurement_units, body_f
 VALUES (150, 170, 'lb', 'cm', 25, false, true, 'lose fat');
 
 
-INSERT INTO user_edits (user_id, userDetails_id)
-VALUES (1,1);
-
-
 INSERT INTO habitGoals (name)
 VALUES ('Eat at least 20g of protein per meal'),
   ('Eat one green vegetable per meal'),

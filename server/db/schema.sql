@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS users CASCADE; --user
 DROP TABLE IF EXISTS userDetails CASCADE; --user
-DROP TABLE IF EXISTS user_edits CASCADE; --user
 DROP TABLE IF EXISTS habitGoals CASCADE; --goals
 DROP TABLE IF EXISTS habitGoal_logs CASCADE; --goals
 DROP TABLE IF EXISTS foods CASCADE; --foods
@@ -31,7 +30,7 @@ CREATE TABLE userDetails (
   enable_weight_change_calculation BOOLEAN DEFAULT TRUE, 
   main_goal VARCHAR(20),
   date_updated DATE DEFAUlT CURRENT_DATE,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
 
@@ -41,7 +40,7 @@ CREATE TABLE habitGoals (
   name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE habitGoals (
+CREATE TABLE habitGoal_logs (
   id SERIAL PRIMARY KEY,
   goal_id INTEGER REFERENCES habitGoals(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
