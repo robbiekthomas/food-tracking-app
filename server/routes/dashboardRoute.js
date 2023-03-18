@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const db = require('../db/connection');
-
+const db = require("../db/connection");
 
 router.get("/", (req, res) => {
-  console.log('getting data!');
+  console.log("getting data!");
 
   const userQueryStr = `
       SELECT *
@@ -12,16 +11,16 @@ router.get("/", (req, res) => {
       `;
   db.query(userQueryStr)
     .then((result) => {
-      const data = result.rows[0];
+      const data = result.rows;
       res.json(data);
     })
     .catch((err) => {
       console.error(err);
-    })
+    });
 });
 
 //update user information in db on profile edit
-router.post('/user/insert', (req, res) => {
+router.post("/user/insert", (req, res) => {
   console.log(values);
   const r = req.body.values;
 
@@ -35,9 +34,9 @@ router.post('/user/insert', (req, res) => {
     WHERE id = $5;
   `;
 
-  console.log('HIHIHIHI');
+  console.log("HIHIHIHI");
 
-  console.log('values', r);
+  console.log("values", r);
   // db.query(str, [r.name, r.email, r.birthdate, r.sex, r.id])
   //   .then((result) => {
   //     return result.rows[0]
@@ -45,10 +44,9 @@ router.post('/user/insert', (req, res) => {
   //   .catch((err) => {
   //     console.log(err.message);
   //   })
-
 });
 
-router.post('/habitGoals/insert', (req, res) => {
+router.post("/habitGoals/insert", (req, res) => {
   const habitQueryStr = `
     INSERT INTO habitGoals (name)
     VALUES ($1)
@@ -57,12 +55,27 @@ router.post('/habitGoals/insert', (req, res) => {
   const textValue = req.body.textValue;
   db.query(habitQueryStr, [textValue])
     .then((result) => {
-      return result.rows[0]
+      return result.rows[0];
     })
     .catch((err) => {
       console.log(err.message);
-    })
+    });
+});
 
+// insert user on auth0 account creation
+router.post("/user/new", (req, res) => {
+  const newUserQueryStr = `
+  INSERT INTO users (name, email, sub)
+  VALUES ($1, $2, $3)
+  `;
+  console.log('express', req.body);
+  db.query(newUserQueryStr, [req.body.name, req.body.email, req.body.sub])
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log('express', err.message);
+    });
 });
 
 

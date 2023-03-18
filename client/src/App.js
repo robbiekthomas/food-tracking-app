@@ -15,7 +15,7 @@ function App() {
     
       <Routes>
         <Route path="/tracking-page" element={(<TrackingPage />)} />
-        <Route path="/landing-page" element={(<LandingPage />)} />
+        <Route path="/" element={(<LandingPage />)} />
         <Route path="/dashboard-page" element={(<DashboardPage />)} />
       </Routes>
 
