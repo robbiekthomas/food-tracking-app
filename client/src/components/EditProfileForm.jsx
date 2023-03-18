@@ -59,6 +59,7 @@ const EditProfileForm = () => {
 
   //post updates -> server -> db
   const updateDatabase = (values) => {
+    console.log(1, values);
     const url = 'http://localhost:8000/api/dashboard/user/insert';
     
     axios.post(url, values)
@@ -66,7 +67,6 @@ const EditProfileForm = () => {
         console.log(res.data);
       })
       .catch((err) => {
-        console.log(1, values);
         console.log(1, err);
       });
   };
