@@ -12,7 +12,6 @@ CREATE TABLE users (
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
-  start_date DATE DEFAULT CURRENT_DATE,
   birthdate DATE NOT NULL,
   sex VARCHAR(16) NOT NULL,
   date_updated DATE DEFAUlT CURRENT_DATE
