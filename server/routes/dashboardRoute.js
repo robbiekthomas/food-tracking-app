@@ -20,6 +20,24 @@ router.get("/", (req, res) => {
     })
 });
 
+//update user information in db on profile edit
+router.post('/user/insert', (req, res) => {
+  const str = `
+    INSERT INTO users (name)
+    VALUES ($1)
+    `;
+  console.log('HIHIHIHI');
+  const values = req.body.textValue;
+  db.query(str, [textValue])
+    .then((result) => {
+      return result.rows[0]
+    })
+    .catch((err) => {
+      console.log(err.message);
+    })
+
+});
+
 router.post('/habitGoals/insert', (req, res) => {
   const habitQueryStr = `
     INSERT INTO habitGoals (name)
