@@ -22,19 +22,29 @@ router.get("/", (req, res) => {
 
 //update user information in db on profile edit
 router.post('/user/insert', (req, res) => {
+  console.log(values);
+  const r = req.body.values;
+
   const str = `
-    INSERT INTO users (name)
-    VALUES ($1)
-    `;
+    UPDATE users 
+    SET
+      name = $1,
+      email = $2,
+      birthdate = $3,
+      sex = $4
+    WHERE id = $5;
+  `;
+
   console.log('HIHIHIHI');
-  const values = req.body.textValue;
-  db.query(str, [textValue])
-    .then((result) => {
-      return result.rows[0]
-    })
-    .catch((err) => {
-      console.log(err.message);
-    })
+
+  console.log('values', r);
+  // db.query(str, [r.name, r.email, r.birthdate, r.sex, r.id])
+  //   .then((result) => {
+  //     return result.rows[0]
+  //   })
+  //   .catch((err) => {
+  //     console.log(err.message);
+  //   })
 
 });
 
