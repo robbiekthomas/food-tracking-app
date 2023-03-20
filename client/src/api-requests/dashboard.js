@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function getUserRow() {
+const getUserRow = () => {
 
     return axios.get('http://localhost:8000/api/dashboard')
       .then((response) => {
@@ -9,4 +9,6 @@ function getUserRow() {
 
 }
 
-export default getUserRow;
+
+
+export { getUserRow };

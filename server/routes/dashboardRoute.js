@@ -8,8 +8,10 @@ router.get("/", (req, res) => {
   console.log("getting data!");
 
   const userQueryStr = `
-      SELECT *
-      FROM users
+  SELECT userDetails.*, users.*
+  FROM users
+  LEFT JOIN userDetails ON users.id = user_id
+  WHERE users.id = 1
       `;
   db.query(userQueryStr)
     .then((result) => {
@@ -21,19 +23,24 @@ router.get("/", (req, res) => {
     });
 });
 
+
+
+
 //update user information in db on profile edit
 router.post("/user/insert", (req, res) => {
   console.log(values);
-  const r = req.body.values;
 
+  const r = req.body;
+  //console.log(5, r);
   const str = `
-    UPDATE users 
-    SET
-      name = $1,
-      email = $2,
-      birthdate = $3,
-      sex = $4
-    WHERE id = $5;
+
+      UPDATE users 
+      SET
+        name = $1,
+        email = $2,
+        birthdate = $3,
+        sex = $4
+      WHERE id = $5
   `;
 
   console.log("HIHIHIHI");
