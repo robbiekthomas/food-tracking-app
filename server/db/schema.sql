@@ -28,6 +28,7 @@ CREATE TABLE userDetails (
   neck_circumference SMALLINT,
   enable_body_fat_calculation BOOLEAN DEFAULT FALSE,
   enable_weight_change_calculation BOOLEAN DEFAULT TRUE, 
+  weight_change_goal SMALLINT,
   main_goal VARCHAR(20),
   date_updated DATE DEFAUlT CURRENT_DATE,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
