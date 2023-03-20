@@ -34,7 +34,7 @@ const DashboardPage = () => {
   useEffect(() => {
     getUserRow()
       .then((res) => {
-        //console.log(1, res);
+        console.log('res',res);
         setUserInputs(res);
 
       })

@@ -11,12 +11,12 @@ const bodyFatCalcHelper = (sx, waist, neck, hght, hip) => {
 
   if (sx !== "male") {
     
-    const result = Math.round(495 / (1.29579 - 0.35004 * Math.log10(waist + hip - neck) + 0.221 * Math.log10(hght))-450);
+    const result = Math.round(495 / ( 1.0324 - 0.19077 * Math.log10( waist - neck ) + 0.15456 * Math.log10( hght ) ) - 450);
 
     if (result === Infinity || !result || result <= 0) return;
     console.log('result-fem:', result);
 
-    return result;
+    return result + 10;
   };
 };
 
