@@ -2,8 +2,8 @@ INSERT INTO users (name, email, sub, birthdate, sex)
 VALUES ('Sample User', 'example@example.com', 'subbie-wubbie', '1996-08-13', 'female' );
 
 
-INSERT INTO userDetails (weight, height, weight_units, measurement_units, body_fat_percentage, enable_body_fat_calculation, enable_weight_change_calculation, main_goal)
-VALUES (150, 170, 'lb', 'cm', 25, false, true, 'lose fat');
+INSERT INTO userDetails (weight, height, weight_units, measurement_units, body_fat_percentage, enable_body_fat_calculation, enable_weight_change_calculation, main_goal, user_id, weight_change_goal)
+VALUES (150, 170, 'lb', 'cm', 25, false, true, 'lose fat', 1, 0);
 
 
 INSERT INTO habitGoals (name)
