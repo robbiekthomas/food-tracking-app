@@ -30,7 +30,6 @@ router.get("/", (req, res) => {
 router.post("/user/insert", (req, res) => {
 
   const r = req.body;
-  console.log(r);
   const str = `
       UPDATE users 
       SET

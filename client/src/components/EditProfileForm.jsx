@@ -60,7 +60,6 @@ const EditProfileForm = ({ inputs, change }) => {
 
     } else {
       const bf = bodyFatCalcHelper(sx, wa, ne, he, hi);
-      console.log('fem', sx, wa, ne, he, hi);
       return bf;
     };
 
@@ -97,7 +96,6 @@ const EditProfileForm = ({ inputs, change }) => {
         };
 
         if (newSex === 'male' && (!newWaistMeasurement || !newNeckMeasurement || !newHeight)) {
-          console.log('Measurements missing');
           return null;
         };
 
@@ -118,7 +116,7 @@ const EditProfileForm = ({ inputs, change }) => {
           return null;
         };
         const wc = targetWeightChangeHelper(newBodyFat(), newCurrentWeight, newMainGoal, newSex);
-        console.log('wc: ',Number(wc), newToggleWCC);
+        console.log('wc: ',wc, newToggleWCC);
         return Number(wc) || inputs.weight_change_goal;
 
       };

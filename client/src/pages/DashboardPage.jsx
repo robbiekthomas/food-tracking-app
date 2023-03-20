@@ -6,6 +6,7 @@ import { NavBar, SideBar } from '../components';
 
 const DashboardPage = () => {
   //will store the users old data technically then get submitted as package for post request
+  
   const [inputs, setUserInputs] = useState({
     id: 1,
     name: '',
@@ -22,19 +23,18 @@ const DashboardPage = () => {
     toggleWCC: false,
     weight_change_goal: 0
   });
+  console.log('inputs', inputs.weight_change_goal);
 
-  console.log('inputs', inputs);
-  const maintenanceCalories = getMaintenanceCalories();
-  const targetCalories = getTargetCalories();
-  const protein = getProtein();
-  const fat = getFat();
-  const carbs = getCarbs();
+  const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
+  const targetCalories = getTargetCalories(inputs.weight_change_goal, maintenanceCalories);
+  const protein = getProtein(inputs.weight, inputs.sex, inputs.body_fat_percentage);
+  const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
+  const carbs = getCarbs(targetCalories, protein, fat);
 
   //gets user details from the database
   useEffect(() => {
     getUserRow()
       .then((res) => {
-        console.log('res',res);
         setUserInputs(res);
 
       })
