@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function getFoodRow() {
+const getFoodRow = () => {
 
     return axios.get('http://localhost:8000/api/tracker')
       .then((response) => {
@@ -9,4 +9,4 @@ function getFoodRow() {
 
 }
 
-export default getFoodRow;
+export { getFoodRow };
