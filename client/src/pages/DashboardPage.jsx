@@ -60,22 +60,22 @@ const DashboardPage = () => {
   const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const carbs = getCarbs(targetCalories, protein, fat);
 
-  //gets user details and habit goals from the database
-  useEffect(() => {
-    getUserRow()
-      .then((res) => {
-        setUserInputs(res[0]);
-        setCurrentHabitGoal1(res[0]);
-        setCurrentHabitGoal2(res[1]);
-        setCurrentHabitGoal3(res[2]);
-      })
-      .then((res)) => {
-        createHabitGridData(habitGoal1, habitGoal2, ha)
-      }
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // gets user details and habit goals from the database
+  // useEffect(() => {
+  //   getUserRow()
+  //     .then((res) => {
+  //       setUserInputs(res[0]);
+  //       setCurrentHabitGoal1(res[0]);
+  //       setCurrentHabitGoal2(res[1]);
+  //       setCurrentHabitGoal3(res[2]);
+  //     })
+  //     .then((res)) => {
+  //       createHabitGridData(habitGoal1, habitGoal2, ha)
+  //     }
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   return (
     <div className='bg-slate-100' >

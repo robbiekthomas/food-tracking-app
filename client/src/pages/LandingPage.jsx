@@ -3,7 +3,7 @@ import Home from "../components/Home";
 
 const LandingPage = () => {
   return (
-    <div>
+    <div className="h-[92.9vh] bg-black">
       <Home/>
     </div>
   );
