@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getUserRow } from '../api-requests/dashboard';
 import { getMaintenanceCalories, getTargetCalories, getProtein, getFat, getCarbs } from '../helper-functions/nutritionCalculations';
-import { NavBar, SideBar } from '../components';
+import {  SideBar } from '../components';
 
 
 const DashboardPage = () => {

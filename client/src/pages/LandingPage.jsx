@@ -1,7 +1,4 @@
-import { User } from "@auth0/auth0-react";
-import React, { useState, useEffect } from "react";
-
-import NavBar from "../components/NavBar";
+import React from "react";
 
 const LandingPage = () => {
   return (
