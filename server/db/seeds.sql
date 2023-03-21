@@ -11,12 +11,12 @@ VALUES ('Eat at least 20g of protein per meal'),
   ('Eat one green vegetable per meal'),
   ('Have three different fruits throughout the day'),
   ('Eat all meals without distractions'),
-  ('Plan your meals the night before - stick to the plan'),
+  ('Plan your meals the night before'),
   ('Eat whole grains instead of white'),
   ('Have one salad today'),
-  ('Have one smoothie with one green vegetable today'),
+  ('Have a smoothie with one green vegetable today'),
   ('Stick to scheduled meal times'),
-  ('Eat slowly and put your utensils down between bites');
+  ('Put your food/utensils down between bites');
 
 
 INSERT INTO habitGoal_logs (goal_id, user_id)

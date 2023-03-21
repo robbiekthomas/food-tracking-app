@@ -7,7 +7,7 @@ import Stacked from '../components/charts/Stacked';
 import PieChart from '../components/charts/PieChart';
 import ChartHeader from '../components/charts/ChartsHeader';
 import LineChart from '../components/charts/LineChart';
-import { ordersData } from '../data/chartData';
+import { habitsData, createHabitGridData } from '../data/chartData';
 
 
 
@@ -51,6 +51,8 @@ const DashboardPage = () => {
     goal_name: '',
     date: ''
   });
+
+ createHabitGridData(habitGoal1, habitGoal2, habitGoal3);
   
   //calculate nutrition targets
   const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
@@ -107,6 +109,8 @@ const DashboardPage = () => {
         <SideBar
           inputs={inputs}
           setUserInputs={setUserInputs}
+          habitGoal1={habitGoal1}
+          setCurrentHabitGoal1={setCurrentHabitGoal1}
         />
         {/*Nutrition Targets (top cards on dashboard)*/}
         <div className='w-3/4'>
@@ -163,7 +167,7 @@ const DashboardPage = () => {
 
           {/* middle dashboard*/}
           <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
-            <div className='w-6/12 bg-white align-center pb-5'>
+            <div className='w-5/12 bg-white align-center pb-5'>
               <p className='mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl'>Macronutrient Distribution</p>
               <div className='flex justify-between'>
 
@@ -184,16 +188,17 @@ const DashboardPage = () => {
                   />
                 </div>
               </div>
-              {/* Macro Distribution From Targets */}
+
+              {/* Habit goals */}
 
             </div>
-            <div className='bg-white w-5/12'>
+            <div className='bg-white w-6/12'>
               <p className='mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl'>Habit Goals</p>
               <div className='m-5 bg-white'>
-                <GridComponent dataSource={ordersData}>
+                <GridComponent dataSource={habitsData}>
                   <ColumnsDirective>
                     <ColumnDirective field='Status' width='20' textAlign="Center" />
-                    <ColumnDirective field='GoalTitle' width='80' />
+                    <ColumnDirective field='Goal' width='80' />
                   </ColumnsDirective>
                 </GridComponent>
               </div>
@@ -204,7 +209,7 @@ const DashboardPage = () => {
           <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
 
             <div className='w-6/12 bg-white align-center pb-5 pt-5'>
-              <ChartHeader title="Macronutrient Distribution" />
+              <ChartHeader title="Macronutrient Distribution over Time" />
 
               <Stacked
                 width='auto'

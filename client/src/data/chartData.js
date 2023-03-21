@@ -81,21 +81,24 @@ export const LinePrimaryYAxis = {
 
 export const stackedCustomSeries = [
 
-  { dataSource: stackedChartData[0],
+  {
+    dataSource: stackedChartData[0],
     xName: 'x',
     yName: 'y',
     name: 'Protein',
     type: 'StackingColumn',
   },
 
-  { dataSource: stackedChartData[1],
+  {
+    dataSource: stackedChartData[1],
     xName: 'x',
     yName: 'y',
     name: 'Fat',
     type: 'StackingColumn',
   },
 
-  { dataSource: stackedChartData[2],
+  {
+    dataSource: stackedChartData[2],
     xName: 'x',
     yName: 'y',
     name: 'Carbs',
@@ -179,7 +182,8 @@ export const ordersGrid = [
     editType: 'dropdownedit',
     textAlign: 'Center',
   },
-  { field: 'CustomerName',
+  {
+    field: 'CustomerName',
     headerText: 'Customer Name',
     width: '150',
     textAlign: 'Center',
@@ -214,44 +218,58 @@ export const ordersGrid = [
   },
 ];
 
-export const ordersData = [
-  {
-    GoalTitle: 'What is the goal?',
-    Status: 'complete',
-  },
-  {
-    GoalTitle: 'What is the goal?',
-    Status: 'complete',
-  },
-  {
-    GoalTitle: 'What is the goal?',
-    Status: 'complete',
-  }
-];
+
 
 export const lineCustomSeries = [
-  { dataSource: lineChartData[0],
+  {
+    dataSource: lineChartData[0],
     xName: 'x',
     yName: 'y',
     name: 'Germany',
     width: '2',
     marker: { visible: true, width: 10, height: 10 },
-    type: 'Line' },
+    type: 'Line'
+  },
 
-  { dataSource: lineChartData[1],
+  {
+    dataSource: lineChartData[1],
     xName: 'x',
     yName: 'y',
     name: 'England',
     width: '2',
     marker: { visible: true, width: 10, height: 10 },
-    type: 'Line' },
+    type: 'Line'
+  },
 
-  { dataSource: lineChartData[2],
+  {
+    dataSource: lineChartData[2],
     xName: 'x',
     yName: 'y',
     name: 'India',
     width: '2',
     marker: { visible: true, width: 10, height: 10 },
-    type: 'Line' },
+    type: 'Line'
+  },
 
 ];
+export const habitsData = [
+
+];
+
+export const createHabitGridData = (goal1, goal2, goal3) => {
+  habitsData.push(
+    {
+      Goal: goal1.goal_name,
+      Status: goal1.is_complete,
+    },
+    {
+      Goal: goal2.goal_name,
+      Status: goal2.is_complete,
+    },
+    {
+      Goal: goal3.goal_name,
+      Status: goal3.is_complete,
+    }
+  );
+
+};

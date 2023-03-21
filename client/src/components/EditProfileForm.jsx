@@ -6,7 +6,7 @@ import { bodyFatCalcHelper, targetWeightChangeHelper } from '../helper-functions
 import { Stacked } from '../components';
 
 
-const EditProfileForm = ({ inputs, change }) => {
+const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
   //modal state
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -27,6 +27,9 @@ const EditProfileForm = ({ inputs, change }) => {
   const [currentWeight, setCurrentWeight] = useState(0);
   const [toggleWCC, setToggleWCC] = useState(true);
   const [targetWeightChange, setTargetWeightChange] = useState(0);
+  const [habitGoal1, setCurrentHabitGoal1] = useState({});
+  const [habitGoal2, setCurrentHabitGoal2] = useState({});
+  const [habitGoal3, setCurrentHabitGoal3] = useState({});
 
   //handle input changes
   const onNameChange = (e) => setName(e.target.value);
@@ -72,7 +75,9 @@ const EditProfileForm = ({ inputs, change }) => {
 
   //check inputs bufore updating db
   const validateSubmission = () => {
-
+    //submission variables for habitGoals
+    const newHabitGoal1 = habitGoal1 || goal1.habitGoal1;
+    //submission variables for users and userDetails
     const newName = name || inputs.name;
     const newEmail = email || inputs.email;
     const newBirthdate = birthdate || inputs.birthdate;
@@ -248,6 +253,20 @@ const EditProfileForm = ({ inputs, change }) => {
             </Select>
             <br />
 
+
+            <InputLabel>Main Goal</InputLabel>
+            <Select
+              value='habitGoal1'
+              label="Age"
+              onChange={(e) => onMaingoalChange(e)}
+            >
+              <MenuItem value={'maintain'}>Maintain</MenuItem>
+              <MenuItem value={'loseFat'}>Lose Fat</MenuItem>
+              <MenuItem value={'buildMuscle'}>Build Muscle</MenuItem>
+            </Select>
+            <br />
+
+           
 
             <h2>Body Fat and Weight</h2>
             <InputLabel>Current Weight</InputLabel>
