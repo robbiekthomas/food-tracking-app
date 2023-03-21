@@ -19,10 +19,10 @@ VALUES ('Eat at least 20g of protein per meal'),
   ('Put your food/utensils down between bites');
 
 
-INSERT INTO habitGoal_logs (goal_id, user_id)
-VALUES (2, 1),
-(5, 1),
-(3, 1);
+INSERT INTO habitGoal_logs (goal_id, user_id, goal_number)
+VALUES (2, 1, 1),
+(5, 1, 2),
+(3, 1, 3);
 
 
 INSERT INTO foods (name, grams_per_serving, calories, protein, carbs, fat)

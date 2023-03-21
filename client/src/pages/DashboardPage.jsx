@@ -30,6 +30,7 @@ const DashboardPage = () => {
   });
 
   //store current habit goals
+  const [currentHabits, setCurrentHabits] = useState([]);
   const [habitGoal1, setCurrentHabitGoal1] = useState({
     goal_id: 0,
     is_complete: false,
@@ -60,33 +61,37 @@ const DashboardPage = () => {
   const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const carbs = getCarbs(targetCalories, protein, fat);
 
+  
   //gets user details and habit goals from the database
   useEffect(() => {
     getUserRow()
       .then((res) => {
+        console.log(res[1]);
         setUserInputs(res[0]);
         setCurrentHabitGoal1(res[0]);
         setCurrentHabitGoal2(res[1]);
         setCurrentHabitGoal3(res[2]);
       })
-      .then((res)) => {
-        createHabitGridData(habitGoal1, habitGoal2, ha)
-      }
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+  useEffect(() => {
+   const d = createHabitGridData(habitGoal1, habitGoal2, habitGoal3);
+   setCurrentHabits(d);
+  },[habitGoal1, habitGoal2, habitGoal3]);
+
   return (
     <div className='bg-slate-100' >
       <div className='mt-5 flex'>
         {/*Sidebar*/}
-        <SideBar
+        {currentHabits.length > 0 && <SideBar
           inputs={inputs}
           setUserInputs={setUserInputs}
-          habitGoal1={habitGoal1}
-          setCurrentHabitGoal1={setCurrentHabitGoal1}
-        />
+          currentHabits={currentHabits}
+          setCurrentHabits={setCurrentHabits}
+        />}
         {/*Nutrition Targets (top cards on dashboard)*/}
         <div className='w-3/4'>
           <div className='flex flex-wrap justify-around max-w-screen-lg'>
@@ -170,11 +175,12 @@ const DashboardPage = () => {
             <div className='bg-white w-6/12'>
               <p className='mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl'>Habit Goals</p>
               <div className='m-5 bg-white'>
-                <GridComponent dataSource={habitsData}>
+                <GridComponent dataSource={currentHabits}>
                   <ColumnsDirective>
-                    <ColumnDirective field='Status' width='20' textAlign="Center" />
-                    <ColumnDirective field='Goal' width='80' />
-                    <ColumnDirective field='id' width='0' />
+                    <ColumnDirective headerText='Status' field='is_complete' width='20' textAlign="Center" />
+                    <ColumnDirective headerText='Goal' field='goal_name' width='80' />
+                    <ColumnDirective field='goal_number' width='0' />
+                    <ColumnDirective field='goal_id' width='0' />
                   </ColumnsDirective>
                 </GridComponent>
               </div>
@@ -182,7 +188,7 @@ const DashboardPage = () => {
           </div>
 
           {/* Bottom dashboard*/}
-          <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
+          {/* <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
 
             <div className='w-6/12 bg-white align-center pb-5 pt-5'>
               <ChartHeader title="Macronutrient Distribution over Time" />
@@ -201,7 +207,7 @@ const DashboardPage = () => {
               />
             </div>
 
-          </div>
+          </div> */}
 
         </div>
 

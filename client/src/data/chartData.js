@@ -236,28 +236,34 @@ export const lineCustomSeries = [
 ];
 
 
-export const habitsData = [
-
-];
+// export const habitsData = [
+  
+// ];
 
 
 
 export const createHabitGridData = (goal1, goal2, goal3) => {
-  console.log('hahaha', goal1, goal2, goal3)
+  console.log('hihihi', goal1, goal2, goal3);
+  let habitsData = [];
+
   if(goal1.goal_name !== '') {
     habitsData.push(
       {
-        Goal: goal1.goal_name,
-        Status: goal1.is_complete,
+        goal_name: goal1.goal_name,
+        is_complete: goal1.is_complete,
+        goal_number: goal1.goal_number,
+        goal_id: goal1.goal_id
       }
     );
-  }
+  };
 
   if(goal2.goal_name !== '') {
     habitsData.push(
       {
-        Goal: goal2.goal_name,
-        Status: goal2.is_complete,
+        goal_name: goal2.goal_name,
+        is_complete: goal2.is_complete,
+        goal_number: goal2.goal_number,
+        goal_id: goal2.goal_id
       }
     );
   }
@@ -265,12 +271,15 @@ export const createHabitGridData = (goal1, goal2, goal3) => {
   if(goal3.goal_name !== '') {
     habitsData.push(
       {
-        Goal: goal3.goal_name,
-        Status: goal3.is_complete,
+        goal_name: goal3.goal_name || goal3.Goal,
+        is_complete: goal3.is_complete,
+        goal_number: goal3.goal_number,
+        goal_id: goal3.goal_id
       }
     );
   }
 
+  return(habitsData);
 };
 
 export const habitsList = 
