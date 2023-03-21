@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Modal, Box, Typography, TextField, InputLabel, Button, Select, MenuItem, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { OutlinedInput, Chip, Modal, Box, Typography, TextField, InputLabel, Button, Select, MenuItem, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+
 import SwitchElement from './FormElements/Switch';
 import { bodyFatCalcHelper, targetWeightChangeHelper } from '../helper-functions/profileCalculations';
 import { Stacked } from '../components';
+import { habitsList } from '../data/chartData';
+import { useTheme } from '@mui/material/styles';
+
 
 
 const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
@@ -27,9 +31,8 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
   const [currentWeight, setCurrentWeight] = useState(0);
   const [toggleWCC, setToggleWCC] = useState(true);
   const [targetWeightChange, setTargetWeightChange] = useState(0);
-  const [habitGoal1, setCurrentHabitGoal1] = useState({});
-  const [habitGoal2, setCurrentHabitGoal2] = useState({});
-  const [habitGoal3, setCurrentHabitGoal3] = useState({});
+  let habitGoals = [];
+
 
   //handle input changes
   const onNameChange = (e) => setName(e.target.value);
@@ -43,7 +46,9 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
   const onNeckMeasurementChange = (e) => setNeckMeasurement(e.target.value);
   const onHipMeasurementChange = (e) => setHipMeasurement(e.target.value);
   const onHeightChange = (e) => setHeight(e.target.value);
-  const onManualTargetWeightChange = (e) => setTargetWeightChange(e.target.value);
+  const onManualTargetWeightChange = (e) => setTargetWeightChange(e.target.value)
+
+
 
   //enable/disable bf calculations
   const toggleBodyFatCalculator = () => {
@@ -76,7 +81,7 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
   //check inputs bufore updating db
   const validateSubmission = () => {
     //submission variables for habitGoals
-    const newHabitGoal1 = habitGoal1 || goal1.habitGoal1;
+    const newHabitGoals = habitGoals || goal1.habitGoal1;
     //submission variables for users and userDetails
     const newName = name || inputs.name;
     const newEmail = email || inputs.email;
@@ -110,7 +115,7 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
       };
     };
 
-    
+
 
     const newWeightChangeTarget = () => {
 
@@ -122,7 +127,7 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
           return null;
         };
         const wc = targetWeightChangeHelper(newBodyFat(), newCurrentWeight, newMainGoal, newSex);
-        console.log('wc: ',wc, newToggleWCC);
+        console.log('wc: ', wc, newToggleWCC);
         return Number(wc) || inputs.weight_change_goal;
 
       };
@@ -149,7 +154,6 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
       weight_change_goal: newWeightChangeTarget(),
     });
 
-    console.log(3, submissionValues);
     change(submissionValues);
     updateDatabase(submissionValues);
 
@@ -170,7 +174,7 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
 
   };
 
-  //style modal
+  //styles for modal
   const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -181,6 +185,19 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+  };
+
+  //style multiple select chip material ui component
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
   };
 
   return (
@@ -244,7 +261,6 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
             <InputLabel>Main Goal</InputLabel>
             <Select
               value={mainGoal}
-              label="Age"
               onChange={(e) => onMaingoalChange(e)}
             >
               <MenuItem value={'maintain'}>Maintain</MenuItem>
@@ -253,29 +269,55 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
             </Select>
             <br />
 
-
-            <InputLabel>Main Goal</InputLabel>
-            <Select
-              value='habitGoal1'
-              label="Age"
-              onChange={(e) => onMaingoalChange(e)}
-            >
-              <MenuItem value={'maintain'}>Maintain</MenuItem>
-              <MenuItem value={'loseFat'}>Lose Fat</MenuItem>
-              <MenuItem value={'buildMuscle'}>Build Muscle</MenuItem>
+            {/**habit goals */}
+            <InputLabel>Habit Goal One</InputLabel>
+            <Select value={1} onChange={() => { }}>
+              {habitsList.map((item, index) => (
+                <MenuItem
+                  key={index}
+                  value={item}
+                >
+                  {item}
+                </MenuItem>
+              ))}
             </Select>
             <br />
 
-           
+            <InputLabel>Habit Goal Two</InputLabel>
+            <Select value={1} onChange={() => { }}>
+              {habitsList.map((item, index) => (
+                <MenuItem
+                  key={index}
+                  value={item}
+                >
+                  {item}
+                </MenuItem>
+              ))}
+            </Select>
+            <br />
+
+            <InputLabel>Habit Goal Three</InputLabel>
+            <Select value={1} onChange={() => { }}>
+              {habitsList.map((item, index) => (
+                <MenuItem
+                  key={index}
+                  value={item}
+                >
+                  {item}
+                </MenuItem>
+              ))}
+            </Select>
+            <br />
+
 
             <h2>Body Fat and Weight</h2>
             <InputLabel>Current Weight</InputLabel>
-                <TextField
-                  name='weight'
-                  type='number'
-                  InputProps={{ inputProps: { min: -2, max: 2 } }}
-                  onChange={(e) => onCurrentWeightChange(e)}
-                />
+            <TextField
+              name='weight'
+              type='number'
+              InputProps={{ inputProps: { min: -2, max: 2 } }}
+              onChange={(e) => onCurrentWeightChange(e)}
+            />
             <InputLabel>Body Fat</InputLabel>
             < SwitchElement
               label='enable calculations'
