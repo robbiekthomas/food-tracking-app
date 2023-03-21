@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import NavBar from '../components/NavBar'
 
+
 import TypeForm from '../components/TypeForm';
 import FoodList from '../components/FoodList';
 import FoodTracker from '../components/FoodTracker';
@@ -19,6 +20,7 @@ const TrackingPage = () => {
 
         <h1>Tracking Page</h1>
 
+
         {showList && (<FoodList 
           onChange={showFoodList}
         />)}
@@ -26,6 +28,7 @@ const TrackingPage = () => {
           onChange={showFoodList}
           meal={meal}
         />
+
 
     </div>
   )
