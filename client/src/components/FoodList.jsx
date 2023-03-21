@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { GridComponent, ColumnsDirective, ColumnDirective, Page, Inject, Edit, EditSettingsModel } from '@syncfusion/ej2-react-grids';
+import { GridComponent, ColumnsDirective, ColumnDirective, Page, Inject, Search } from '@syncfusion/ej2-react-grids';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { NumericTextBoxComponent } from "@syncfusion/ej2-react-inputs";
 import { Button } from '@mui/material';
@@ -10,6 +10,8 @@ import { getFoodRow } from '../api-requests/tracker';
 const dummyFoodData = [{
   "id":3,"name":"Almond Butter","grams_per_serving":32,"calories":190,"carbs":6,"fat":16,"protein":8},
   {"id":4,"name":"Almonds","grams_per_serving":9,"calories":50,"carbs":2,"fat":4,"protein":2}];
+
+const userID = 1;
 
 const FoodList = (props) => {
   const [foodData, setfoodData] = useState([]);;
@@ -65,12 +67,14 @@ const FoodList = (props) => {
     <div>
       <Button onClick={() => foodSelected()}>Select food</Button>
       <Button onClick={() => props.onChange()}>Exit</Button>
+
       <GridComponent
         dataSource={foodData}
         allowPaging={true}
         pageSettings={pageOptions}
         ref={g => grid = g}
       >
+          <Inject services={[Search]} />
 
         <ColumnsDirective>
           <ColumnDirective field='name' width='200'/>
