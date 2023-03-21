@@ -28,6 +28,57 @@ export const stackedChartData = [
   ],
 ];
 
+export const lineChartData = [
+  [
+    { x: new Date(2005, 0, 1), y: 21 },
+    { x: new Date(2006, 0, 1), y: 24 },
+    { x: new Date(2007, 0, 1), y: 36 },
+    { x: new Date(2008, 0, 1), y: 38 },
+    { x: new Date(2009, 0, 1), y: 54 },
+    { x: new Date(2010, 0, 1), y: 57 },
+    { x: new Date(2011, 0, 1), y: 70 },
+  ],
+  [
+    { x: new Date(2005, 0, 1), y: 28 },
+    { x: new Date(2006, 0, 1), y: 44 },
+    { x: new Date(2007, 0, 1), y: 48 },
+    { x: new Date(2008, 0, 1), y: 50 },
+    { x: new Date(2009, 0, 1), y: 66 },
+    { x: new Date(2010, 0, 1), y: 78 },
+    { x: new Date(2011, 0, 1), y: 84 },
+  ],
+
+  [
+    { x: new Date(2005, 0, 1), y: 10 },
+    { x: new Date(2006, 0, 1), y: 20 },
+    { x: new Date(2007, 0, 1), y: 30 },
+    { x: new Date(2008, 0, 1), y: 39 },
+    { x: new Date(2009, 0, 1), y: 50 },
+    { x: new Date(2010, 0, 1), y: 70 },
+    { x: new Date(2011, 0, 1), y: 100 },
+  ],
+];
+
+export const LinePrimaryXAxis = {
+  valueType: 'DateTime',
+  labelFormat: 'y',
+  intervalType: 'Years',
+  edgeLabelPlacement: 'Shift',
+  majorGridLines: { width: 0 },
+  background: 'white',
+};
+
+export const LinePrimaryYAxis = {
+  labelFormat: '{value}%',
+  rangePadding: 'None',
+  minimum: 0,
+  maximum: 100,
+  interval: 20,
+  lineStyle: { width: 0 },
+  majorTickLines: { width: 0 },
+  minorTickLines: { width: 0 },
+};
+
 export const stackedCustomSeries = [
 
   { dataSource: stackedChartData[0],
@@ -74,3 +125,133 @@ export const stackedPrimaryYAxis = {
   minorTickLines: { width: 0 },
   labelFormat: '{value}',
 };
+
+export const contextMenuItems = [
+  'AutoFit',
+  'AutoFitAll',
+  'SortAscending',
+  'SortDescending',
+  'Copy',
+  'Edit',
+  'Delete',
+  'Save',
+  'Cancel',
+  'PdfExport',
+  'ExcelExport',
+  'CsvExport',
+  'FirstPage',
+  'PrevPage',
+  'LastPage',
+  'NextPage',
+];
+
+export const gridOrderStatus = (props) => (
+  <button
+    type="button"
+    style={{ background: props.StatusBg }}
+    className="text-white py-1 px-2 capitalize rounded-2xl text-md"
+  >
+    {props.Status}
+  </button>
+);
+
+export const gridOrderImage = (props) => (
+  <div>
+    <img
+      className="rounded-xl h-20 md:ml-3"
+      src={props.ProductImage}
+      alt="order-item"
+    />
+  </div>
+);
+
+export const ordersGrid = [
+  {
+    headerText: 'Image',
+    template: gridOrderImage,
+    textAlign: 'Center',
+    width: '120',
+  },
+  {
+    field: 'OrderItems',
+    headerText: 'Item',
+    width: '150',
+    editType: 'dropdownedit',
+    textAlign: 'Center',
+  },
+  { field: 'CustomerName',
+    headerText: 'Customer Name',
+    width: '150',
+    textAlign: 'Center',
+  },
+  {
+    field: 'TotalAmount',
+    headerText: 'Total Amount',
+    format: 'C2',
+    textAlign: 'Center',
+    editType: 'numericedit',
+    width: '150',
+  },
+  {
+    headerText: 'Status',
+    template: gridOrderStatus,
+    field: 'OrderItems',
+    textAlign: 'Center',
+    width: '120',
+  },
+  {
+    field: 'OrderID',
+    headerText: 'Order ID',
+    width: '120',
+    textAlign: 'Center',
+  },
+
+  {
+    field: 'Location',
+    headerText: 'Location',
+    width: '150',
+    textAlign: 'Center',
+  },
+];
+
+export const ordersData = [
+  {
+    GoalTitle: 'What is the goal?',
+    Status: 'complete',
+  },
+  {
+    GoalTitle: 'What is the goal?',
+    Status: 'complete',
+  },
+  {
+    GoalTitle: 'What is the goal?',
+    Status: 'complete',
+  }
+];
+
+export const lineCustomSeries = [
+  { dataSource: lineChartData[0],
+    xName: 'x',
+    yName: 'y',
+    name: 'Germany',
+    width: '2',
+    marker: { visible: true, width: 10, height: 10 },
+    type: 'Line' },
+
+  { dataSource: lineChartData[1],
+    xName: 'x',
+    yName: 'y',
+    name: 'England',
+    width: '2',
+    marker: { visible: true, width: 10, height: 10 },
+    type: 'Line' },
+
+  { dataSource: lineChartData[2],
+    xName: 'x',
+    yName: 'y',
+    name: 'India',
+    width: '2',
+    marker: { visible: true, width: 10, height: 10 },
+    type: 'Line' },
+
+];

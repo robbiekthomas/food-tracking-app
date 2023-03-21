@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from '@syncfusion/ej2-react-grids';
 import { getUserRow } from '../api-requests/dashboard';
 import { getMaintenanceCalories, getTargetCalories, getProtein, getFat, getCarbs } from '../helper-functions/nutritionCalculations';
 import { NavBar, SideBar } from '../components';
 import Stacked from '../components/charts/Stacked';
 import PieChart from '../components/charts/PieChart';
+import ChartHeader from '../components/charts/ChartsHeader';
+import LineChart from '../components/charts/LineChart';
+import { ordersData } from '../data/chartData';
 
 
 
@@ -46,102 +50,129 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className='bg-slate-100' >
       <div className='mt-5 flex'>
-        <div className="w-72 h-screen fixed Sidebar">
-          <SideBar
-            inputs={inputs}
-            setUserInputs={setUserInputs}
-          />
-        </div>
+        {/*Sidebar*/}
+        <SideBar
+          inputs={inputs}
+          setUserInputs={setUserInputs}
+        />
+        {/*Nutrition Targets (top cards on dashboard)*/}
+        <div className='w-3/4'>
+          <div className='flex flex-wrap justify-around max-w-screen-lg'>
 
-        <div className='ml-64'>
-          <h1 className='ml-5 mt-5 text-2xl'>Nutrition Targets</h1>
-
-          <div className='flex flex-wrap'>
-            <div className='ml-5 flex flex-nowrap justify-center'>
-              <div className="h-44 rounded-xl w-50 p-8 pt-9 m-3">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-bold text-gray-400">Maintenance Calories</p>
-                    <p className="text-2xl">{maintenanceCalories}</p>
-                    <p className="text-xs">range</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className='ml-5 flex flex-nowrap justify-center'>
-              <div className="h-44 rounded-xl w-50 p-8 pt-9 m-3">
+            <div className='h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2'>
+              <div className="rounded-xl p-8">
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-bold text-gray-400">Target Calories</p>
                     <p className="text-2xl">{targetCalories}</p>
-                    <p className="text-xs">range</p>
+                    <p className="text-xs">{`${targetCalories - 100} - ${targetCalories + 100} cal`}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className='ml-5 flex flex-nowrap justify-center'>
-              <div className="h-44 rounded-xl w-50 p-8 pt-9 m-3">
+            <div className='h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2'>
+              <div className="rounded-xl p-8">
                 <div className="flex justify-between items-center">
-                  <div>
+                  <div >
                     <p className="font-bold text-gray-400">Protein</p>
                     <p className="text-2xl">{protein}</p>
-                    <p className="text-xs">range</p>
+                    <p className="text-xs">{`${protein - 10} - ${protein + 10} g`}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className='ml-5 flex flex-nowrap justify-center'>
-              <div className="h-44 rounded-xl w-50 p-8 pt-9 m-3">
+            <div className='h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2'>
+              <div className="rounded-xl p-8">
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-bold text-gray-400">Carbs</p>
                     <p className="text-2xl">{carbs}</p>
-                    <p className="text-xs">range</p>
+                    <p className="text-xs">{`${carbs - 10} - ${carbs + 10} g`}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className='ml-5 flex flex-nowrap justify-center'>
-              <div className="h-44 rounded-xl w-50 p-8 pt-9 m-3">
+            <div className=' h-32 w-57 bg-white flex flex-nowrap justify-center'>
+              <div className="w-57 rounded-xl p-8">
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="font-bold text-gray-400">Fat</p>
                     <p className="text-2xl">{fat}</p>
-                    <p className="text-xs">range</p>
+                    <p className="text-xs">{`${fat - 10} - ${fat + 10} g`}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div>
-            {/* Macro Distribution From Targets */}
-            < PieChart
-              series={[protein, fat, carbs]}
-              labels={["Protein", "Fat", "Carbohydrates"]}
-            />
+
+          {/* middle dashboard*/}
+          <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
+            <div className='w-6/12 bg-white align-center pb-5'>
+              <p className='mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl'>Macronutrient Distribution</p>
+              <div className='flex justify-between'>
+
+                <div className='flex-column w-6/12'>
+                  <ChartHeader title='Target' />
+                  < PieChart
+                    series={[protein, fat, carbs]}
+                    labels={["Protein", "Fat", "Carbohydrates"]}
+                  />
+                </div>
+
+                {/* Actual Macro Distribution From Diet */}
+                <div className='flex-column w-6/12'>
+                  <ChartHeader title='Actual' />
+                  < PieChart
+                    series={[protein, fat, carbs]}
+                    labels={["Protein", "Fat", "Carbohydrates"]}
+                  />
+                </div>
+              </div>
+              {/* Macro Distribution From Targets */}
+
+            </div>
+            <div className='bg-white w-5/12'>
+              <p className='mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl'>Habit Goals</p>
+              <div className='m-5 bg-white'>
+                <GridComponent dataSource={ordersData}>
+                  <ColumnsDirective>
+                    <ColumnDirective field='Status' width='20' textAlign="Center" />
+                    <ColumnDirective field='GoalTitle' width='80' />
+                  </ColumnsDirective>
+                </GridComponent>
+              </div>
+            </div>
           </div>
 
-          {/* Actual Macro Distribution From Diet */}
-          <div>
-            < PieChart
-              series={[protein, fat, carbs]}
-              labels={["Protein", "Fat", "Carbohydrates"]}
-            />
-          </div>
-          <div>
+          {/* Bottom dashboard*/}
+          <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
 
-            <Stacked
-              width='320px'
-              height='360px'
-            />
+            <div className='w-6/12 bg-white align-center pb-5 pt-5'>
+              <ChartHeader title="Macronutrient Distribution" />
+
+              <Stacked
+                width='auto'
+                height='300px'
+              />
+            </div>
+
+            <div className="w-5/12 bg-white align-center pb-5 pt-5">
+              <ChartHeader title="Weight Change" />
+              <LineChart
+                width='auto'
+                height='300px'
+              />
+            </div>
+
           </div>
+
         </div>
+
 
 
 

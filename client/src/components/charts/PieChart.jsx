@@ -7,6 +7,9 @@ const PieChart = ( { series, labels }) => {
   const options = {
     series: series,
     labels: labels,
+    legend: {
+      show: false,
+    },
     plotOptions: {
       pie: {
         donut: {
@@ -17,14 +20,12 @@ const PieChart = ( { series, labels }) => {
   }
 
   return (
-    <div id="pieChart">
       <Chart
         options={options}
         series={options.series}
         type="donut"
         width="100%"
       />
-    </div>
   );
 };
 
