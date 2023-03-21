@@ -18,6 +18,7 @@ const TrackingPage = () => {
 
         <h1>Tracking Page</h1>
 
+
         {showList && (<FoodList 
           onChange={showFoodList}
         />)}
@@ -25,6 +26,7 @@ const TrackingPage = () => {
           onChange={showFoodList}
           meal={meal}
         />
+
 
     </div>
   )

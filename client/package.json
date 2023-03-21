@@ -7,6 +7,8 @@
     "@auth0/auth0-react": "^2.0.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@material/menu": "^14.0.0",
+    "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.13",
     "@syncfusion/ej2": "^19.4.48",
     "@syncfusion/ej2-react-calendars": "^19.4.48",
