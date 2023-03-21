@@ -37,7 +37,7 @@ CREATE TABLE userDetails (
 
 CREATE TABLE habitGoals (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
+  goal_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE habitGoal_logs (
