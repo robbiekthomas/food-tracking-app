@@ -6,21 +6,23 @@ INSERT INTO userDetails (weight, height, weight_units, measurement_units, body_f
 VALUES (150, 170, 'lb', 'cm', 25, false, true, 'lose fat', 1, 0);
 
 
-INSERT INTO habitGoals (name)
+INSERT INTO habitGoals (goal_name)
 VALUES ('Eat at least 20g of protein per meal'),
   ('Eat one green vegetable per meal'),
   ('Have three different fruits throughout the day'),
-  ('Eat all meals without distractions like phone or tv'),
-  ('Plan your meals the night before and stick to the plan'),
-  ('Eat only whole grains for all grain products'),
+  ('Eat all meals without distractions'),
+  ('Plan your meals the night before - stick to the plan'),
+  ('Eat whole grains instead of white'),
   ('Have one salad today'),
   ('Have one smoothie with one green vegetable today'),
   ('Stick to scheduled meal times'),
-  ('Eat slowly and put your food/utensils down between bites');
+  ('Eat slowly and put your utensils down between bites');
 
 
 INSERT INTO habitGoal_logs (goal_id, user_id)
-VALUES (1, 1);
+VALUES (2, 1),
+(5, 1),
+(3, 1);
 
 
 INSERT INTO foods (name, grams_per_serving, calories, protein, carbs, fat)
