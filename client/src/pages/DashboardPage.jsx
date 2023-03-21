@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { getUserRow } from '../api-requests/dashboard';
 import { getMaintenanceCalories, getTargetCalories, getProtein, getFat, getCarbs } from '../helper-functions/nutritionCalculations';
 import { NavBar, SideBar } from '../components';
+import Stacked from '../components/charts/Stacked';
+import PieChart from '../components/charts/PieChart';
+
 
 
 const DashboardPage = () => {
   //will store the users old data technically then get submitted as package for post request
-  
+
   const [inputs, setUserInputs] = useState({
     id: 1,
     name: '',
@@ -23,7 +26,6 @@ const DashboardPage = () => {
     toggleWCC: false,
     weight_change_goal: 0
   });
-  console.log('inputs', inputs.weight_change_goal);
 
   const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
   const targetCalories = getTargetCalories(inputs.weight_change_goal, maintenanceCalories);
@@ -45,8 +47,6 @@ const DashboardPage = () => {
 
   return (
     <div>
-     
-
       <div className='mt-5 flex'>
         <div className="w-72 h-screen fixed Sidebar">
           <SideBar
@@ -119,7 +119,32 @@ const DashboardPage = () => {
               </div>
             </div>
           </div>
+          <div>
+            {/* Macro Distribution From Targets */}
+            < PieChart
+              series={[protein, fat, carbs]}
+              labels={["Protein", "Fat", "Carbohydrates"]}
+            />
+          </div>
+
+          {/* Actual Macro Distribution From Diet */}
+          <div>
+            < PieChart
+              series={[protein, fat, carbs]}
+              labels={["Protein", "Fat", "Carbohydrates"]}
+            />
+          </div>
+          <div>
+
+            <Stacked
+              width='320px'
+              height='360px'
+            />
+          </div>
         </div>
+
+
+
       </div>
     </div>
   );

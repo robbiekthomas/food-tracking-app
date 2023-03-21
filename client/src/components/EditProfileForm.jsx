@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Modal, Box, Typography, TextField, InputLabel, Button, Select, MenuItem, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import SwitchElement from './FormElements/Switch';
 import { bodyFatCalcHelper, targetWeightChangeHelper } from '../helper-functions/profileCalculations';
+import { Stacked } from '../components';
 
 
 const EditProfileForm = ({ inputs, change }) => {
