@@ -22,12 +22,12 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/log", (req, res) => {
+router.post("/food-log", (req, res) => {
   console.log("receiving data...")
 
   const logQueryStr = `
-    INSERT INTO food_logs (food_id, user_id, meal_id, servings, hunger_before, hunger_after, feeling_after_eating)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    INSERT INTO food_logs (food_id, user_id, meal_id, servings)
+    VALUES ($1, $2, $3)
     `;
   db.query(logQueryStr, [
     console.log(req.body)

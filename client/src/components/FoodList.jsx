@@ -68,6 +68,7 @@ const FoodList = (props) => {
       <Button onClick={() => foodSelected()}>Select food</Button>
       <Button onClick={() => props.onChange()}>Exit</Button>
 
+      
       <GridComponent
         dataSource={foodData}
         allowPaging={true}
