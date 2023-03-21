@@ -8,5 +8,7 @@ const getFoodRow = () => {
       });
 
 }
-
+const postFoodItem = () => {
+  return axios.post('http://localhost:8000/api/tracker/log')
+}
 export { getFoodRow };
