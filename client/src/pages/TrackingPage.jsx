@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import NavBar from '../components/NavBar'
+
 import TypeForm from '../components/TypeForm';
 import FoodList from '../components/FoodList';
 import FoodTracker from '../components/FoodTracker';
@@ -15,9 +16,9 @@ const TrackingPage = () => {
   console.log("meal", meal)
   return (
     <div>
-        {/* <NavBar />
+
         <h1>Tracking Page</h1>
-        <TypeForm /> */}
+
         {showList && (<FoodList 
           onChange={showFoodList}
         />)}
@@ -25,6 +26,7 @@ const TrackingPage = () => {
           onChange={showFoodList}
           meal={meal}
         />
+
     </div>
   )
 }
