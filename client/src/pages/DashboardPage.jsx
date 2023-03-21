@@ -13,7 +13,6 @@ import { ordersData } from '../data/chartData';
 
 const DashboardPage = () => {
   //will store the users old data technically then get submitted as package for post request
-
   const [inputs, setUserInputs] = useState({
     id: 1,
     name: '',
@@ -31,17 +30,69 @@ const DashboardPage = () => {
     weight_change_goal: 0
   });
 
+  //store current habit goals
+  const [habitGoal1, setCurrentHabitGoal1] = useState({
+    goal_id: 0,
+    is_complete: false,
+    goal_name: '',
+    date: ''
+  });
+
+  const [habitGoal2, setCurrentHabitGoal2] = useState({
+    goal_id: 0,
+    is_complete: false,
+    goal_name: '',
+    date: ''
+  });
+
+  const [habitGoal3, setCurrentHabitGoal3] = useState({
+    goal_id: 0,
+    is_complete: false,
+    goal_name: '',
+    date: ''
+  });
+  
+  //calculate nutrition targets
   const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
   const targetCalories = getTargetCalories(inputs.weight_change_goal, maintenanceCalories);
   const protein = getProtein(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const carbs = getCarbs(targetCalories, protein, fat);
 
-  //gets user details from the database
+  //gets user details and habit goals from the database
   useEffect(() => {
     getUserRow()
       .then((res) => {
-        setUserInputs(res);
+        setUserInputs(res[0]);
+
+        let sortedHabits = res.sort(
+          (h1, h2) => (h1.date < h2.date) ? 1 : (h1.date > h2.date) ? -1 : 0
+        );
+        const currentGoals = sortedHabits.slice(-3);
+          
+        setCurrentHabitGoal1({
+          ...habitGoal1,
+          id: currentGoals[0].id,
+          is_complete: currentGoals[0].is_complete,
+          goal_name: currentGoals[0].goal_name,
+          date: currentGoals[0].date
+        });
+
+        setCurrentHabitGoal2({
+          ...habitGoal2,
+          id: currentGoals[1].id,
+          is_complete: currentGoals[1].is_complete,
+          goal_name: currentGoals[1].goal_name,
+          date: currentGoals[1].date
+        });
+
+        setCurrentHabitGoal3({
+          ...habitGoal3,
+          id: currentGoals[2].id,
+          is_complete: currentGoals[2].is_complete,
+          goal_name: currentGoals[2].goal_name,
+          date: currentGoals[2].date
+        });
 
       })
       .catch((err) => {

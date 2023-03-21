@@ -16,7 +16,7 @@ const LineChart = ({ height, width }) => {
       background={'#fff'}
       legendSettings={{ background: 'white' }}
       width={width}
-      height={height}
+      
     >
       <Inject services={[LineSeries, DateTime, Legend, Tooltip]} />
       <SeriesCollectionDirective>
