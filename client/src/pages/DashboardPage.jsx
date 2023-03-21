@@ -10,7 +10,6 @@ import LineChart from '../components/charts/LineChart';
 import { habitsData, createHabitGridData } from '../data/chartData';
 
 
-
 const DashboardPage = () => {
   //will store the users old data technically then get submitted as package for post request
   const [inputs, setUserInputs] = useState({

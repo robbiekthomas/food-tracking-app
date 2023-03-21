@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { getUserRow } from './api-requests';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import DashboardPage from './pages/DashboardPage';
-import LandingPage from './pages/LandingPage';
-import TrackingPage from './pages/TrackingPage';
+import "./App.css";
 
+import { NavBar } from "./components";
+import { LoginProvider } from "./contexts/login-status";
+import DashboardPage from "./pages/DashboardPage";
+import LandingPage from "./pages/LandingPage";
+import TrackingPage from "./pages/TrackingPage";
 
 function App() {
-
   return (
     <BrowserRouter>
-    
-      <Routes>
-        <Route path="/tracking-page" element={(<TrackingPage />)} />
-        <Route path="/" element={(<LandingPage />)} />
-        <Route path="/dashboard-page" element={(<DashboardPage />)} />
-      </Routes>
-
+      <LoginProvider>
+        <NavBar />
+        <Routes>
+          <Route path="/tracker" element={<TrackingPage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+        </Routes>
+      </LoginProvider>
     </BrowserRouter>
   );
 }
