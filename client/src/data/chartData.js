@@ -240,25 +240,36 @@ export const habitsData = [
 
 ];
 
-console.log(habitsData);
+
 
 export const createHabitGridData = (goal1, goal2, goal3) => {
-  
+  console.log('hahaha', goal1, goal2, goal3)
+  if(goal1.goal_name !== '') {
+    habitsData.push(
+      {
+        Goal: goal1.goal_name,
+        Status: goal1.is_complete,
+      }
+    );
+  }
 
-  habitsData.push(
-    {
-      Goal: goal1.goal_name,
-      Status: goal1.is_complete,
-    },
-    {
-      Goal: goal2.goal_name,
-      Status: goal2.is_complete,
-    },
-    {
-      Goal: goal3.goal_name,
-      Status: goal3.is_complete,
-    }
-  );
+  if(goal2.goal_name !== '') {
+    habitsData.push(
+      {
+        Goal: goal2.goal_name,
+        Status: goal2.is_complete,
+      }
+    );
+  }
+
+  if(goal3.goal_name !== '') {
+    habitsData.push(
+      {
+        Goal: goal3.goal_name,
+        Status: goal3.is_complete,
+      }
+    );
+  }
 
 };
 

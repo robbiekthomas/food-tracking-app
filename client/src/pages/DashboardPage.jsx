@@ -52,7 +52,7 @@ const DashboardPage = () => {
     date: ''
   });
 
- createHabitGridData(habitGoal1, habitGoal2, habitGoal3);
+ 
   
   //calculate nutrition targets
   const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
@@ -66,37 +66,13 @@ const DashboardPage = () => {
     getUserRow()
       .then((res) => {
         setUserInputs(res[0]);
-
-        let sortedHabits = res.sort(
-          (h1, h2) => (h1.date < h2.date) ? 1 : (h1.date > h2.date) ? -1 : 0
-        );
-        const currentGoals = sortedHabits.slice(-3);
-          
-        setCurrentHabitGoal1({
-          ...habitGoal1,
-          id: currentGoals[0].id,
-          is_complete: currentGoals[0].is_complete,
-          goal_name: currentGoals[0].goal_name,
-          date: currentGoals[0].date
-        });
-
-        setCurrentHabitGoal2({
-          ...habitGoal2,
-          id: currentGoals[1].id,
-          is_complete: currentGoals[1].is_complete,
-          goal_name: currentGoals[1].goal_name,
-          date: currentGoals[1].date
-        });
-
-        setCurrentHabitGoal3({
-          ...habitGoal3,
-          id: currentGoals[2].id,
-          is_complete: currentGoals[2].is_complete,
-          goal_name: currentGoals[2].goal_name,
-          date: currentGoals[2].date
-        });
-
+        setCurrentHabitGoal1(res[0]);
+        setCurrentHabitGoal2(res[1]);
+        setCurrentHabitGoal3(res[2]);
       })
+      .then((res)) => {
+        createHabitGridData(habitGoal1, habitGoal2, ha)
+      }
       .catch((err) => {
         console.log(err);
       });
@@ -199,6 +175,7 @@ const DashboardPage = () => {
                   <ColumnsDirective>
                     <ColumnDirective field='Status' width='20' textAlign="Center" />
                     <ColumnDirective field='Goal' width='80' />
+                    <ColumnDirective field='id' width='0' />
                   </ColumnsDirective>
                 </GridComponent>
               </div>
