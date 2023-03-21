@@ -12,7 +12,7 @@ const TrackingPage = () => {
     setShowList(!showList)
     setMeal(mealTime)
   }
-  console.log("meal", meal)
+
   return (
     <div>
 
@@ -21,6 +21,7 @@ const TrackingPage = () => {
 
         {showList && (<FoodList 
           onChange={showFoodList}
+          meal={meal}
         />)}
         <FoodTracker 
           onChange={showFoodList}

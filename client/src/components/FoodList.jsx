@@ -28,17 +28,7 @@ const FoodList = (props) => {
     })
   }, []);
 
-  let grid;
-
-  const foodSelected = () => {
-    if (grid) {
-      const selectedrecords = grid.getSelectedRecords();
-      setselectedFood(JSON.stringify(selectedrecords));
-      console.log("selectedFood", selectedFood);
-      return selectedrecords;
-    }
-  }
-
+  //Returns array of selected food ID's
   const helper = (foodData) => {
     let foodID = [];
     foodData.forEach(foodObj => 
@@ -47,11 +37,34 @@ const FoodList = (props) => {
     return foodID;
   }
 
-  const updateFoodLog = (values) => {
-    const url = 'http://localhost:8000/api/tracker/log';
+  let grid;
+
+  const foodSelected = () => {
+    if (grid) {
+      const selectedrecords = grid.getSelectedRecords();
+      setselectedFood(JSON.stringify(selectedrecords));
+
+      const foodIdArr = helper(selectedrecords);
+      console.log("foodIDarr", foodIdArr)
+      const meal_id = props.meal;
+      console.log("meal id", meal_id);
+
+
+    }
+  }
+
+
+  const updateFoodLog = () => {
+    const url = 'http://localhost:8000/api/tracker/food-log';
+    const values = {
+      food_id: 4,
+      user_id: 1,
+      meal_id: 3
+    };
+
     axios.post(url, values)
       .then((res) => {
-        
+        console.log("res", res)
       })
       .catch((err) => {
         console.log(err);
@@ -67,6 +80,7 @@ const FoodList = (props) => {
     <div>
       <Button onClick={() => foodSelected()}>Select food</Button>
       <Button onClick={() => props.onChange()}>Exit</Button>
+      <Button onClick={() => updateFoodLog()}>Send Data</Button>
 
       
       <GridComponent

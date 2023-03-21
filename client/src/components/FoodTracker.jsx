@@ -8,9 +8,10 @@ const FoodTracker = (props) => {
   return (
     <div>
       <h1>Food Tracker</h1>
-      <Button onClick={() => props.onChange('Breakfast')}>Add Breakfast</Button>
-      <Button onClick={() => props.onChange('Lunch')}>Add Lunch</Button>
-      <Button onClick={() => props.onChange('Dinner')}>Add Dinner</Button>
+      <Button onClick={() => props.onChange(1)}>Add Breakfast</Button>
+      <Button onClick={() => props.onChange(2)}>Add Lunch</Button>
+      <Button onClick={() => props.onChange(4)}>Add Dinner</Button>
+      <Button onClick={() => props.onChange(3)}>Add Snack</Button>
       <GridComponent 
       >
 
