@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import { useLoginContext } from "../contexts/login-status";
+import styles from '../style'
 
 const pages = ["dashboard", "tracker"];
 
@@ -48,8 +49,8 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static" style={{ background: "#5DBB63" }}>
-      <Container maxWidth="xl">
+    <AppBar position="static" style={{ background: "#111827" }}>
+      <Container maxWidth="xxl" className={`${styles.paddingX}`}>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Link to='/'>NutritionShip</Link>
