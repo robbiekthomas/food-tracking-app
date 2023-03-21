@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function getFoodRow() {
+const getFoodRow = () => {
 
     return axios.get('http://localhost:8000/api/tracker')
       .then((response) => {
@@ -8,5 +8,7 @@ function getFoodRow() {
       });
 
 }
-
-export default getFoodRow;
+const postFoodItem = () => {
+  return axios.post('http://localhost:8000/api/tracker/log')
+}
+export { getFoodRow };
