@@ -50,30 +50,7 @@ const FoodList = (props) => {
 
   //sends food_id, user_id, meal_id as an object to the food log db
   const updateFoodLog = () => {
-    const url = "http://localhost:8000/api/tracker/food-log";
-    const values = [
-      {
-        food_id: 4,
-        user_id: 1,
-        meal_id: 3,
-        servings: 1,
-      },
-      {
-        food_id: 6,
-        user_id: 1,
-        meal_id: 3,
-        servings: 2,
-      },
-    ];
-
-    axios
-      .post(url, values)
-      .then((res) => {
-        console.log("res", res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+   
   };
 
   const rows = foodData;
@@ -119,17 +96,27 @@ const FoodList = (props) => {
   ];
 
   const createFoodValues = () => {
-    let arr = [];
+    let values = [];
 
     for (const item of rowSelectionModel) {
-      arr.push({
+      values.push({
         user_id: 1,
-        food_id: foodData[item - 1].id - 1,
+        food_id: foodData[item - 1].id,
         meal_id: props.meal,
         servings: foodData[item - 1].servings || 1,
       });
     }
-    console.log("arr", arr);
+  
+    
+    const url = "http://localhost:8000/api/tracker/food-log";
+    axios
+      .post(url, values)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const processRowUpdate = (newRow) => {

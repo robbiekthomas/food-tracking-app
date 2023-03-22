@@ -93,5 +93,4 @@ VALUES ('Breakfast'),
 ('Snack'), 
 ('Dinner');
 
-INSERT INTO food_logs (food_id, user_id, meal_id, servings)
-VALUES (1, 1, 1, 1);
+

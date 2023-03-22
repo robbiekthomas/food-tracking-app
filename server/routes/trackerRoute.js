@@ -26,19 +26,31 @@ router.get("/", (req, res) => {
 router.post("/food-log", (req, res) => {
   console.log("receiving data...")
 
-  let insertQueryStr = `INSERT INTO food_logs (food_id, user_id, meal_id)`;
+  let insertQueryStr = `INSERT INTO food_logs (user_id, meal_id, food_id, servings) VALUES `;
   let queryParams =[];
-  for (let i = 1; i < req.body.length + 1; i++) {
-    insertQueryStr += `VALUES ($${i}, $2, $3)`;
-    queryParams.push(req.body.food_id, servings_id)
-  }
-  console.log("insertQuery", insertQueryStr);
-  console.log("req.body", req.body);
-  const values = [req.body.food_id, req.body.user_id, req.body.meal_id]
-  
-  // console.log("values", values);
+  let count = 1;
+  for (let i = 0; i < req.body.length; i++) {
 
-  db.query(insertQueryStr, values)
+    if (i < req.body.length - 1) {
+      
+      insertQueryStr += `($${count}, $${count+1}, $${count+2}, $${count+3}),`;
+    }
+
+    else {
+      insertQueryStr += `($${count}, $${count+1}, $${count+2}, $${count+3});`
+    }
+
+    queryParams.push(req.body[i].user_id, req.body[i].meal_id, req.body[i].food_id, Number(req.body[i].servings))
+    count += 4;
+  }
+  console.log("req.body", req.body);
+  
+  console.log("insertQuery", insertQueryStr);
+  
+  console.log("queryParams", queryParams);
+
+
+  db.query(insertQueryStr, queryParams)
   .then((res) => {
     // console.log("logQueryResult", res.rows)
     return res.rows[0];
@@ -47,7 +59,7 @@ router.post("/food-log", (req, res) => {
     console.log(err.message);
   })
 
-  db.query(logQueryStr, [console.log(req.body)]).then((res) => {});
+  // db.query(logQueryStr, [console.log(req.body)]).then((res) => {});
 });
 
 // submit intuitive log to database
