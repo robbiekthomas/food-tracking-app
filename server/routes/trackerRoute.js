@@ -25,20 +25,22 @@ router.get("/", (req, res) => {
 router.post("/food-log", (req, res) => {
   console.log("receiving data...")
 
-  const logQueryStr = `
-    INSERT INTO food_logs (food_id, user_id, meal_id)
-    VALUES ($1, $2, $3)
-    `;
-  
+  let insertQueryStr = `INSERT INTO food_logs (food_id, user_id, meal_id)`;
+  let queryParams =[];
+  for (let i = 1; i < req.body.length + 1; i++) {
+    insertQueryStr += `VALUES ($${i}, $2, $3)`;
+    queryParams.push(req.body.food_id, servings_id)
+  }
+  console.log("insertQuery", insertQueryStr);
   console.log("req.body", req.body);
   const values = [req.body.food_id, req.body.user_id, req.body.meal_id]
+  
+  // console.log("values", values);
 
-  console.log("values", values);
-
-  db.query(logQueryStr, values)
+  db.query(insertQueryStr, values)
   .then((res) => {
-    console.log("logQueryResult", res.rows)
-    return res;
+    // console.log("logQueryResult", res.rows)
+    return res.rows[0];
   })
   .catch((err) => {
     console.log(err.message);
