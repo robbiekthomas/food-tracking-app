@@ -4,6 +4,7 @@ const db = require("../db/connection");
 const axios = require("axios");
 const add = require('date-fns/add');
 const differenceInDays = require('date-fns/differenceInDays')
+
 require("dotenv").config();
 
 //get user data and habit goal data
@@ -81,6 +82,7 @@ router.get("/weightGraph", (req, res) => {
 const convertDates = (date) => {
 
 };
+
 //get data for the macro distribution graph on the dashboard.
 router.get("/stackedMacroGraph", (req, res) => {
   console.log("getting macro distribution data!");
@@ -96,30 +98,32 @@ router.get("/stackedMacroGraph", (req, res) => {
       `;
   db.query(userQueryStr)
     .then((result) => {
-      const startDate = result.rows[0].combine_day;
-      const endDate = new Date().toISOString().slice(0, 10); //add(new Date(), { days: -1 });
-      const days = endDate.substring(8) - startDate.substring(8);
+   
+      let startDate = new Date(result.rows[0].combine_day);
+      const endDate = new Date();
+      const days = differenceInDays(endDate, startDate);
 
-      let data = [[], [], []];//0 pro, 1 fat, 2 cho
-      console.log(startDate, endDate, days,  endDate.substring(8));
+      let data = [[], [], []];
+      let idx = 0;
+
       for (let i = 0; i < days; i++) {
-        const x = add(startDate, { days: i });
-        let yPro = null
-        let yFat = null
-        let yCho = null
+        let yPro = null;
+        let yFat = null;
+        let yCho = null;
 
-        if (result.rows[i]) {
-          yPro = result.rows[i].protein * result.rows[i].servings * 4;
-          console.log(yPro);
-          yFat = result.rows[i].fat * result.rows[i].servings * 9;
-          yCho = result.rows[i].carbs * result.rows[i].servings * 4;
+        if (new Date(result.rows[idx].combine_day).getTime() === startDate.getTime()) {
+          yPro = result.rows[idx].protein;
+          yFat = result.rows[idx].fat;
+          yCho = result.rows[idx].carbs;
+
+          if(idx !== result.rows.length -1) {
+            idx++;
+          }
         }
-        
-        console.log(result.rows[i].protein, result.rows[i].servings, result.rows[i].servings*result.rows[i].protein);
 
-        let obPro = { x: x, y: yPro };
-        let objFat = { x: x, y: yFat };
-        let objCho = { x: x, y: yCho };
+        let obPro = { x: startDate, y: yPro };
+        let objFat = { x: startDate, y: yFat };
+        let objCho = { x: startDate, y: yCho };
 
         //protein
         data[0].push(obPro);
@@ -128,8 +132,10 @@ router.get("/stackedMacroGraph", (req, res) => {
         //carbs
         data[2].push(objCho);
 
+       startDate = add(startDate, { days: 1 });
+        
       }
-console.log(data);
+      
       res.json(data);
     })
 

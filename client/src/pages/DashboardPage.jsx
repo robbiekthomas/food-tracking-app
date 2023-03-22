@@ -59,8 +59,9 @@ const DashboardPage = () => {
   });
 
 
-  //set and store line chart data
+  //set and store chart data
   const [lineChartData, setLineChartData] = useState([]);
+  const [barChartData, setBarChartData] = useState([]);
 
   //calculate nutrition targets
   const maintenanceCalories = getMaintenanceCalories(
@@ -114,10 +115,9 @@ const DashboardPage = () => {
   useEffect(() => {
     getUserMacros()
       .then((res) => {
-        console.log(res);
+        setBarChartData(res);
       })
-  })
-
+  }, []);
 
 
 
@@ -231,14 +231,13 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Bottom dashboard*/}
           <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
-            <div className="w-6/12 bg-white align-center pb-5 pt-5">
-              <ChartHeader title="Macronutrient Distribution over Time" />
-
-              <Stacked width="auto" height="300px" />
-            </div>
-
+            {barChartData && barChartData.length > 0 &&
+              <div className="w-6/12 bg-white align-center pb-5 pt-5">
+                <ChartHeader title="Macronutrient Distribution over Time" />
+                <Stacked width="auto" data={barChartData} height="300px" />
+              </div>
+            }
             {lineChartData && lineChartData.length > 0 &&
               < div className="w-5/12 text-black bg-white align-center pb-5 pt-5">
                 <ChartHeader title="Weight Change" />
