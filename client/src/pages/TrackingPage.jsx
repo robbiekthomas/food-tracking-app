@@ -18,11 +18,14 @@ const TrackingPage = () => {
 
         <h1>Tracking Page</h1>
 
-
-        {showList && (<FoodList 
+        <FoodList 
           onChange={showFoodList}
           meal={meal}
-        />)}
+        />
+        {/* {showList && (<FoodList 
+          onChange={showFoodList}
+          meal={meal}
+        />)} */}
         <FoodTracker 
           onChange={showFoodList}
           meal={meal}
