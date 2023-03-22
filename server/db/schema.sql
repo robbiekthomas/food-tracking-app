@@ -71,5 +71,5 @@ CREATE TABLE food_logs (
   hunger_before SMALLINT,
   hunger_after SMALLINT,
   feeling_after_eating VARCHAR(50),
-  date DATE DEFAULT CURRENT_DATE
+  meal_date DATE DEFAULT CURRENT_DATE
 );
