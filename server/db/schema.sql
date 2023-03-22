@@ -20,8 +20,6 @@ CREATE TABLE userDetails (
   id SERIAL PRIMARY KEY,
   weight SMALLINT NOT NULL,
   height SMALLINT,
-  weight_units VARCHAR(2),
-  measurement_units VARCHAR(2),
   body_fat_percentage SMALLINT NOT NULL,
   waist_circumference SMALLINT,
   hip_circumference SMALLINT,
@@ -45,6 +43,7 @@ CREATE TABLE habitGoal_logs (
   id SERIAL PRIMARY KEY,
   goal_id INTEGER REFERENCES habitGoals(id) ON DELETE CASCADE,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  goal_number SMALLINT NOT NULL,
   is_complete BOOLEAN DEFAULT FALSE,
   date DATE DEFAULT CURRENT_DATE
 );
@@ -73,5 +72,5 @@ CREATE TABLE food_logs (
   hunger_before SMALLINT,
   hunger_after SMALLINT,
   feeling_after_eating VARCHAR(50),
-  date DATE DEFAULT CURRENT_DATE
+  meal_date DATE DEFAULT CURRENT_DATE
 );

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { OutlinedInput, Chip, Modal, Box, Typography, TextField, InputLabel, Button, Select, MenuItem, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
-
+import { createHabitGridData } from '../data/chartData';
 import SwitchElement from './FormElements/Switch';
 import { bodyFatCalcHelper, targetWeightChangeHelper } from '../helper-functions/profileCalculations';
 import { Stacked } from '../components';
@@ -10,12 +10,12 @@ import { useTheme } from '@mui/material/styles';
 
 
 
-const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
+//modal input states
+const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) => {
   //modal state
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   //modal input states
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -31,7 +31,9 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
   const [currentWeight, setCurrentWeight] = useState(0);
   const [toggleWCC, setToggleWCC] = useState(true);
   const [targetWeightChange, setTargetWeightChange] = useState(0);
-  let habitGoals = [];
+  const [goal1, setGoal1] = useState(currentHabits[0]);
+  const [goal2, setGoal2] = useState(currentHabits[1]);
+  const [goal3, setGoal3] = useState(currentHabits[2]);
 
 
   //handle input changes
@@ -49,18 +51,41 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
   const onManualTargetWeightChange = (e) => setTargetWeightChange(e.target.value)
 
 
+  //update habit goals on the dashboard view
+  const onGoal1Change = (e) => {
+    const g = { goal_id: 1, is_complete: false, goal_name: e.target.value, date: '2024-03-09' };
+    setGoal1(g)
+        const d = createHabitGridData(g, goal2, goal3);
+        setCurrentHabits(d);
+  }
+  const onGoal2Change = (e) => {
+    const g = { goal_id: 2, is_complete: false, goal_name: e.target.value, date: '2024-03-09' };
+    setGoal2(g)
+        const d = createHabitGridData(goal1, g, goal3);
+        setCurrentHabits(d);
+  }
+
+  const onGoal3Change = (e) => {
+    const g = { goal_id: 3, is_complete: false, goal_name: e.target.value, date: '2024-03-09' };
+    setGoal2(g)
+        const d = createHabitGridData(goal1, goal2, g);
+        setCurrentHabits(d);
+  }
+
 
   //enable/disable bf calculations
   const toggleBodyFatCalculator = () => {
     toggleBF ? setToggleBF(false) : setToggleBF(true);
   };
 
+
   //enable/disable weight change calculation
   const toggleWeightChangeCalculator = () => {
     toggleWCC ? setToggleWCC(false) : setToggleWCC(true);
   };
 
-  //calculate body fat upon form submission
+
+  //calculate body fat upon form submission (callback fn)
   const calculateBodyFat = (sx, wa, ne, he, hi) => {
 
     if (sx === 'male') {
@@ -76,13 +101,9 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
 
 
 
-
-
   //check inputs bufore updating db
   const validateSubmission = () => {
-    //submission variables for habitGoals
-    const newHabitGoals = habitGoals || goal1.habitGoal1;
-    //submission variables for users and userDetails
+
     const newName = name || inputs.name;
     const newEmail = email || inputs.email;
     const newBirthdate = birthdate || inputs.birthdate;
@@ -127,7 +148,6 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
           return null;
         };
         const wc = targetWeightChangeHelper(newBodyFat(), newCurrentWeight, newMainGoal, newSex);
-        console.log('wc: ', wc, newToggleWCC);
         return Number(wc) || inputs.weight_change_goal;
 
       };
@@ -166,7 +186,6 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
     const url = 'http://localhost:8000/api/dashboard/user/insert';
     axios.post(url, values)
       .then((res) => {
-        //console.log(4, res);
       })
       .catch((err) => {
         console.log(err);
@@ -187,18 +206,7 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
     p: 4,
   };
 
-  //style multiple select chip material ui component
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
 
   return (
     <div>
@@ -271,7 +279,7 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
 
             {/**habit goals */}
             <InputLabel>Habit Goal One</InputLabel>
-            <Select value={1} onChange={() => { }}>
+            <Select onChange={(e) => onGoal1Change(e)}>
               {habitsList.map((item, index) => (
                 <MenuItem
                   key={index}
@@ -284,7 +292,7 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
             <br />
 
             <InputLabel>Habit Goal Two</InputLabel>
-            <Select value={1} onChange={() => { }}>
+            <Select onChange={(e) => onGoal2Change(e)}>
               {habitsList.map((item, index) => (
                 <MenuItem
                   key={index}
@@ -297,7 +305,7 @@ const EditProfileForm = ({ inputs, change, goal1, changeGoal1 }) => {
             <br />
 
             <InputLabel>Habit Goal Three</InputLabel>
-            <Select value={1} onChange={() => { }}>
+            <Select onChange={(e) => onGoal3Change(e)}>
               {habitsList.map((item, index) => (
                 <MenuItem
                   key={index}
