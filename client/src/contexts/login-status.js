@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 
 
-export const LoginContext = createContext({loggedIn: false, setLoggedIn: () => {}});
+export const LoginContext = createContext();
 
 export const LoginProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);

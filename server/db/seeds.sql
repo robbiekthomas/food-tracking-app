@@ -1,5 +1,5 @@
-INSERT INTO users (name, email, birthdate, sex)
-VALUES ('Sample User', 'example@example.com', '1996-08-13', 'female' );
+INSERT INTO users (name, email, birthdate, sex, mode)
+VALUES ('Sample User', 'example@example.com', '1996-08-13', 'female', 'precise' );
 
 
 INSERT INTO userDetails (weight, height, weight_units, measurement_units, body_fat_percentage, enable_body_fat_calculation, enable_weight_change_calculation, main_goal, user_id, weight_change_goal)
