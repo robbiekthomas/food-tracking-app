@@ -35,8 +35,8 @@ const Home = () => {
           suits your everyday life.
         </p>
       </div>
-      <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}> 
-        <img src={robot} alt="sample" className="max-w-4xl w-[85%] h-[85%] relative z-[5] mr-0"/>
+      <div className={`flex-1 flex flex justify-end items-center md:my-0 my-10 relative`}> 
+        <img src={robot} alt="sample" className="max-w-4xl w-[80%] h-[80%] relative z-[5] mr-0"/>
         <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
         <div className="absolute z-[1] w-[80%] h-[80%] rounded-full bottom-40 white__gradient" />
         <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
