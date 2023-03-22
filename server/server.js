@@ -28,6 +28,7 @@ const trackerController = require('./routes/trackerRoute');
 //use router
 app.use('/api/dashboard', dashboardController);
 app.use('/api/dashboard/weightGraph', dashboardController);
+app.use('/api/dashboard/stackedMacroGraph', dashboardController);
 app.use('/api/tracker', trackerController);
 
 

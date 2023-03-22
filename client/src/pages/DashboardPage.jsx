@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from 'react';
 import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from '@syncfusion/ej2-react-grids';
-import { getUserRow, getUserDetails } from '../api-requests/dashboard';
+import { getUserRow, getUserDetails, getUserMacros } from '../api-requests/dashboard';
 import { getMaintenanceCalories, getTargetCalories, getProtein, getFat, getCarbs } from '../helper-functions/nutritionCalculations';
 import { NavBar, SideBar } from '../components';
 import Stacked from '../components/charts/Stacked';
@@ -88,7 +88,6 @@ const DashboardPage = () => {
   useEffect(() => {
     getUserDetails()
       .then((res) => {
-       
         setLineChartData(res);
       })
       .catch((err) => {
@@ -96,7 +95,12 @@ const DashboardPage = () => {
       });
   }, []);
 
-  console.log('data', lineChartData);
+  useEffect(() => {
+    getUserMacros()
+    .then((res) => {
+console.log(res);
+    })
+  })
 
 
 

@@ -1,2 +1,2 @@
 export { default as getFoodRow } from './tracker';
-export { getUserRow, getUserDetails } from './dashboard';
+export { getUserRow, getUserDetails, getUserMacros } from './dashboard';

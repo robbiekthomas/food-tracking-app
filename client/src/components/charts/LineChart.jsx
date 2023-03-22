@@ -35,8 +35,6 @@ const LineChart = ({ datapoints }) => {
     weight.push(element.y);
   });
 
-
-  console.log('test', xAxis);
   const data = {
 
     labels: xAxis,

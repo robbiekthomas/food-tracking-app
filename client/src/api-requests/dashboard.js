@@ -21,6 +21,18 @@ const getUserDetails = () => {
 }
 
 
+//api call for stacked macro chart data
+const getUserMacros = () => {
+
+  return axios.get('http://localhost:8000/api/dashboard/stackedMacroGraph')
+    .then((response) => {
+      console.log('res', response.data);
+      return response.data;
+    });
+
+}
 
 
-export { getUserRow, getUserDetails };
+
+
+export { getUserRow, getUserDetails, getUserMacros };
