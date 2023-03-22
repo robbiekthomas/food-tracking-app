@@ -22,13 +22,31 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/log", (req, res) => {
-  console.log("receiving data...");
+
+router.post("/food-log", (req, res) => {
+  console.log("receiving data...")
+
 
   const logQueryStr = `
-    INSERT INTO food_logs (food_id, user_id, meal_id, servings, hunger_before, hunger_after, feeling_after_eating)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    INSERT INTO food_logs (food_id, user_id, meal_id)
+    VALUES ($1, $2, $3)
     `;
+
+  
+  console.log("req.body", req.body);
+  const values = [req.body.food_id, req.body.user_id, req.body.meal_id]
+
+  console.log("values", values);
+
+  db.query(logQueryStr, values)
+  .then((res) => {
+    console.log("logQueryResult", res.rows)
+    return res;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  })
+
   db.query(logQueryStr, [console.log(req.body)]).then((res) => {});
 });
 
@@ -50,5 +68,6 @@ router.post("/hunger", (req, res) => {
       console.log(err.message);
     });
 });
+
 
 module.exports = router;

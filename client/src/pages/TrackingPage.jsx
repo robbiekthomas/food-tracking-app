@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
 
 
-
 import FoodList from '../components/FoodList';
 import FoodTracker from '../components/FoodTracker';
 import TrackingIntuitive from '../components/TrackingIntuitive';
@@ -20,6 +19,7 @@ const TrackingPage = () => {
     setShowList(!showList)
     setMeal(mealTime)
   }
+
   console.log("meal", meal)
 
 
@@ -36,6 +36,7 @@ const TrackingPage = () => {
         <h1>Tracking Page</h1>
         {showList && (<FoodList 
           onChange={showFoodList}
+          meal={meal}
         />)}
         <FoodTracker 
           onChange={showFoodList}
