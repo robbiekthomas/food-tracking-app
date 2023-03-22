@@ -50,7 +50,8 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
   const onHeightChange = (e) => setHeight(e.target.value);
   const onManualTargetWeightChange = (e) => setTargetWeightChange(e.target.value)
 
-  //update goals on the dashboard view
+
+  //update habit goals on the dashboard view
   const onGoal1Change = (e) => {
     const g = { goal_id: 1, is_complete: false, goal_name: e.target.value, date: '2024-03-09' };
     setGoal1(g)
@@ -71,17 +72,20 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
         setCurrentHabits(d);
   }
 
+
   //enable/disable bf calculations
   const toggleBodyFatCalculator = () => {
     toggleBF ? setToggleBF(false) : setToggleBF(true);
   };
+
 
   //enable/disable weight change calculation
   const toggleWeightChangeCalculator = () => {
     toggleWCC ? setToggleWCC(false) : setToggleWCC(true);
   };
 
-  //calculate body fat upon form submission
+
+  //calculate body fat upon form submission (callback fn)
   const calculateBodyFat = (sx, wa, ne, he, hi) => {
 
     if (sx === 'male') {
@@ -94,8 +98,6 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
     };
 
   };
-
-
 
 
 
@@ -204,18 +206,7 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
     p: 4,
   };
 
-  //style multiple select chip material ui component
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
 
   return (
     <div>

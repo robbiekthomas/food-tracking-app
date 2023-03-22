@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from '@syncfusion/ej2-react-grids';
 import { getUserRow, getUserDetails } from '../api-requests/dashboard';
 import { getMaintenanceCalories, getTargetCalories, getProtein, getFat, getCarbs } from '../helper-functions/nutritionCalculations';
@@ -29,7 +29,7 @@ const DashboardPage = () => {
     weight_change_goal: 0
   });
 
-  //store current habit goals
+  //Set and store current habit goals
   const [currentHabits, setCurrentHabits] = useState([]);
   const [habitGoal1, setCurrentHabitGoal1] = useState({
     goal_id: 0,
@@ -52,8 +52,10 @@ const DashboardPage = () => {
     date: ''
   });
 
- 
-  
+
+  //set and store line chart data
+  const [lineChartData, setLineChartData] = useState([]);
+
   //calculate nutrition targets
   const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
   const targetCalories = getTargetCalories(inputs.weight_change_goal, maintenanceCalories);
@@ -61,7 +63,7 @@ const DashboardPage = () => {
   const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const carbs = getCarbs(targetCalories, protein, fat);
 
-  
+
   //gets user details and habit goals from the database
   useEffect(() => {
     getUserRow()
@@ -76,23 +78,28 @@ const DashboardPage = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const d = createHabitGridData(habitGoal1, habitGoal2, habitGoal3);
+    setCurrentHabits(d);
+  }, [habitGoal1, habitGoal2, habitGoal3]);
+
+
   //get data for weight change chart and bf%
   useEffect(() => {
     getUserDetails()
       .then((res) => {
-        console.log('hi',res);
-        
+       
+        setLineChartData(res);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+  console.log('data', lineChartData);
 
-  useEffect(() => {
-   const d = createHabitGridData(habitGoal1, habitGoal2, habitGoal3);
-   setCurrentHabits(d);
-  },[habitGoal1, habitGoal2, habitGoal3]);
+
+
 
   return (
     <div className='bg-slate-100' >
@@ -200,7 +207,7 @@ const DashboardPage = () => {
           </div>
 
           {/* Bottom dashboard*/}
-           <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
+          <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
 
             <div className='w-6/12 bg-white align-center pb-5 pt-5'>
               <ChartHeader title="Macronutrient Distribution over Time" />
@@ -211,15 +218,14 @@ const DashboardPage = () => {
               />
             </div>
 
-            <div className="w-5/12 bg-white align-center pb-5 pt-5">
-              <ChartHeader title="Weight Change" />
-              <LineChart
-                width='auto'
-                height='300px'
-              />
-            </div>
+            {lineChartData && lineChartData.length > 0 &&
+              < div className="w-5/12 text-black bg-white align-center pb-5 pt-5">
+                <ChartHeader title="Weight Change" />
+                <LineChart datapoints={lineChartData} />
+              </div>
+            }
 
-          </div> 
+          </div>
 
         </div>
 
@@ -227,7 +233,7 @@ const DashboardPage = () => {
 
 
       </div>
-    </div>
+    </div >
   );
 };
 

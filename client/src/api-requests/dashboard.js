@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+//api call for nutrition cards, macro distribution target pie chart, and habit goal grid initial values
 const getUserRow = () => {
 
     return axios.get('http://localhost:8000/api/dashboard')
@@ -9,6 +10,7 @@ const getUserRow = () => {
 
 }
 
+//api call for line chart data
 const getUserDetails = () => {
 
   return axios.get('http://localhost:8000/api/dashboard/weightGraph')
