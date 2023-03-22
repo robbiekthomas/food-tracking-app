@@ -8,10 +8,7 @@ module.exports = {
       poppins: ["Poppins", "sans-serif"],
     },
     extend: {
-      fontSize: {
-        14: "14px",
-      },
-      backgroundColor: {
+            backgroundColor: {
         "main-bg": "#FAFBFB",
         "main-dark-bg": "#20232A",
         "secondary-dark-bg": "#33373E",
