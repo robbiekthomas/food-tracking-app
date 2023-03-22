@@ -78,6 +78,9 @@ router.get("/weightGraph", (req, res) => {
 });
 
 
+const convertDates = (date) => {
+
+};
 //get data for the macro distribution graph on the dashboard.
 router.get("/stackedMacroGraph", (req, res) => {
   console.log("getting macro distribution data!");
