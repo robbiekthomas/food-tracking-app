@@ -243,7 +243,6 @@ export const lineCustomSeries = [
 
 
 export const createHabitGridData = (goal1, goal2, goal3) => {
-  console.log('hihihi', goal1, goal2, goal3);
   let habitsData = [];
 
   if(goal1.goal_name !== '') {

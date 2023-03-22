@@ -1,9 +1,17 @@
-INSERT INTO users (name, email, birthdate, sex)
-VALUES ('Sample User', 'example@example.com', '1996-08-13', 'female' );
+INSERT INTO users (name, email, sub, birthdate, sex)
+VALUES ('Tracy Stevens', 'tracy.stevens@nasa.com', 'subbie-wubbie', '1975-02-20', 'female' );
 
 
-INSERT INTO userDetails (weight, height, weight_units, measurement_units, body_fat_percentage, enable_body_fat_calculation, enable_weight_change_calculation, main_goal, user_id, weight_change_goal)
-VALUES (150, 170, 'lb', 'cm', 25, false, true, 'lose fat', 1, 0);
+INSERT INTO userDetails (weight, height, body_fat_percentage, enable_body_fat_calculation, enable_weight_change_calculation, main_goal, user_id, weight_change_goal, date_updated)
+VALUES (158, 170, 25, false, true, 'lose fat', 1, 0, '2023-02-28'),
+(160, 170, 25, false, true, 'lose fat', 1, -1, '2023-02-19'),
+(162, 170, 26, false, true, 'lose fat', 1, -1, '2023-02-12'),
+(160, 170, 27, false, true, 'lose fat', 1, -1, '2023-02-05'),
+(163, 170, 28, false, true, 'lose fat', 1, -1, '2023-01-29'),
+(165, 170, 30, false, true, 'lose fat', 1, -1, '2023-01-22'),
+(170, 170, 30, false, true, 'lose fat', 1, -1, '2023-01-15'),
+(171, 170, 30, false, true, 'lose fat', 1, -1, '2023-01-08'),
+(171, 170, 31, false, true, 'lose fat', 1, -1, '2023-01-01')
 
 
 INSERT INTO habitGoals (goal_name)
@@ -93,5 +101,5 @@ VALUES ('Breakfast'),
 ('Snack'), 
 ('Dinner');
 
-INSERT INTO food_logs (food_id, user_id, meal_id, servings)
+INSERT INTO food_logs (food_id, user_id, meal_id, servings, meal_date)
 VALUES (1, 1, 1, 1);

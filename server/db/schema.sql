@@ -19,8 +19,6 @@ CREATE TABLE userDetails (
   id SERIAL PRIMARY KEY,
   weight SMALLINT NOT NULL,
   height SMALLINT,
-  weight_units VARCHAR(2),
-  measurement_units VARCHAR(2),
   body_fat_percentage SMALLINT NOT NULL,
   waist_circumference SMALLINT,
   hip_circumference SMALLINT,

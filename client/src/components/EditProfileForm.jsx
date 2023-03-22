@@ -49,6 +49,8 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
   const onHipMeasurementChange = (e) => setHipMeasurement(e.target.value);
   const onHeightChange = (e) => setHeight(e.target.value);
   const onManualTargetWeightChange = (e) => setTargetWeightChange(e.target.value)
+
+  //update goals on the dashboard view
   const onGoal1Change = (e) => {
     const g = { goal_id: 1, is_complete: false, goal_name: e.target.value, date: '2024-03-09' };
     setGoal1(g)
@@ -99,9 +101,7 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
 
   //check inputs bufore updating db
   const validateSubmission = () => {
-    //submission variables for habitGoals
-    //const newHabitGoals = habitGoals || goal1.habitGoal1;
-    //submission variables for users and userDetails
+
     const newName = name || inputs.name;
     const newEmail = email || inputs.email;
     const newBirthdate = birthdate || inputs.birthdate;

@@ -21,7 +21,25 @@ router.get("/", (req, res) => {
     .then((result) => {
       res.json(result.rows);
     })
-  
+
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+router.get("/weightGraph", (req, res) => {
+  console.log("getting body composition data!");
+
+  const userQueryStr = `
+  SELECT weight, body_fat_percentage, waist_circumference, date_updated
+  FROM userDetails
+  WHERE user_id = 1
+      `;
+  db.query(userQueryStr)
+    .then((result) => {
+      res.json(result.rows);
+    })
+
     .catch((err) => {
       console.error(err);
     });

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Inject } from '@syncfusion/ej2-react-grids';
-import { getUserRow } from '../api-requests/dashboard';
+import { getUserRow, getUserDetails } from '../api-requests/dashboard';
 import { getMaintenanceCalories, getTargetCalories, getProtein, getFat, getCarbs } from '../helper-functions/nutritionCalculations';
 import { NavBar, SideBar } from '../components';
 import Stacked from '../components/charts/Stacked';
@@ -66,7 +66,6 @@ const DashboardPage = () => {
   useEffect(() => {
     getUserRow()
       .then((res) => {
-        console.log(res[1]);
         setUserInputs(res[0]);
         setCurrentHabitGoal1(res[0]);
         setCurrentHabitGoal2(res[1]);
@@ -76,6 +75,19 @@ const DashboardPage = () => {
         console.log(err);
       });
   }, []);
+
+  //get data for weight change chart and bf%
+  useEffect(() => {
+    getUserDetails()
+      .then((res) => {
+        console.log('hi',res);
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
 
   useEffect(() => {
    const d = createHabitGridData(habitGoal1, habitGoal2, habitGoal3);
@@ -188,7 +200,7 @@ const DashboardPage = () => {
           </div>
 
           {/* Bottom dashboard*/}
-          {/* <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
+           <div className='flex justify-between mt-10 mb-10 ml-10 mr-10'>
 
             <div className='w-6/12 bg-white align-center pb-5 pt-5'>
               <ChartHeader title="Macronutrient Distribution over Time" />
@@ -207,7 +219,7 @@ const DashboardPage = () => {
               />
             </div>
 
-          </div> */}
+          </div> 
 
         </div>
 

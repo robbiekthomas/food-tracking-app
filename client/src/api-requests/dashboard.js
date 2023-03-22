@@ -9,6 +9,16 @@ const getUserRow = () => {
 
 }
 
+const getUserDetails = () => {
+
+  return axios.get('http://localhost:8000/api/dashboard/weightGraph')
+    .then((response) => {
+      return response.data;
+    });
+
+}
 
 
-export { getUserRow };
+
+
+export { getUserRow, getUserDetails };
