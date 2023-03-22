@@ -12,6 +12,7 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL,
   birthdate DATE,
   sex VARCHAR(16),
+  mode VARCHAR(25),
   date_updated DATE DEFAUlT CURRENT_DATE
 );
 
