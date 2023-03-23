@@ -17,13 +17,10 @@ const TrackingPage = () => {
   
   const showFoodList = (mealTime) => {
     setShowList(!showList)
-    setMeal(mealTime)
+    setMeal(mealTime);
   }
 
   console.log("meal", meal)
-
-
-
 
   return (
     <div>
@@ -31,19 +28,12 @@ const TrackingPage = () => {
     {mode === 'intuitive' && <TrackingIntuitive/>}
     {mode === 'standard' && <TrackingStandard/>}
     
-
-
         <h1>Tracking Page</h1>
-        {showList && (<FoodList 
-          onChange={showFoodList}
-          meal={meal}
-        />)}
-        <FoodTracker 
-          onChange={showFoodList}
-          meal={meal}
-        />
+     
+        <FoodTracker />
     </div>
   )
+  
 }
 
 export default TrackingPage

@@ -1,110 +1,125 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { GridComponent, ColumnsDirective, ColumnDirective, Page, Inject, Search } from '@syncfusion/ej2-react-grids';
-import { DropDownList } from '@syncfusion/ej2-dropdowns';
-import { NumericTextBoxComponent } from "@syncfusion/ej2-react-inputs";
-import { Button } from '@mui/material';
-import Header from './Header';
-import { getFoodRow } from '../api-requests/tracker';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const dummyFoodData = [{
-  "id":3,"name":"Almond Butter","grams_per_serving":32,"calories":190,"carbs":6,"fat":16,"protein":8},
-  {"id":4,"name":"Almonds","grams_per_serving":9,"calories":50,"carbs":2,"fat":4,"protein":2}];
+import { Button } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 
-const userID = 1;
+import Header from "./Header";
+import { getFoodRow } from "../api-requests/tracker";
+
 
 const FoodList = (props) => {
-  const [foodData, setfoodData] = useState([]);;
-  const [selectedFood, setselectedFood] = useState([]);
+  const [foodData, setfoodData] = useState([]);
+  const [rowSelectionModel, setRowSelectionModel] = useState([]);
 
   useEffect(() => {
     getFoodRow()
-    .then((res) => {
-      setfoodData(res);
-      // console.log(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, []);
-
-  //Returns array of selected food ID's
-  const helper = (foodData) => {
-    let foodID = [];
-    foodData.forEach(foodObj => 
-      foodID.push(foodObj.id)
-    )
-    return foodID;
-  }
-
-  let grid;
-
-  const foodSelected = () => {
-    if (grid) {
-      const selectedrecords = grid.getSelectedRecords();
-      setselectedFood(JSON.stringify(selectedrecords));
-
-      const foodIdArr = helper(selectedrecords);
-      console.log("foodIDarr", foodIdArr)
-      const meal_id = props.meal;
-      console.log("meal id", meal_id);
-
-
-    }
-  }
-
-
-  const updateFoodLog = () => {
-    const url = 'http://localhost:8000/api/tracker/food-log';
-    const values = {
-      food_id: 4,
-      user_id: 1,
-      meal_id: 3
-    };
-
-    axios.post(url, values)
       .then((res) => {
-        console.log("res", res)
+        setfoodData(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  }, []);
 
-  const pageOptions = {
-    pageSize: 12, 
-    pageSizes: true
+  //sends food_id, user_id, meal_id as an object to the food log db
+
+  const rows = foodData;
+
+  const columns = [
+    { field: "name", headerName: "Name", width: 180, editable: false },
+    {
+      field: "grams_per_serving",
+      headerName: "Grams Per Serving",
+      width: 180,
+      type: "number",
+      editable: false,
+    },
+    {
+      field: "calories",
+      headerName: "Calories",
+      width: 180,
+      type: "number",
+      editable: false,
+    },
+    {
+      field: "carbs",
+      headerName: "Carbs",
+      width: 180,
+      type: "number",
+      editable: false,
+    },
+    {
+      field: "fat",
+      headerName: "Fat",
+      width: 180,
+      type: "number",
+      editable: false,
+    },
+    {
+      field: "protein",
+      headerName: "Protein",
+      width: 180,
+      type: "number",
+      editable: false,
+    },
+    { field: "servings", headerName: "Servings", width: 180, editable: true },
+  ];
+
+  const createFoodValues = () => {
+    let values = [];
+
+    for (const item of rowSelectionModel) {
+      values.push({
+        user_id: 1,
+        food_id: foodData[item - 1].id,
+        meal_id: props.meal,
+        servings: foodData[item - 1].servings || 1,
+      });
+      
+    }
+  
+    
+    const url = "http://localhost:8000/api/tracker/food-log";
+    axios
+      .post(url, values)
+      .then((res) => {
+        console.log("res", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
+      props.setShowList(false);
+      props.handleClose();
+  };
+
+  const processRowUpdate = (newRow) => {
+    for (const food of foodData) {
+      if (food.id === newRow.id) {
+        food.servings = newRow.servings;
+      }
+    }
   };
 
   return (
     <div>
-      <Button onClick={() => foodSelected()}>Select food</Button>
-      <Button onClick={() => props.onChange()}>Exit</Button>
-      <Button onClick={() => updateFoodLog()}>Send Data</Button>
-
-      
-      <GridComponent
-        dataSource={foodData}
-        allowPaging={true}
-        pageSettings={pageOptions}
-        ref={g => grid = g}
-      >
-          <Inject services={[Search]} />
-
-        <ColumnsDirective>
-          <ColumnDirective field='name' width='200'/>
-          <ColumnDirective field='grams_per_serving' width='90' textAlign="Right"/>
-          <ColumnDirective field='calories' width='100' textAlign="Right"/>
-          <ColumnDirective field='carbs' width='100' textAlign="Right"/>
-          <ColumnDirective field='fat' width='100' textAlign="Right"/>
-          <ColumnDirective field ='' type='checkbox' width='100' textAlign="Right"/>
-          {/* <ColumnDirective field='serving' editType='dropdownedit' width='100' textAlign="Right"/> */}
-        </ColumnsDirective>
-        <Inject services={[Page]} />
-      </GridComponent>
-
+      <div style={{ height: 300, width: "100%" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          checkboxSelection
+          onRowSelectionModelChange={(newRowSelectionModel) => {
+            setRowSelectionModel(newRowSelectionModel);
+          }}
+          rowSelectionModel={rowSelectionModel}
+          processRowUpdate={processRowUpdate}
+          onProcessRowUpdateError={() => {}}
+        />
+      </div>
+      <Button onClick={() => createFoodValues()}>Send Data</Button>
     </div>
-  )
-}
+  );
+};
 
-export default FoodList
+export default FoodList;
