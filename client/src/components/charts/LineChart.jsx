@@ -1,30 +1,34 @@
 import React from 'react';
-import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, LineSeries, DateTime, Legend, Tooltip } from '@syncfusion/ej2-react-charts';
-import { lineCustomSeries, LinePrimaryXAxis, LinePrimaryYAxis } from '../../data/chartData';
+import { strictLineOptions, strictLinedata, buildLineXAxis, makeBodyFatLine, lineChartOptions, compileLineData, buildLineYAxis } from '../../data/chartData';
+import { Line } from 'react-chartjs-2';
+// import {
+//   Chart as ChartJS,
+//   LineElement,
+//   CategoryScale, //xaxis related
+//   LinearScale, //yaxis
+//   PointElement
+// } from 'chart.js'
 
+// ChartJS.register(
+//   LineElement,
+//   CategoryScale,
+//   LinearScale,
+//   PointElement
+// )
 
-const LineChart = ({ height, width }) => {
+const LineChart = ({ datapoints }) => {
+
+  const xAxis = buildLineXAxis(datapoints);
+  const bodyFat = makeBodyFatLine(datapoints);
+  const weight = buildLineYAxis(datapoints);
+  const data = compileLineData(xAxis, bodyFat, weight)
+  const options = lineChartOptions;
 
   return (
-    <ChartComponent
-      id="line-chart"
-      height="420px"
-      primaryXAxis={LinePrimaryXAxis}
-      primaryYAxis={LinePrimaryYAxis}
-      chartArea={{ border: { width: 0 } }}
-      tooltip={{ enable: true }}
-      background={'#fff'}
-      legendSettings={{ background: 'white' }}
-      width={width}
-      
-    >
-      <Inject services={[LineSeries, DateTime, Legend, Tooltip]} />
-      <SeriesCollectionDirective>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        {lineCustomSeries.map((item, index) => <SeriesDirective key={index} {...item} />)}
-      </SeriesCollectionDirective>
-    </ChartComponent>
-  );
-};
+    <div className='chart' >
+      <Line data={data} options={options}></Line>
+    </div >
+  )
+}
 
 export default LineChart;

@@ -1,40 +1,38 @@
-import React, { useState, useEffect } from "react";
-import {
-  GridComponent,
-  ColumnsDirective,
-  ColumnDirective,
-  Resize,
-  Sort,
-  ContextMenu,
-  Filter,
-  Page,
-  ExcelExport,
-  PdfExport,
-  Edit,
-  Inject,
-} from "@syncfusion/ej2-react-grids";
-import { getUserRow } from "../api-requests/dashboard";
-import {
-  getMaintenanceCalories,
-  getTargetCalories,
-  getProtein,
-  getFat,
-  getCarbs,
-} from "../helper-functions/nutritionCalculations";
-import { NavBar, SideBar } from "../components";
-import Stacked from "../components/charts/Stacked";
-import PieChart from "../components/charts/PieChart";
-import ChartHeader from "../components/charts/ChartsHeader";
-import LineChart from "../components/charts/LineChart";
-import { habitsData, createHabitGridData } from "../data/chartData";
-import { useModeContext } from "../contexts/mode-status";
-import DashboardPrecise from "../components/DashboardPrecise";
+import React, { useEffect, useState } from 'react';
+import { createHabitGridData } from '../data/chartData';
 import DashboardIntuitive from "../components/DashboardIntuitive";
+import DashboardPrecise from "../components/DashboardPrecise";
 import DashboardStandard from "../components/DashboardStandard";
+import { useModeContext } from "../contexts/mode-status";
+
+import {
+  getUserDetails,
+  getUserMacros,
+  getUserRow,
+  getProteinProportion,
+  getHungerScore,
+  getMood
+} from '../api-requests/dashboard';
+
+import {
+  getCarbs,
+  getFat,
+  getMaintenanceCalories,
+  getProtein,
+  getTargetCalories,
+  getweelkyMacroDistribution,
+  getProteinWeeklyAverage,
+  getFatWeeklyAverage,
+  getCarbsWeeklyAverage,
+  getHunger,
+  getTopThreeMoods
+}
+from '../helper-functions/nutritionCalculations';
+
 
 const DashboardPage = () => {
   const { mode, setMode } = useModeContext();
-  useEffect(() => {}, [mode]);
+  useEffect(() => { }, [mode]);
 
   //will store the users old data technically then get submitted as package for post request
   const [inputs, setUserInputs] = useState({
@@ -54,7 +52,8 @@ const DashboardPage = () => {
     weight_change_goal: 0,
   });
 
-  //store current habit goals
+  //Set and store current habit goals
+  const [currentHabits, setCurrentHabits] = useState([]);
   const [habitGoal1, setCurrentHabitGoal1] = useState({
     goal_id: 0,
     is_complete: false,
@@ -76,174 +75,135 @@ const DashboardPage = () => {
     date: "",
   });
 
+
+  //set and store chart data
+  const [lineChartData, setLineChartData] = useState([]);
+  const [barChartData, setBarChartData] = useState([]);
+  const [proteinBarChartData, setProteinBarChartData] = useState([]);
+  const [hungerScore, setHungerScore] = useState([]);
+  const [mood, setMood] = useState([]);
+
+
   //calculate nutrition targets
-  const maintenanceCalories = getMaintenanceCalories(
-    inputs.weight,
-    inputs.body_fat_percentage
-  );
-  const targetCalories = getTargetCalories(
-    inputs.weight_change_goal,
-    maintenanceCalories
-  );
-  const protein = getProtein(
-    inputs.weight,
-    inputs.sex,
-    inputs.body_fat_percentage
-  );
+  const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
+  const targetCalories = getTargetCalories(inputs.weight_change_goal, maintenanceCalories);
+  const protein = getProtein(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const carbs = getCarbs(targetCalories, protein, fat);
 
-  // gets user details and habit goals from the database
-  // useEffect(() => {
-  //   getUserRow()
-  //     .then((res) => {
-  //       setUserInputs(res[0]);
-  //       setCurrentHabitGoal1(res[0]);
-  //       setCurrentHabitGoal2(res[1]);
-  //       setCurrentHabitGoal3(res[2]);
-  //     })
-  //     .then((res)) => {
-  //       createHabitGridData(habitGoal1, habitGoal2, ha)
-  //     }
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  const weelkyMacroDistribution = getweelkyMacroDistribution(barChartData); //pro, fat, cho, n
+  const proteinWeeklyAverage = getProteinWeeklyAverage(weelkyMacroDistribution);
+  const fatWeeklyAverage = getFatWeeklyAverage(weelkyMacroDistribution);
+  const carbsWeeklyAverage = getCarbsWeeklyAverage(weelkyMacroDistribution);
+
+  const avgWeeklyHungerBefore = getHunger(hungerScore, 7, 0); //data, days, index
+  const avgWeeklyHungerAfter = getHunger(hungerScore, 7, 1); //data, days, index
+  const topThreeMoods = getTopThreeMoods(mood);
+
+  //gets user details and habit goals from the database
+  useEffect(() => {
+    getUserRow()
+      .then((res) => {
+        setUserInputs(res[0]);
+        setCurrentHabitGoal1(res[0]);
+        setCurrentHabitGoal2(res[1]);
+        setCurrentHabitGoal3(res[2]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    const d = createHabitGridData(habitGoal1, habitGoal2, habitGoal3);
+    setCurrentHabits(d);
+  }, [habitGoal1, habitGoal2, habitGoal3]);
+
+
+  //get data for weight change chart and bf%
+  useEffect(() => {
+    getUserDetails()
+      .then((res) => {
+        setLineChartData(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  //get macro data
+  useEffect(() => {
+    getUserMacros()
+      .then((res) => {
+        setBarChartData(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+
+  //get protein data
+  useEffect(() => {
+    getProteinProportion()
+      .then((res) => {
+        setProteinBarChartData(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+  //get hunger data
+  useEffect(() => {
+    getHungerScore()
+      .then((res) => {
+        setHungerScore(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+  //get mood data
+  useEffect(() => {
+    getMood()
+      .then((res) => {
+        setMood(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+  const props = {
+    currentHabits,
+    inputs,
+    setUserInputs,
+    setCurrentHabits,
+    targetCalories,
+    protein,
+    carbs,
+    fat,
+    barChartData,
+    lineChartData,
+    maintenanceCalories,
+    proteinBarChartData,
+    weelkyMacroDistribution,
+    proteinWeeklyAverage,
+    fatWeeklyAverage,
+    carbsWeeklyAverage,
+    avgWeeklyHungerBefore,
+    avgWeeklyHungerAfter,
+    topThreeMoods
+  }
 
   return (
     <div className="bg-slate-100">
-      {mode === "precise" && <DashboardPrecise />}
-      {mode === "intuitive" && <DashboardIntuitive />}
-      {mode === "standard" && <DashboardStandard />}
-      <div className="mt-5 flex">
-        {/*Sidebar*/}
-        <SideBar
-          inputs={inputs}
-          setUserInputs={setUserInputs}
-          habitGoal1={habitGoal1}
-          setCurrentHabitGoal1={setCurrentHabitGoal1}
-        />
-        {/*Nutrition Targets (top cards on dashboard)*/}
-        <div className="w-3/4">
-          <div className="flex flex-wrap justify-around max-w-screen-lg">
-            <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
-              <div className="rounded-xl p-8">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-bold text-gray-400">Target Calories</p>
-                    <p className="text-2xl">{targetCalories}</p>
-                    <p className="text-xs">{`${targetCalories - 100} - ${
-                      targetCalories + 100
-                    } cal`}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
-              <div className="rounded-xl p-8">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-bold text-gray-400">Protein</p>
-                    <p className="text-2xl">{protein}</p>
-                    <p className="text-xs">{`${protein - 10} - ${
-                      protein + 10
-                    } g`}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
-              <div className="rounded-xl p-8">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-bold text-gray-400">Carbs</p>
-                    <p className="text-2xl">{carbs}</p>
-                    <p className="text-xs">{`${carbs - 10} - ${
-                      carbs + 10
-                    } g`}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className=" h-32 w-57 bg-white flex flex-nowrap justify-center">
-              <div className="w-57 rounded-xl p-8">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="font-bold text-gray-400">Fat</p>
-                    <p className="text-2xl">{fat}</p>
-                    <p className="text-xs">{`${fat - 10} - ${fat + 10} g`}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* middle dashboard*/}
-          <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
-            <div className="w-5/12 bg-white align-center pb-5">
-              <p className="mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl">
-                Macronutrient Distribution
-              </p>
-              <div className="flex justify-between">
-                <div className="flex-column w-6/12">
-                  <ChartHeader title="Target" />
-                  <PieChart
-                    series={[protein, fat, carbs]}
-                    labels={["Protein", "Fat", "Carbohydrates"]}
-                  />
-                </div>
-
-                {/* Actual Macro Distribution From Diet */}
-                <div className="flex-column w-6/12">
-                  <ChartHeader title="Actual" />
-                  <PieChart
-                    series={[protein, fat, carbs]}
-                    labels={["Protein", "Fat", "Carbohydrates"]}
-                  />
-                </div>
-              </div>
-
-              {/* Habit goals */}
-            </div>
-            <div className="bg-white w-6/12">
-              <p className="mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl">
-                Habit Goals
-              </p>
-              <div className="m-5 bg-white">
-                <GridComponent dataSource={habitsData}>
-                  <ColumnsDirective>
-                    <ColumnDirective
-                      field="Status"
-                      width="20"
-                      textAlign="Center"
-                    />
-                    <ColumnDirective field="Goal" width="80" />
-                    <ColumnDirective field="id" width="0" />
-                  </ColumnsDirective>
-                </GridComponent>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom dashboard*/}
-          <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
-            <div className="w-6/12 bg-white align-center pb-5 pt-5">
-              <ChartHeader title="Macronutrient Distribution over Time" />
-
-              <Stacked width="auto" height="300px" />
-            </div>
-
-            <div className="w-5/12 bg-white align-center pb-5 pt-5">
-              <ChartHeader title="Weight Change" />
-              <LineChart width="auto" height="300px" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      {mode === "precise" && <DashboardPrecise {...props} />}
+      {mode === "standard" && <DashboardStandard {...props} />}
+      {mode === "intuitive" && <DashboardIntuitive {...props} />}
+    </div >
   );
 };
 

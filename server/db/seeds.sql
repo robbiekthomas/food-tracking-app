@@ -1,9 +1,17 @@
-INSERT INTO users (name, email, birthdate, sex, mode)
-VALUES ('Sample User', 'example@example.com', '1996-08-13', 'female', 'precise' );
+INSERT INTO users (name, email, birthdate, sex)
+VALUES ('Tracy Stevens', 'tracy.stevens@nasa.com', '1975-02-20', 'female' );
 
 
-INSERT INTO userDetails (weight, height, weight_units, measurement_units, body_fat_percentage, enable_body_fat_calculation, enable_weight_change_calculation, main_goal, user_id, weight_change_goal)
-VALUES (150, 170, 'lb', 'cm', 25, false, true, 'lose fat', 1, 0);
+INSERT INTO userDetails (weight, height, body_fat_percentage, enable_body_fat_calculation, enable_weight_change_calculation, main_goal, user_id, weight_change_goal, date_updated)
+VALUES (158, 170, 25, false, true, 'lose fat', 1, 0, '2023-04-28'),
+(160, 170, 25, false, true, 'lose fat', 1, -1, '2023-04-19'),
+(162, 170, 26, false, true, 'lose fat', 1, -1, '2023-04-12'),
+(160, 170, 27, false, true, 'lose fat', 1, -1, '2023-04-05'),
+(163, 170, 28, false, true, 'lose fat', 1, -1, '2023-03-29'),
+(165, 170, 30, false, true, 'lose fat', 1, -1, '2023-03-22'),
+(170, 170, 30, false, true, 'lose fat', 1, -1, '2023-03-15'),
+(171, 170, 30, false, true, 'lose fat', 1, -1, '2023-03-08'),
+(171, 170, 31, false, true, 'lose fat', 1, -1, '2023-03-01');
 
 
 INSERT INTO habitGoals (goal_name)
@@ -19,10 +27,10 @@ VALUES ('Eat at least 20g of protein per meal'),
   ('Put your food/utensils down between bites');
 
 
-INSERT INTO habitGoal_logs (goal_id, user_id)
-VALUES (2, 1),
-(5, 1),
-(3, 1);
+INSERT INTO habitGoal_logs (goal_id, user_id, goal_number)
+VALUES (2, 1, 1),
+(5, 1, 2),
+(3, 1, 3);
 
 
 INSERT INTO foods (name, grams_per_serving, calories, protein, carbs, fat)
@@ -93,4 +101,95 @@ VALUES ('Breakfast'),
 ('Snack'), 
 ('Dinner');
 
+INSERT INTO food_logs (food_id, user_id, meal_id, servings, meal_date, hunger_before, hunger_after, feeling_after_eating)
+VALUES (2, 1, 1, 1, '2023-03-22', 3, 7, 'Energized and satisfied'),
+(26, 1, 1, 1, '2023-03-22', 2, 8, 'Stuffed and/or swollen'),
+(12, 1, 1, 1, '2023-03-22', 4, 8, 'Energized and satisfied'),
+(23, 1, 2, 1, '2023-03-22', 1, 10, 'About to puke'),
+(57, 1, 2, 1, '2023-03-22', 3, 4, 'Energized and satisfied'),
+(39, 1, 2, 1, '2023-03-22', 3, 7, 'Energized and satisfied'),
+(23, 1, 4, 1, '2023-03-22', 2, 8, 'Stuffed and/or swollen'),
+(57, 1, 4, 1, '2023-03-22', 4, 8, 'Energized and satisfied'),
+(39, 1, 4, 1, '2023-03-22', 1, 10, 'About to puke'),
+(60, 1, 4, 1, '2023-03-22', 3, 7, 'Energized and satisfied'),
+
+(12, 1, 1, 1, '2023-03-23', 3, 7, 'Stuffed and/or swollen'),
+(7, 1, 1, 1, '2023-03-23', 2, 8, 'Stuffed and/or swollen'),
+(36, 1, 2, 1, '2023-03-23', 2, 8, 'Stuffed and/or swollen'),
+(30, 1, 2, 1, '2023-03-23', 3, 7, 'Energized and satisfied'),
+(56, 1, 2, 1, '2023-03-23', 4, 8, 'Stuffed and/or swollen'),
+(22, 1, 4, 1, '2023-03-23', 3, 4, 'Energized and satisfied'),
+(56, 1, 4, 1, '2023-03-23', 2, 8, 'Stuffed and/or swollen'),
+(38, 1, 4, 1, '2023-03-23', 3, 7, 'Energized and satisfied'),
+(59, 1, 4, 1, '2023-03-23', 4, 8, 'Stuffed and/or swollen'),
+
+(2, 1, 1, 1, '2023-03-24', 3, 4, 'Energized and satisfied'),
+(26, 1, 1, 1, '2023-03-24', 4, 8, 'Stuffed and/or swollen'),
+(12, 1, 2, 1, '2023-03-24', 4, 8, 'Stuffed and/or swollen'),
+(37, 1, 2, 1, '2023-03-24', 2, 8, 'Stuffed and/or swollen'),
+(51, 1, 2, 1, '2023-03-24', 3, 7, 'Stuffed and/or swollen'),
+(57, 1, 4, 1, '2023-03-24', 2, 8, 'Stuffed and/or swollen'),
+(23, 1, 4, 1, '2023-03-24', 3, 7, 'Stuffed and/or swollen'),
+(57, 1, 4, 1, '2023-03-24', 3, 4, 'Energized and satisfied'),
+(39, 1, 4, 1, '2023-03-24', 3, 4, 'Energized and satisfied'),
+
+(12, 1, 1, 1, '2023-03-25', 3, 4, 'Energized and satisfied'),
+(13, 1, 1, 1, '2023-03-25', 2, 8, 'Stuffed and/or swollen'),
+(23, 1, 2, 1, '2023-03-25', 3, 7, 'Energized and satisfied'),
+(57, 1, 2, 1, '2023-03-25', 4, 8, 'Stuffed and/or swollen'),
+(39, 1, 2, 1, '2023-03-25', 3, 4, 'Energized and satisfied'),
+(23, 1, 4, 1, '2023-03-25', 4, 8, 'Stuffed and/or swollen'),
+(56, 1, 4, 1, '2023-03-25', 3, 4, 'Energized and satisfied'),
+(39, 1, 4, 1, '2023-03-25', 3, 7, 'Energized and satisfied'),
+(60, 1, 4, 1, '2023-03-25', 3, 4, 'Energized and satisfied'),
+
+(12, 1, 1, 1, '2023-03-26', 4, 8, 'Stuffed and/or swollen'),
+(13, 1, 1, 1, '2023-03-26', 2, 8, 'Stuffed and/or swollen'),
+(23, 1, 2, 1, '2023-03-26', 2, 8, 'Stuffed and/or swollen'),
+(57, 1, 2, 1, '2023-03-26', 2, 8, 'Stuffed and/or swollen'),
+(39, 1, 2, 1, '2023-03-26', 3, 7, 'Energized and satisfied'),
+(23, 1, 4, 1, '2023-03-26', 4, 8, 'Stuffed and/or swollen'),
+(56, 1, 4, 1, '2023-03-26', 4, 8, 'Stuffed and/or swollen'),
+(39, 1, 4, 1, '2023-03-26', 3, 7, 'Energized and satisfied'),
+(60, 1, 4, 1, '2023-03-26', 2, 8, 'Stuffed and/or swollen'),
+
+(2, 1, 1, 1, '2023-03-19', 4, 8, 'Stuffed and/or swollen'),
+(26, 1, 1, 1, '2023-03-19', 3, 7, 'Energized and satisfied'),
+(12, 1, 2, 1, '2023-03-19', 3, 7, 'Energized and satisfied'),
+(37, 1, 2, 1, '2023-03-19', 3, 7, 'Energized and satisfied'),
+(51, 1, 2, 1, '2023-03-19', 2, 8, 'Stuffed and/or swollen'),
+(57, 1, 4, 1, '2023-03-19', 4, 8, 'Stuffed and/or swollen'),
+(23, 1, 4, 1, '2023-03-19', 3, 7, 'Energized and satisfied'),
+(57, 1, 4, 1, '2023-03-19', 4, 8, 'Stuffed and/or swollen'),
+(39, 1, 4, 1, '2023-03-19', 3, 7, 'Energized and satisfied'),
+
+(12, 1, 1, 1, '2023-03-20', 3, 4, 'Energized and satisfied'),
+(13, 1, 1, 1, '2023-03-20', 3, 4, 'Energized and satisfied'),
+(23, 1, 2, 1, '2023-03-20', 3, 7, 'Energized and satisfied'),
+(57, 1, 2, 1, '2023-03-20', 4, 8, 'Stuffed and/or swollen'),
+(39, 1, 2, 1, '2023-03-20', 3, 7, 'Energized and satisfied'),
+(23, 1, 4, 1, '2023-03-20', 2, 8, 'Stuffed and/or swollen'),
+(56, 1, 4, 1, '2023-03-20', 3, 7, 'Energized and satisfied'),
+(39, 1, 4, 1, '2023-03-20', 4, 8, 'Stuffed and/or swollen'),
+(60, 1, 4, 1, '2023-03-20', 2, 8, 'Stuffed and/or swollen'),
+
+(12, 1, 1, 1, '2023-03-21', 3, 4, 'Energized and satisfied'),
+(13, 1, 1, 1, '2023-03-21', 2, 8, 'Stuffed and/or swollen'),
+(23, 1, 2, 1, '2023-03-21', 3, 7, 'Energized and satisfied'),
+(57, 1, 2, 1, '2023-03-21', 3, 7, 'Energized and satisfied'),
+(39, 1, 2, 1, '2023-03-21', 3, 7, 'Energized and satisfied'),
+(23, 1, 4, 1, '2023-03-21', 3, 7, 'Energized and satisfied'),
+(56, 1, 4, 1, '2023-03-21', 4, 8, 'Stuffed and/or swollen'),
+(39, 1, 4, 1, '2023-03-21', 3, 7, 'Energized and satisfied'),
+(60, 1, 4, 1, '2023-03-21', 4, 8, 'Stuffed and/or swollen'),
+
+(12, 1, 1, 1, '2023-03-17', 3, 4, 'Energized and satisfied'),
+(13, 1, 1, 1, '2023-03-17', 2, 8, 'Stuffed and/or swollen'),
+(23, 1, 2, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
+(57, 1, 2, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
+(39, 1, 2, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
+(23, 1, 4, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
+(56, 1, 4, 1, '2023-03-17', 4, 8, 'Stuffed and/or swollen'),
+(39, 1, 4, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
+(60, 1, 4, 1, '2023-03-17', 4, 8, 'Stuffed and/or swollen');
 
