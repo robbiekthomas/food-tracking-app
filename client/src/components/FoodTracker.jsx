@@ -34,7 +34,8 @@ const FoodTracker = (props) => {
     <div>
       <h1>Food Tracker</h1>
 
-      <Dialog onClose={handleClose} open={open}>
+      <Dialog onClose={handleClose} open={open} fullWidth
+          maxWidth="xl">
         <FoodList
           meal={meal}
           setShowList={setShowList}
