@@ -85,12 +85,16 @@ const FoodList = (props) => {
       .post(url, values)
       .then((res) => {
         console.log("res", res);
+        props.setShowList(prev => !prev);
+        // setfoodLog(() => {
+        //   return res.data
+        // });
       })
       .catch((err) => {
         console.log(err);
       });
       
-      props.setShowList(false);
+      // props.setShowList(prev => !prev);
       props.handleClose();
   };
 

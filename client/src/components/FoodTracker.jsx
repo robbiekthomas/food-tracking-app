@@ -25,7 +25,7 @@ const FoodTracker = (props) => {
   };
 
   const showFoodList = (mealID) => {
-    setShowList(true);
+    // setShowList(prev => !prev);
     setMeal(mealID);
     setOpen(true);
   };

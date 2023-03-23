@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 
   const foodQueryStr = `
     SELECT *
-    FROM foods
+    FROM foods;
     `;
 
   db.query(foodQueryStr)
@@ -47,10 +47,22 @@ router.post("/food-log", (req, res) => {
     );
     count += 4;
   }
-
+  console.log(insertQueryStr);
+  console.log(queryParams);
   db.query(insertQueryStr, queryParams)
-    .then((res) => {
-      return res.rows[0];
+    .then((result) => {
+      console.log(result.rows[0]);
+      // const returnQueryStr = `
+      // SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
+      // FROM food_logs
+      // JOIN foods ON foods.id = food_logs.food_id
+      // WHERE food_logs.user_id = 1 AND food_logs.meal_id = $1 AND food_logs.meal_date = CURRENT_DATE;
+      // `;
+      // const queryParams = [result.rows[0].meal_id];
+      // return db.query(returnQueryStr, queryParams);
+    // })
+    // .then((result) => {
+      res.json(result.rows);
     })
     .catch((err) => {
       console.log(err.message);
@@ -62,12 +74,13 @@ router.delete("/food-log", (req, res) => {
   console.log("req.body", req.body);
   const deleteQueryStr = `
   DELETE FROM food_logs 
-  WHERE food_id = $1 AND meal_id = $2
+  WHERE food_id = $1 AND meal_id = $2;
   `;
 
   db.query(deleteQueryStr, req.body)
-    .then((res) => {
-      return res.rows[0];
+    .then((result) => {
+      res.json(result.rows)
+      
     })
     .catch((err) => {
       console.log(err.message);
@@ -81,7 +94,7 @@ router.get("/food-log-breakfast", (req, res) => {
     SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
     FROM food_logs
     JOIN foods ON foods.id = food_logs.food_id
-    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 1 AND food_logs.meal_date = CURRENT_DATE
+    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 1 AND food_logs.meal_date = CURRENT_DATE;
     `;
 
   db.query(foodQueryStr)
@@ -101,7 +114,7 @@ router.get("/food-log-lunch", (req, res) => {
     SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
     FROM food_logs
     JOIN foods ON foods.id = food_logs.food_id
-    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 2 AND food_logs.meal_date = CURRENT_DATE
+    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 2 AND food_logs.meal_date = CURRENT_DATE;
     `;
 
   db.query(foodQueryStr)
@@ -121,7 +134,7 @@ router.get("/food-log-snack", (req, res) => {
     SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
     FROM food_logs
     JOIN foods ON foods.id = food_logs.food_id
-    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 3 AND food_logs.meal_date = CURRENT_DATE
+    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 3 AND food_logs.meal_date = CURRENT_DATE;
     `;
 
   db.query(foodQueryStr)
@@ -141,7 +154,7 @@ router.get("/food-log-dinner", (req, res) => {
     SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
     FROM food_logs
     JOIN foods ON foods.id = food_logs.food_id
-    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 4 AND food_logs.meal_date = CURRENT_DATE
+    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 4 AND food_logs.meal_date = CURRENT_DATE;
     `;
 
   db.query(foodQueryStr)
@@ -162,7 +175,7 @@ router.post("/hunger", (req, res) => {
     hunger_before = $1
     hunger_after = $2
   WHERE id = 1
-  AND meal_id = $3
+  AND meal_id = $3;
   `;
   db.query(hungerQueryStr, [req.body])
     .then((res) => {

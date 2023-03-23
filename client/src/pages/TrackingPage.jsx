@@ -16,7 +16,7 @@ const TrackingPage = () => {
   useEffect(() => {}, [mode])
   
   const showFoodList = (mealTime) => {
-    setShowList(!showList)
+    setShowList(prev => !prev)
     setMeal(mealTime);
   }
 

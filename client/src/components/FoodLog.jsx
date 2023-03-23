@@ -25,12 +25,13 @@ export const FoodLog = (props) => {
     axios
     .delete(`http://localhost:8000/api/tracker/food-log`, { data: values })
     .then(response => {
-      console.log(response.data);
+      
+      console.log("res.data", response.data);
+      setFoodDelete(prev => !prev);
     })
     .catch(error => {
-      console.log(error);
+      console.log("error", error);
     });
-    setFoodDelete(!foodDelete);
   };
 
   const initialRows = foodLog;
@@ -102,7 +103,7 @@ export const FoodLog = (props) => {
   return (
     <div>
       <div style={{ height: 300, width: "100%" }}>
-        <DataGrid rows={initialRows} columns={columns} />
+        <DataGrid rows={foodLog} columns={columns} />
       </div>
     </div>
   );
