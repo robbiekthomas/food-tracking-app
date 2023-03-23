@@ -121,7 +121,8 @@ const DashboardPage = () => {
     carbs,
     fat,
     barChartData,
-    lineChartData
+    lineChartData,
+    maintenanceCalories
   }
 
   return (

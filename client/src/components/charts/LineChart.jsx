@@ -1,100 +1,106 @@
-import React from 'react'
-import { Line } from 'react-chartjs-2'
-import {
-  Chart as ChartJS,
-  LineElement,
-  CategoryScale, //xaxis related
-  LinearScale, //yaxis
-  PointElement
-} from 'chart.js'
+import React from 'react';
+import { strictLineOptions, strictLinedata, buildLineXAxis, makeBodyFatLine, lineChartOptions, compileLineData, buildLineYAxis } from '../../data/chartData';
+import { Line } from 'react-chartjs-2';
+// import {
+//   Chart as ChartJS,
+//   LineElement,
+//   CategoryScale, //xaxis related
+//   LinearScale, //yaxis
+//   PointElement
+// } from 'chart.js'
 
-ChartJS.register(
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement
-)
+// ChartJS.register(
+//   LineElement,
+//   CategoryScale,
+//   LinearScale,
+//   PointElement
+// )
 
 const LineChart = ({ datapoints }) => {
+  const xAxis = buildLineXAxis(datapoints);
+  // //get x-axiis values and format dates
+  // let xAxis = []
+  // datapoints[0].forEach(element => {
+    //   xAxis.push(element.x.slice(0, 10));
+    // });
+    
+console.log(1, xAxis)
+    
+    const bodyFat = makeBodyFatLine(datapoints);
+    //console.log(bodyFat, datapoints);
+  // //get yaxis values
+  // let bodyFat = []
+  // datapoints[1].forEach(element => {
+  //   bodyFat.push(element.y);
+  // });
+const weight = buildLineYAxis(datapoints);
+  // //get yaxis values
+  // let weight = []
+  // datapoints[0].forEach(element => {
+  //   weight.push(element.y);
+  // });
 
-  //get x-axiis values and format dates
-  let xAxis = []
-  datapoints[0].forEach(element => {
-    xAxis.push(element.x.slice(0, 10));
-  });
+  const data = compileLineData(xAxis, bodyFat, weight)
+  // const data = {
 
-  //get yaxis values
-  let bodyFat = []
-  datapoints[1].forEach(element => {
-    bodyFat.push(element.y);
-  });
+  //   labels: xAxis,
+  //   datasets: [{
+  //     label: 'Body Fat',
+  //     yAxisID: 'left',
+  //     spanGaps: true,
+  //     data: bodyFat,
+  //     backgroundColor: 'aqua',
+  //     borderColor: 'aqua',
+  //     pointBorderColor: 'aqua',
+  //     tension: 0.1
+  //   },
+  //   {
+  //     label: 'Weight',
+  //     yAxisID: 'right',
+  //     spanGaps: true,
+  //     data: weight,
+  //     backgroundColor: 'blue',
+  //     borderColor: 'blue',
+  //     pointBorderColor: 'blue',
+  //     tension: 0.2
+  //   },
 
-  //get yaxis values
-  let weight = []
-  datapoints[0].forEach(element => {
-    weight.push(element.y);
-  });
+  //   ]
+  // }
+const options = lineChartOptions;
+  // const options = {
+  //   plugins: {
+  //     legend: {
+  //       display: true,
+  //       position: 'bottom',
+  //     }
+  //   },
+  //   scales: {
 
-  const data = {
-
-    labels: xAxis,
-    datasets: [{
-      label: 'Body Fat',
-      yAxisID: 'left',
-      spanGaps: true,
-      data: bodyFat,
-      backgroundColor: 'aqua',
-      borderColor: 'aqua',
-      pointBorderColor: 'aqua',
-      tension: 0.1
-    },
-    {
-      label: 'Weight',
-      yAxisID: 'right',
-      spanGaps: true,
-      data: weight,
-      backgroundColor: 'blue',
-      borderColor: 'blue',
-      pointBorderColor: 'blue',
-      tension: 0.2
-    },
-
-    ]
-  }
-
-  const options = {
-    plugins: {
-      legend: {
-        display: true,
-        position: 'bottom',
-      }
-    },
-    scales: {
-
-      left: {
-        id: 'left',
-        type: 'linear',
-        position: 'left',
-        beginAtZero: true,
+  //     left: {
+  //       id: 'left',
+  //       type: 'linear',
+  //       position: 'left',
+  //       beginAtZero: true,
 
 
-      },
-      right: {
-        id: 'right',
-        type: 'linear',
-        position: 'right',
-        beginAtZero: true,
-        grid: {
-          drawOnChartArea: false
-        },
-        ticks: {
-          callback: function(value, index, values) {
-            return `${value} %`;
-          }
-        }
-      }
-    }
-  }
+  //     },
+  //     right: {
+  //       id: 'right',
+  //       type: 'linear',
+  //       position: 'right',
+  //       beginAtZero: true,
+  //       grid: {
+  //         drawOnChartArea: false
+  //       },
+  //       ticks: {
+  //         callback: function(value) {
+  //           return `${value} %`;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   return (
     <div className='chart' >

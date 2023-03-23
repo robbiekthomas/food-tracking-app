@@ -43,23 +43,30 @@ router.get("/weightGraph", (req, res) => {
       `;
   db.query(userQueryStr)
     .then((result) => {
-      const startDate = result.rows[0].date_updated;
+      let startDate = result.rows[0].date_updated;
       const endDate = add(new Date(), { days: -1 });
       const days = differenceInDays(endDate, startDate)
       let data = [[], []];
-
+console.log(endDate, startDate, days)
+      let idx = 0;
       for (let i = 0; i < days; i++) {
-        const x = add(startDate, { days: i });
+        //const x = add(startDate, { days: i });
         let yBF = null
         let yWeight = null
 
-        if (result.rows[i]) {
-          yBF = result.rows[i].body_fat_percentage;
-          yWeight = result.rows[i].weight;
+        if (new Date(result.rows[idx].date_updated).getTime() === startDate.getTime()) {
+
+          console.log(startDate);
+          yBF = result.rows[idx].body_fat_percentage;
+          yWeight = result.rows[idx].weight;
+
+          if(idx !== result.rows.length -1) {
+            idx++;
+          }
         }
 
-        let objBF = { x: x, y: yBF };
-        let objWeight = { x: x, y: yWeight };
+        let objBF = { x: startDate, y: yBF };
+        let objWeight = { x: startDate, y: yWeight };
 
         //bodyfat
         data[0].push(objBF);
@@ -67,6 +74,7 @@ router.get("/weightGraph", (req, res) => {
         //weight
         data[1].push(objWeight);
 
+        startDate = add(startDate, { days: 1 });
 
       }
 

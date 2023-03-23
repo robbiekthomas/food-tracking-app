@@ -18,7 +18,8 @@ const DashboardStandard = ({
   carbs,
   fat,
   barChartData,
-  lineChartData
+  lineChartData,
+  maintenanceCalories
 }) => {
 
   return (
@@ -33,6 +34,20 @@ const DashboardStandard = ({
       {/*Nutrition Targets (top cards on dashboard)*/}
       <div className="w-3/4">
         <div className="flex flex-wrap justify-around max-w-screen-lg">
+
+        <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
+            <div className="rounded-xl p-8">
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="font-bold text-gray-400">Maintenance Calories</p>
+                  <p className="text-2xl">{maintenanceCalories}</p>
+                  <p className="text-xs">{`${targetCalories - 100} - ${targetCalories + 100
+                    } cal`}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
             <div className="rounded-xl p-8">
               <div className="flex justify-between items-center">
@@ -59,43 +74,19 @@ const DashboardStandard = ({
             </div>
           </div>
 
-          <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
-            <div className="rounded-xl p-8">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-bold text-gray-400">Carbs</p>
-                  <p className="text-2xl">{carbs}</p>
-                  <p className="text-xs">{`${carbs - 10} - ${carbs + 10
-                    } g`}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className=" h-32 w-57 bg-white flex flex-nowrap justify-center">
-            <div className="w-57 rounded-xl p-8">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-bold text-gray-400">Fat</p>
-                  <p className="text-2xl">{fat}</p>
-                  <p className="text-xs">{`${fat - 10} - ${fat + 10} g`}</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* middle dashboard*/}
         <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
           <div className="w-5/12 bg-white align-center pb-5">
             <p className="mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl">
-              Macronutrient Distribution
+              Protein Percent of Total Calories
             </p>
             <div className="flex justify-between">
               <div className="flex-column w-6/12">
                 <ChartHeader title="Target" />
                 <PieChart
-                  series={[protein, fat, carbs]}
+                  series={[protein, fat + carbs]}
                   labels={["Protein", "Fat", "Carbohydrates"]}
                 />
               </div>
@@ -104,7 +95,7 @@ const DashboardStandard = ({
               <div className="flex-column w-6/12">
                 <ChartHeader title="Actual" />
                 <PieChart
-                  series={[protein, fat, carbs]}
+                  series={[protein, fat + carbs]}
                   labels={["Protein", "Fat", "Carbohydrates"]}
                 />
               </div>
@@ -130,7 +121,7 @@ const DashboardStandard = ({
         <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
           {barChartData && barChartData.length > 0 &&
             <div className="w-6/12 bg-white align-center pb-5 pt-5">
-              <ChartHeader title="Macronutrient Distribution over Time" />
+              <ChartHeader title="Protein Distribution over Time" />
               <Stacked width="auto" data={barChartData} height="300px" />
             </div>
           }
