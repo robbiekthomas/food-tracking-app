@@ -1,61 +1,19 @@
-export const stackedChartData = [
-  [
-    { x: 'Jan', y: 111.1 },
-    { x: 'Feb', y: 127.3 },
-    { x: 'Mar', y: 143.4 },
-    { x: 'Apr', y: 159.9 },
-    { x: 'May', y: 159.9 },
-    { x: 'Jun', y: 159.9 },
-    { x: 'July', y: 159.9 },
-  ],
-  [
-    { x: 'Jan', y: 111.1 },
-    { x: 'Feb', y: 127.3 },
-    { x: 'Mar', y: 143.4 },
-    { x: 'Apr', y: 159.9 },
-    { x: 'May', y: 159.9 },
-    { x: 'Jun', y: 159.9 },
-    { x: 'July', y: 159.9 },
-  ],
-  [
-    { x: 'Jan', y: 111.1 },
-    { x: 'Feb', y: 127.3 },
-    { x: 'Mar', y: 143.4 },
-    { x: 'Apr', y: 159.9 },
-    { x: 'May', y: 159.9 },
-    { x: 'Jun', y: 159.9 },
-    { x: 'July', y: 159.9 },
-  ],
-];
+//imports for line chart configuration
+import {
+  Chart as ChartJS,
+  LineElement,
+  CategoryScale, //xaxis related
+  LinearScale, //yaxis
+  PointElement
+} from 'chart.js'
 
+ChartJS.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement
+)
 
-
-export const stackedCustomSeries = [
-
-  {
-    dataSource: stackedChartData[0],
-    xName: 'x',
-    yName: 'y',
-    name: 'Protein',
-    type: 'StackingColumn',
-  },
-
-  {
-    dataSource: stackedChartData[1],
-    xName: 'x',
-    yName: 'y',
-    name: 'Fat',
-    type: 'StackingColumn',
-  },
-
-  {
-    dataSource: stackedChartData[2],
-    xName: 'x',
-    yName: 'y',
-    name: 'Carbs',
-  },
-
-];
 
 export const stackedPrimaryXAxis = {
   majorGridLines: { width: 0 },
@@ -71,7 +29,7 @@ export const stackedPrimaryXAxis = {
 export const stackedPrimaryYAxis = {
   lineStyle: { width: 0 },
   minimum: 100,
-  maximum: 400,
+
   interval: 100,
   majorTickLines: { width: 0 },
   majorGridLines: { width: 1 },
@@ -108,70 +66,6 @@ export const gridOrderStatus = (props) => (
     {props.Status}
   </button>
 );
-
-export const gridOrderImage = (props) => (
-  <div>
-    <img
-      className="rounded-xl h-20 md:ml-3"
-      src={props.ProductImage}
-      alt="order-item"
-    />
-  </div>
-);
-
-export const ordersGrid = [
-  {
-    headerText: 'Image',
-    template: gridOrderImage,
-    textAlign: 'Center',
-    width: '120',
-  },
-  {
-    field: 'OrderItems',
-    headerText: 'Item',
-    width: '150',
-    editType: 'dropdownedit',
-    textAlign: 'Center',
-  },
-  {
-    field: 'CustomerName',
-    headerText: 'Customer Name',
-    width: '150',
-    textAlign: 'Center',
-  },
-  {
-    field: 'TotalAmount',
-    headerText: 'Total Amount',
-    format: 'C2',
-    textAlign: 'Center',
-    editType: 'numericedit',
-    width: '150',
-  },
-  {
-    headerText: 'Status',
-    template: gridOrderStatus,
-    field: 'OrderItems',
-    textAlign: 'Center',
-    width: '120',
-  },
-  {
-    field: 'OrderID',
-    headerText: 'Order ID',
-    width: '120',
-    textAlign: 'Center',
-  },
-
-  {
-    field: 'Location',
-    headerText: 'Location',
-    width: '150',
-    textAlign: 'Center',
-  },
-];
-
-
-
-
 
 
 
@@ -229,3 +123,134 @@ export const habitsList =
     'Stick to scheduled meal times',
     'Put your food/utensils down between bites'
   ];
+
+
+//line chart data
+//get x-axiis values and format dates
+export const buildLineXAxis = (datapoints) => {
+  let xAxis = [];
+  datapoints[0].forEach(element => {
+    xAxis.push(element.x.slice(0, 10));
+  });
+
+  return xAxis;
+};
+
+
+export const makeBodyFatLine = (datapoints) => {
+
+  let bodyFat = []
+  datapoints[1].forEach(element => {
+    bodyFat.push(element.y);
+    
+  });
+  return bodyFat;
+};
+
+
+//get yaxis values
+export const buildLineYAxis = (datapoints) => {
+  let weight = []
+  datapoints[0].forEach(element => {
+    weight.push(element.y);
+  });
+
+  return weight;
+}
+
+
+
+export const compileLineData = (xAxis, bodyFat, weight) => {
+  return {
+    labels: xAxis,
+    datasets: [{
+      label: 'Body Fat',
+      yAxisID: 'left',
+      spanGaps: true,
+      data: bodyFat,
+      backgroundColor: 'aqua',
+      borderColor: 'aqua',
+      pointBorderColor: 'aqua',
+      tension: 0.1
+    },
+    {
+      label: 'Weight',
+      yAxisID: 'right',
+      spanGaps: true,
+      data: weight,
+      backgroundColor: 'blue',
+      borderColor: 'blue',
+      pointBorderColor: 'blue',
+      tension: 0.2
+    }
+    ]
+  }
+}
+
+export const lineChartOptions = {
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      }
+    },
+    scales: {
+
+      left: {
+        id: 'left',
+        type: 'linear',
+        position: 'left',
+       beginAtZero: true,
+
+
+      },
+      right: {
+        id: 'right',
+        type: 'linear',
+        position: 'right',
+        beginAtZero: true,
+        grid: {
+          drawOnChartArea: false
+        },
+        ticks: {
+          callback: function(value) {
+            return `${value} %`;
+          }
+        }
+      }
+   }
+ }
+
+export const strictLineOptions = {
+  plugins: {
+    legend: {
+      display: true,
+      position: 'bottom',
+    }
+  },
+  scales: {
+
+    left: {
+      id: 'left',
+      type: 'linear',
+      position: 'left',
+      beginAtZero: true,
+
+
+    },
+    right: {
+      id: 'right',
+      type: 'linear',
+      position: 'right',
+      beginAtZero: true,
+      grid: {
+        drawOnChartArea: false
+      },
+      ticks: {
+        callback: function(value) {
+          return `${value} %`;
+        }
+      }
+    }
+  }
+}
