@@ -10,7 +10,6 @@ import { getFoodRow } from "../api-requests/tracker";
 
 const FoodList = (props) => {
   const [foodData, setfoodData] = useState([]);
-  const [selectedFood, setselectedFood] = useState([]);
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
 
   useEffect(() => {
@@ -77,6 +76,7 @@ const FoodList = (props) => {
         meal_id: props.meal,
         servings: foodData[item - 1].servings || 1,
       });
+      
     }
   
     
@@ -91,6 +91,7 @@ const FoodList = (props) => {
       });
       
       props.setShowList(false);
+      props.handleClose();
   };
 
   const processRowUpdate = (newRow) => {

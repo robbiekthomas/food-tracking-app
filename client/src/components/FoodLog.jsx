@@ -1,22 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import axios from 'axios'
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import axios from "axios";
 
 export const FoodLog = (props) => {
-const [foodLog, setFoodLog] = useState([]);
-
+  const [foodLog, setFoodLog] = useState([]);
+  const [foodDelete, setFoodDelete] = useState(false);
+  
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/tracker/food-log-${props.meal}`)
-    .then((response) => {
+    axios
+      .get(`http://localhost:8000/api/tracker/food-log-${props.meal}`)
+      .then((response) => {
         setFoodLog(response.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }, [props.showList]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [props.showList, foodDelete]);
 
-  const rows = foodLog;
+  //params.id is the selected row food ID
+  const handleDeleteClick = (params) => () => {
+    const values = [params.id, props.mealID]
+    axios
+    .delete(`http://localhost:8000/api/tracker/food-log`, { data: values })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    setFoodDelete(!foodDelete);
+  };
+
+  const initialRows = foodLog;
 
   const columns = [
     { field: "name", headerName: "Name", width: 180, editable: false },
@@ -26,6 +43,7 @@ const [foodLog, setFoodLog] = useState([]);
       width: 180,
       type: "number",
       editable: false,
+      
     },
     {
       field: "calories",
@@ -55,13 +73,36 @@ const [foodLog, setFoodLog] = useState([]);
       type: "number",
       editable: false,
     },
-    { field: "servings", headerName: "Servings", width: 180, editable: false },
+    {
+      field: "servings",
+      headerName: "Servings",
+      type: "number",
+      width: 180,
+      editable: false,
+    },
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Delete",
+      width: 100,
+      cellClassName: "actions",
+      getActions: (params) => {
+        return [
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={handleDeleteClick(params)}
+            color="inherit"
+          />,
+        ];
+      },
+    },
   ];
 
   return (
     <div>
       <div style={{ height: 300, width: "100%" }}>
-        <DataGrid rows={rows} columns={columns} />
+        <DataGrid rows={initialRows} columns={columns} />
       </div>
     </div>
   );

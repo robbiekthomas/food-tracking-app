@@ -12,6 +12,7 @@
     "@mui/material": "^5.11.13",
     "@mui/x-data-grid": "^6.0.2",
     "@mui/x-data-grid-generator": "^6.0.2",
+    "@mui/x-data-grid-pro": "^6.0.3",
     "@syncfusion/ej2": "^19.4.48",
     "@syncfusion/ej2-react-calendars": "^19.4.48",
     "@syncfusion/ej2-react-charts": "^19.4.50",
