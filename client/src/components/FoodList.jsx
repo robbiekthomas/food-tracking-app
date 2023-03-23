@@ -7,30 +7,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import Header from "./Header";
 import { getFoodRow } from "../api-requests/tracker";
 
-const dummyFoodData = [
-  {
-    id: 3,
-    name: "Almond Butter",
-    grams_per_serving: 32,
-    calories: 190,
-    carbs: 6,
-    fat: 16,
-    protein: 8,
-    servings: 1,
-  },
-  {
-    id: 4,
-    name: "Almonds",
-    grams_per_serving: 9,
-    calories: 50,
-    carbs: 2,
-    fat: 4,
-    protein: 2,
-    servings: 1,
-  },
-];
-
-const userID = 1;
 
 const FoodList = (props) => {
   const [foodData, setfoodData] = useState([]);
@@ -41,7 +17,6 @@ const FoodList = (props) => {
     getFoodRow()
       .then((res) => {
         setfoodData(res);
-        // console.log(res)
       })
       .catch((err) => {
         console.log(err);
@@ -49,9 +24,6 @@ const FoodList = (props) => {
   }, []);
 
   //sends food_id, user_id, meal_id as an object to the food log db
-  const updateFoodLog = () => {
-   
-  };
 
   const rows = foodData;
 
@@ -117,6 +89,8 @@ const FoodList = (props) => {
       .catch((err) => {
         console.log(err);
       });
+      
+      props.setShowList(false);
   };
 
   const processRowUpdate = (newRow) => {
