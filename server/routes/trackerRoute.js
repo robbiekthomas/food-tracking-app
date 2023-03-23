@@ -81,7 +81,7 @@ router.get("/food-log-breakfast", (req, res) => {
     SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
     FROM food_logs
     JOIN foods ON foods.id = food_logs.food_id
-    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 1 AND food_logs.date = CURRENT_DATE
+    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 1 AND food_logs.meal_date = CURRENT_DATE
     `;
 
   db.query(foodQueryStr)
@@ -101,7 +101,7 @@ router.get("/food-log-lunch", (req, res) => {
     SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
     FROM food_logs
     JOIN foods ON foods.id = food_logs.food_id
-    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 2 AND food_logs.date = CURRENT_DATE
+    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 2 AND food_logs.meal_date = CURRENT_DATE
     `;
 
   db.query(foodQueryStr)
@@ -121,7 +121,7 @@ router.get("/food-log-snack", (req, res) => {
     SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
     FROM food_logs
     JOIN foods ON foods.id = food_logs.food_id
-    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 3 AND food_logs.date = CURRENT_DATE
+    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 3 AND food_logs.meal_date = CURRENT_DATE
     `;
 
   db.query(foodQueryStr)
@@ -141,7 +141,7 @@ router.get("/food-log-dinner", (req, res) => {
     SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
     FROM food_logs
     JOIN foods ON foods.id = food_logs.food_id
-    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 4 AND food_logs.date = CURRENT_DATE
+    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 4 AND food_logs.meal_date = CURRENT_DATE
     `;
 
   db.query(foodQueryStr)
