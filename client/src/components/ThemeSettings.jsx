@@ -7,34 +7,34 @@ import { useStateContext } from "../contexts/ContextProvider";
 
 const themecolors = [
   {
-    name: 'blue-theme',
-    color: '#1A97F5',
+    name: "blue-theme",
+    color: "#1A97F5",
   },
   {
-    name: 'green-theme',
-    color: '#03C9D7',
+    name: "green-theme",
+    color: "#03C9D7",
   },
   {
-    name: 'purple-theme',
-    color: '#7352FF',
+    name: "purple-theme",
+    color: "#7352FF",
   },
   {
-    name: 'red-theme',
-    color: '#FF5C8E',
+    name: "red-theme",
+    color: "#FF5C8E",
   },
   {
-    name: 'indigo-theme',
-    color: '#1E4DB7',
+    name: "indigo-theme",
+    color: "#1E4DB7",
   },
   {
-    color: '#FB9678',
-    name: 'orange-theme',
+    color: "#FB9678",
+    name: "orange-theme",
   },
 ];
 
-
 const ThemeSettings = () => {
-  const { setColor, setMode, currentMode, currentColor, setThemeSettings} = useStateContext();
+  const { setColor, setMode, currentMode, currentColor, setThemeSettings } =
+    useStateContext();
 
   return (
     <div className="bg-half-transparent w-screen fixed nav-item top-o right-0 z-50">
@@ -60,7 +60,7 @@ const ThemeSettings = () => {
               value="Light"
               className="cursor-pointer"
               onChange={setMode}
-              checked={currentMode === 'Light'}
+              checked={currentMode === "Light"}
             />
             <label htmlFor="light" className="ml-2 text-md cursor-pointer">
               Light
@@ -74,7 +74,7 @@ const ThemeSettings = () => {
               value="Dark"
               className="cursor-pointer"
               onChange={setMode}
-              checked={currentMode === 'Dark'}
+              checked={currentMode === "Dark"}
             />
             <label htmlFor="dark" className="ml-2 text-md cursor-pointer">
               Dark
@@ -85,10 +85,23 @@ const ThemeSettings = () => {
           <p className="font-semibold text-lg">Theme colors</p>
           <div className="flex gap-3">
             {themecolors.map((item, index) => (
-              <TooltipComponent key={index} content={item.name} position="TopCenter">
+              <TooltipComponent
+                key={index}
+                content={item.name}
+                position="TopCenter"
+              >
                 <div className="relative mt-2 cursor-pointer flex gap-5 items-center">
-                  <button type="button" className="h-10 w-10 rounded-full cursor-pointer" style={{backgroundColor: item.color}} onClick={() => setColor(item.color)}>
-                    <BsCheck className={`ml-2 text-2xl text-white ${item.color === currentColor ? 'block' : 'hidden'}`}/>
+                  <button
+                    type="button"
+                    className="h-10 w-10 rounded-full cursor-pointer"
+                    style={{ backgroundColor: item.color }}
+                    onClick={() => setColor(item.color)}
+                  >
+                    <BsCheck
+                      className={`ml-2 text-2xl text-white ${
+                        item.color === currentColor ? "block" : "hidden"
+                      }`}
+                    />
                   </button>
                 </div>
               </TooltipComponent>

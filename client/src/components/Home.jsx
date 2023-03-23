@@ -1,12 +1,16 @@
 import React from "react";
 import styles from "../style";
 import { discount, robot } from "../assets";
+import {useStateContext} from "../contexts/ContextProvider";
+
 
 const Home = () => {
+  const {currentMode} = useStateContext();
+
   return (
     <section
       id="home"
-      className={`flex md:flex-row flex-col items-stretch ${styles.paddingY} ${styles.paddingX} ${styles.flexCenter} bg-black`}
+      className={`flex md:flex-row flex-col items-stretch ${styles.paddingY} ${styles.paddingX} ${styles.flexCenter}`}
     >
       <div
         className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 ml-10`}
