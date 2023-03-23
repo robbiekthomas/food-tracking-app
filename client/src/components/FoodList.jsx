@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Button } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
-import Header from "./Header";
 import { getFoodRow } from "../api-requests/tracker";
-
 
 const FoodList = (props) => {
   const [foodData, setfoodData] = useState([]);
@@ -21,8 +19,6 @@ const FoodList = (props) => {
         console.log(err);
       });
   }, []);
-
-  //sends food_id, user_id, meal_id as an object to the food log db
 
   const rows = foodData;
 
@@ -76,26 +72,19 @@ const FoodList = (props) => {
         meal_id: props.meal,
         servings: foodData[item - 1].servings || 1,
       });
-      
     }
-  
-    
+
     const url = "http://localhost:8000/api/tracker/food-log";
     axios
       .post(url, values)
       .then((res) => {
         console.log("res", res);
-        props.setShowList(prev => !prev);
-        // setfoodLog(() => {
-        //   return res.data
-        // });
+        props.setShowList((prev) => !prev);
       })
       .catch((err) => {
         console.log(err);
       });
-      
-      // props.setShowList(prev => !prev);
-      props.handleClose();
+    props.handleClose();
   };
 
   const processRowUpdate = (newRow) => {
@@ -108,7 +97,7 @@ const FoodList = (props) => {
 
   return (
     <div>
-      <div style={{ height: 300, width: "100%" }}>
+      <div style={{ height: 600, width: "100%" }}>
         <DataGrid
           rows={rows}
           columns={columns}
@@ -119,6 +108,8 @@ const FoodList = (props) => {
           rowSelectionModel={rowSelectionModel}
           processRowUpdate={processRowUpdate}
           onProcessRowUpdateError={() => {}}
+          disableRowSelectionOnClick
+          slots={{ toolbar: GridToolbar }}
         />
       </div>
       <Button onClick={() => createFoodValues()}>Send Data</Button>

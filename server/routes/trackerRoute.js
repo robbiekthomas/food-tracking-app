@@ -52,16 +52,6 @@ router.post("/food-log", (req, res) => {
   db.query(insertQueryStr, queryParams)
     .then((result) => {
       console.log(result.rows[0]);
-      // const returnQueryStr = `
-      // SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
-      // FROM food_logs
-      // JOIN foods ON foods.id = food_logs.food_id
-      // WHERE food_logs.user_id = 1 AND food_logs.meal_id = $1 AND food_logs.meal_date = CURRENT_DATE;
-      // `;
-      // const queryParams = [result.rows[0].meal_id];
-      // return db.query(returnQueryStr, queryParams);
-    // })
-    // .then((result) => {
       res.json(result.rows);
     })
     .catch((err) => {
@@ -178,8 +168,8 @@ router.post("/hunger", (req, res) => {
   AND meal_id = $3;
   `;
   db.query(hungerQueryStr, [req.body])
-    .then((res) => {
-      return res.rows[0];
+    .then((result) => {
+      res.json(result.rows)
     })
     .catch((err) => {
       console.log(err.message);

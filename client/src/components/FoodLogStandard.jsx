@@ -3,7 +3,7 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import axios from "axios";
 
-export const FoodLog = (props) => {
+export const FoodLogStandard = (props) => {
   const [foodLog, setFoodLog] = useState([]);
   const [foodDelete, setFoodDelete] = useState(false);
   
@@ -49,20 +49,6 @@ export const FoodLog = (props) => {
     {
       field: "calories",
       headerName: "Calories",
-      width: 180,
-      type: "number",
-      editable: false,
-    },
-    {
-      field: "carbs",
-      headerName: "Carbs",
-      width: 180,
-      type: "number",
-      editable: false,
-    },
-    {
-      field: "fat",
-      headerName: "Fat",
       width: 180,
       type: "number",
       editable: false,
