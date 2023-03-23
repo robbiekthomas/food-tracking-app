@@ -30,7 +30,7 @@ function NavBar() {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { loggedIn, setLoggedIn } = useLoginContext();
   const { mode, setMode } = useModeContext();
-  const { themeSettings, setThemeSettings } = useStateContext();
+  const { themeSettings, setThemeSettings, currentColor } = useStateContext();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -64,7 +64,7 @@ function NavBar() {
   return (
     <>
       {themeSettings && <ThemeSettings />}
-      <AppBar position="static" style={{ background: "#6ee7b7" }}>
+      <AppBar position="static" style={{ background: currentColor }}>
         <Container maxWidth="xxl" className={`${styles.paddingX}`}>
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
