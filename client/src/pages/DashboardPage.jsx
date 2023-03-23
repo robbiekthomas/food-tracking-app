@@ -1,11 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { getUserDetails, getUserMacros, getUserRow, getProteinProportion, getHungerScore } from '../api-requests/dashboard';
 import { createHabitGridData } from '../data/chartData';
-import { getCarbs, getFat, getMaintenanceCalories, getProtein, getTargetCalories, getweelkyMacroDistribution, getProteinWeeklyAverage, getFatWeeklyAverage, getCarbsWeeklyAverage, getHunger } from '../helper-functions/nutritionCalculations';
 import DashboardIntuitive from "../components/DashboardIntuitive";
 import DashboardPrecise from "../components/DashboardPrecise";
 import DashboardStandard from "../components/DashboardStandard";
 import { useModeContext } from "../contexts/mode-status";
+
+import {
+  getUserDetails,
+  getUserMacros,
+  getUserRow,
+  getProteinProportion,
+  getHungerScore,
+  getMood
+} from '../api-requests/dashboard';
+
+import {
+  getCarbs,
+  getFat,
+  getMaintenanceCalories,
+  getProtein,
+  getTargetCalories,
+  getweelkyMacroDistribution,
+  getProteinWeeklyAverage,
+  getFatWeeklyAverage,
+  getCarbsWeeklyAverage,
+  getHunger,
+  getTopThreeMoods
+}
+from '../helper-functions/nutritionCalculations';
+
 
 const DashboardPage = () => {
   const { mode, setMode } = useModeContext();
@@ -58,6 +81,7 @@ const DashboardPage = () => {
   const [barChartData, setBarChartData] = useState([]);
   const [proteinBarChartData, setProteinBarChartData] = useState([]);
   const [hungerScore, setHungerScore] = useState([]);
+  const [mood, setMood] = useState([]);
 
 
   //calculate nutrition targets
@@ -74,10 +98,7 @@ const DashboardPage = () => {
 
   const avgWeeklyHungerBefore = getHunger(hungerScore, 7, 0); //data, days, index
   const avgWeeklyHungerAfter = getHunger(hungerScore, 7, 1); //data, days, index
-
-
-
-console.log('hunger', hungerScore)
+  const topThreeMoods = getTopThreeMoods(mood);
 
   //gets user details and habit goals from the database
   useEffect(() => {
@@ -133,11 +154,22 @@ console.log('hunger', hungerScore)
       })
   }, []);
 
-   //get hunger data
-   useEffect(() => {
+  //get hunger data
+  useEffect(() => {
     getHungerScore()
       .then((res) => {
         setHungerScore(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+  //get mood data
+  useEffect(() => {
+    getMood()
+      .then((res) => {
+        setMood(res);
       })
       .catch((err) => {
         console.log(err);
@@ -162,7 +194,8 @@ console.log('hunger', hungerScore)
     fatWeeklyAverage,
     carbsWeeklyAverage,
     avgWeeklyHungerBefore,
-    avgWeeklyHungerAfter
+    avgWeeklyHungerAfter,
+    topThreeMoods
   }
 
   return (

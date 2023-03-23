@@ -31,6 +31,7 @@ app.use('/api/dashboard/weightGraph', dashboardController);
 app.use('/api/dashboard/stackedMacroGraph', dashboardController);
 app.use('/api/dashboard/stackedProteinGraph', dashboardController);
 app.use('/api/dashboard/foodReflection', dashboardController);
+app.use('/api/dashboard/mood', dashboardController);
 app.use('/api/tracker', trackerController);
 
 

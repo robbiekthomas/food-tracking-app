@@ -20,7 +20,6 @@ router.get("/", (req, res) => {
   LEFT JOIN habitGoal_logs ON users.id = habitGoal_logs.user_id
   LEFT JOIN habitGoals ON habitGoal_logs.goal_id = habitGoals.id
   WHERE users.id = 1
-
       `;
   db.query(userQueryStr)
     .then((result) => {
@@ -62,7 +61,7 @@ router.get("/weightGraph", (req, res) => {
           yBF = result.rows[idx].body_fat_percentage;
           yWeight = result.rows[idx].weight;
 
-          if(idx !== result.rows.length -1) {
+          if (idx !== result.rows.length - 1) {
             idx++;
           }
         }
@@ -86,7 +85,7 @@ router.get("/weightGraph", (req, res) => {
 //get data for the macro distribution graph on the dashboard.
 //
 router.get("/stackedMacroGraph", (req, res) => {
-  console.log("getting macro distribution data!");
+  console.log("getting stackedMacroGraph data!");
 
   const userQueryStr = `
   SELECT SUM (food_logs.servings) AS servings, SUM (foods.carbs) AS carbs, SUM(foods.fat) AS fat, SUM( foods.protein) AS protein, TO_CHAR(food_logs.meal_date, 'YYYY-MM-DD') AS combine_day
@@ -99,7 +98,7 @@ router.get("/stackedMacroGraph", (req, res) => {
       `;
   db.query(userQueryStr)
     .then((result) => {
-   
+
       let startDate = new Date(result.rows[0].combine_day);
       const endDate = new Date();
       const days = differenceInDays(endDate, startDate);
@@ -110,13 +109,13 @@ router.get("/stackedMacroGraph", (req, res) => {
       for (let i = 0; i < days; i++) {
         let yPro = null;
         let yFat = null;
-  
+
         if (new Date(result.rows[idx].combine_day).getTime() === startDate.getTime()) {
           yPro = result.rows[idx].protein;
           yFat = result.rows[idx].fat;
           yCho = result.rows[idx].carbs;
 
-          if(idx !== result.rows.length -1) {
+          if (idx !== result.rows.length - 1) {
             idx++;
           }
         }
@@ -132,10 +131,10 @@ router.get("/stackedMacroGraph", (req, res) => {
         //carbs
         data[2].push(objCho);
 
-       startDate = add(startDate, { days: 1 });
-        
+        startDate = add(startDate, { days: 1 });
+
       }
-      
+
       res.json(data);
     })
 
@@ -147,7 +146,7 @@ router.get("/stackedMacroGraph", (req, res) => {
 
 //get data for the protein total graph on the dashboard.
 router.get("/stackedProteinGraph", (req, res) => {
-  console.log("getting macro distribution data!");
+  console.log("getting stackedProteinGraph data!");
 
   const userQueryStr = `
   SELECT SUM (food_logs.servings) AS servings, SUM (foods.calories) AS calories, SUM( foods.protein) AS protein, TO_CHAR(food_logs.meal_date, 'YYYY-MM-DD') AS combine_day
@@ -160,7 +159,7 @@ router.get("/stackedProteinGraph", (req, res) => {
       `;
   db.query(userQueryStr)
     .then((result) => {
-   
+
       let startDate = new Date(result.rows[0].combine_day);
       const endDate = new Date();
       const days = differenceInDays(endDate, startDate);
@@ -171,12 +170,12 @@ router.get("/stackedProteinGraph", (req, res) => {
       for (let i = 0; i < days; i++) {
         let yPro = null;
         let yFat = null;
-  
+
         if (new Date(result.rows[idx].combine_day).getTime() === startDate.getTime()) {
           yPro = result.rows[idx].protein * 4;
           yCal = result.rows[idx].calories - yPro;
 
-          if(idx !== result.rows.length -1) {
+          if (idx !== result.rows.length - 1) {
             idx++;
           }
         }
@@ -188,12 +187,12 @@ router.get("/stackedProteinGraph", (req, res) => {
         data[0].push(obPro);
         //calories
         data[1].push(objCal);
-        
 
-       startDate = add(startDate, { days: 1 });
-        
+
+        startDate = add(startDate, { days: 1 });
+
       }
-      
+
       res.json(data);
     })
 
@@ -257,7 +256,7 @@ router.get("/foodReflection", (req, res) => {
       `;
   db.query(userQueryStr)
     .then((result) => {
-   
+
       let startDate = new Date(result.rows[0].combine_day);
       const endDate = new Date();
       const days = differenceInDays(endDate, startDate);
@@ -268,12 +267,12 @@ router.get("/foodReflection", (req, res) => {
       for (let i = 0; i < days; i++) {
         let hBefore = null;
         let hAfter = null;
-  
+
         if (new Date(result.rows[idx].combine_day).getTime() === startDate.getTime()) {
           hBefore = result.rows[idx].hunger_before;
           hAfter = result.rows[idx].hunger_after;
 
-          if(idx !== result.rows.length -1) {
+          if (idx !== result.rows.length - 1) {
             idx++;
           }
         }
@@ -281,16 +280,58 @@ router.get("/foodReflection", (req, res) => {
         let objBefore = { x: startDate, y: hBefore };
         let objAfter = { x: startDate, y: hAfter };
 
-       //hunger before
+        //hunger before
         data[0].push(objBefore);
         //hunger after
         data[1].push(objAfter);
 
-       startDate = add(startDate, { days: 1 });
-        
+        startDate = add(startDate, { days: 1 });
+
       }
-      
+
       res.json(data);
+    })
+
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+
+
+
+router.get("/mood", (req, res) => {
+  console.log("getting mood data!");
+
+  const userQueryStr = `
+  SELECT food_logs.feeling_after_eating, COUNT(food_logs.feeling_after_eating) AS count_feelings, TO_CHAR(food_logs.meal_date, 'YYYY-MM-DD') AS combine_day
+  FROM food_logs
+  WHERE food_logs.user_id = 1
+  GROUP BY feeling_after_eating, combine_day
+  ORDER BY combine_day ASC
+
+      `;
+  db.query(userQueryStr)
+    .then((data) => {
+
+      let result = [];
+      data.rows.forEach(item => {
+        let date = item.combine_day;
+        let feeling = item.feeling_after_eating;
+        let count = item.count_feelings;
+        let found = result.find(item => item[date]);
+        if (found) {
+          found[date][feeling] = count;
+        } else {
+          let obj = {};
+          obj[date] = {};
+          obj[date][feeling] = count;
+          result.push(obj);
+        }
+      });
+
+
+      res.json(result);
     })
 
     .catch((err) => {

@@ -44,7 +44,13 @@ const getProteinProportion = () => {
 const getHungerScore = () => {
   return axios.get('http://localhost:8000/api/dashboard/foodReflection')
   .then((response) => {
-    console.log('res', response)
+    return response.data;
+  });
+  
+}
+const getMood = () => {
+  return axios.get('http://localhost:8000/api/dashboard/mood')
+  .then((response) => {
     return response.data;
   });
   
@@ -53,4 +59,11 @@ const getHungerScore = () => {
 
 
 
-export { getUserRow, getUserDetails, getUserMacros, getProteinProportion, getHungerScore };
+export { 
+  getUserRow, 
+  getUserDetails, 
+  getUserMacros, 
+  getProteinProportion, 
+  getHungerScore, 
+  getMood 
+};

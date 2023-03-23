@@ -1,3 +1,7 @@
+const { differenceInDays, parse } = require('date-fns');
+
+
+
 const getMaintenanceCalories = (w, bf) => {
   const cal = 370 + (9.8 * w * (100 - bf) / 100) * 1.5;
   return Math.round(cal);
@@ -99,18 +103,76 @@ const getCarbsWeeklyAverage = (macros) => {
   return x;
 };
 
-
-const getHunger = (data, n) => {
+//gets hunger data, based on number of days we care about, and the index of that dataset (index 0 is hunger before and 1 is hungr after)
+const getHunger = (data, n, i) => {
   let sum = 0;
+  if (!data[i]) return
 
-    sum += data[0].reduce(function(prev, cur) {
-      return Number(prev) + Number(cur.y);
-    }, 0);
+  if(data[i].length < n) {
+    n = data[i].length;
+  }
+
+  sum += data[i].reduce(function(prev, cur) {
+     return Number(prev) + Number(cur.y);
+   }, 0);
  
-  const avg = Math.round(sum / n)
+  const avg = (Math.round(sum / n * 10) /10).toFixed(1)
 
   return avg;
 };
+
+//get today's daye in string format ('yyyy-mm-dd')
+const getTodaysDate= () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+const calculateDifferenceInDays = (dateStr1, dateStr2) => {
+  const date1 = parse(dateStr1, 'yyyy-MM-dd', new Date());
+  const date2 = parse(dateStr2, 'yyyy-MM-dd', new Date());
+
+  const numDays = differenceInDays(date2, date1);
+
+  return numDays;
+}
+
+const getTopThreeMoods = (feelingsArr) => {
+  if(!feelingsArr[0]) return;
+  
+  // const startDate = Object.keys(feelingsArr[0])[0];
+  // const endDate = getTodaysDate();
+  // const days = calculateDifferenceInDays(startDate, endDate)
+
+  const allFeelings = feelingsArr.reduce((acc, curr) => {
+    const currFeelings = Object.keys(curr).filter(key => key !== 'id').map(date => curr[date]);
+    currFeelings.forEach(feelings => {
+      Object.entries(feelings).forEach(([feeling, count]) => {
+        const numCount = Number(count);
+        if (acc[feeling] === undefined) {
+          acc[feeling] = numCount;
+        } else {
+          acc[feeling] += numCount;
+        }
+      });
+    });
+    return acc;
+  }, {});
+  
+  const sortedFeelings = Object.entries(allFeelings)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+  
+  const top3Feelings = sortedFeelings.reduce((acc, [feeling, count]) => {
+    acc[feeling] = count;
+    return acc;
+  }, {});
+  console.log(top3Feelings)
+
+return top3Feelings;
+}
 
 
 export { 
@@ -123,5 +185,7 @@ export {
   getCarbsWeeklyAverage, 
   getFatWeeklyAverage, 
   getProteinWeeklyAverage, 
-  getHunger
+  getHunger,
+  getTopThreeMoods,
+  getTodaysDate
 };

@@ -22,7 +22,8 @@ const DashboardPrecise = ({
   weelkyMacroDistribution,
   proteinWeeklyAverage,
   fatWeeklyAverage,
-  carbsWeeklyAverage
+  carbsWeeklyAverage,
+  mood
 
 }) => {
 
