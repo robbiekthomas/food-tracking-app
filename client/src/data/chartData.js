@@ -29,7 +29,7 @@ export const stackedPrimaryXAxis = {
 export const stackedPrimaryYAxis = {
   lineStyle: { width: 0 },
   minimum: 100,
-  maximum: 400,
+
   interval: 100,
   majorTickLines: { width: 0 },
   majorGridLines: { width: 1 },
@@ -132,7 +132,7 @@ export const buildLineXAxis = (datapoints) => {
   datapoints[0].forEach(element => {
     xAxis.push(element.x.slice(0, 10));
   });
-  console.log('xx',datapoints);
+
   return xAxis;
 };
 
@@ -140,7 +140,7 @@ export const buildLineXAxis = (datapoints) => {
 export const makeBodyFatLine = (datapoints) => {
 
   let bodyFat = []
-  datapoints[0].forEach(element => {
+  datapoints[1].forEach(element => {
     bodyFat.push(element.y);
     
   });
@@ -151,10 +151,10 @@ export const makeBodyFatLine = (datapoints) => {
 //get yaxis values
 export const buildLineYAxis = (datapoints) => {
   let weight = []
-  datapoints[1].forEach(element => {
+  datapoints[0].forEach(element => {
     weight.push(element.y);
   });
-  console.log('makeBodyFatLine',datapoints, weight)
+
   return weight;
 }
 

@@ -18,9 +18,15 @@ const DashboardPrecise = ({
   carbs,
   fat,
   barChartData,
-  lineChartData
+  lineChartData,
+  weelkyMacroDistribution,
+  proteinWeeklyAverage,
+  fatWeeklyAverage,
+  carbsWeeklyAverage
+
 }) => {
 
+  
   return (
     <div className="mt-5 flex">
       {/*Sidebar*/}
@@ -54,6 +60,7 @@ const DashboardPrecise = ({
                   <p className="text-2xl">{protein}</p>
                   <p className="text-xs">{`${protein - 10} - ${protein + 10
                     } g`}</p>
+                    <p className="text-xs">{ Math.round(proteinWeeklyAverage / protein * 100) }%</p>
                 </div>
               </div>
             </div>
@@ -67,6 +74,7 @@ const DashboardPrecise = ({
                   <p className="text-2xl">{carbs}</p>
                   <p className="text-xs">{`${carbs - 10} - ${carbs + 10
                     } g`}</p>
+                    <p className="text-xs">{ Math.round(carbsWeeklyAverage / carbs * 100) }%</p>
                 </div>
               </div>
             </div>
@@ -79,6 +87,7 @@ const DashboardPrecise = ({
                   <p className="font-bold text-gray-400">Fat</p>
                   <p className="text-2xl">{fat}</p>
                   <p className="text-xs">{`${fat - 10} - ${fat + 10} g`}</p>
+                  <p className="text-xs">{ Math.round(fatWeeklyAverage / fat * 100) }%</p>
                 </div>
               </div>
             </div>
@@ -89,13 +98,13 @@ const DashboardPrecise = ({
         <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
           <div className="w-5/12 bg-white align-center pb-5">
             <p className="mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl">
-              Macronutrient Distribution
+              Macronutrient Distribution (% Total Calories)
             </p>
             <div className="flex justify-between">
               <div className="flex-column w-6/12">
                 <ChartHeader title="Target" />
                 <PieChart
-                  series={[protein, fat, carbs]}
+                  series={[protein * 4, fat * 9, carbs * 4]}
                   labels={["Protein", "Fat", "Carbohydrates"]}
                 />
               </div>
@@ -104,7 +113,7 @@ const DashboardPrecise = ({
               <div className="flex-column w-6/12">
                 <ChartHeader title="Actual" />
                 <PieChart
-                  series={[protein, fat, carbs]}
+                  series={[weelkyMacroDistribution[0] * 4, weelkyMacroDistribution[1] * 9, weelkyMacroDistribution[2] * 4]}
                   labels={["Protein", "Fat", "Carbohydrates"]}
                 />
               </div>
@@ -131,7 +140,14 @@ const DashboardPrecise = ({
           {barChartData && barChartData.length > 0 &&
             <div className="w-6/12 bg-white align-center pb-5 pt-5">
               <ChartHeader title="Macronutrient Distribution over Time" />
-              <Stacked width="auto" data={barChartData} height="300px" />
+              <Stacked 
+              width="auto" 
+              data={barChartData} 
+              height="300px"
+              name1="protein"
+              name2="fat"
+              name3="carbs"
+               />
             </div>
           }
           {lineChartData && lineChartData.length > 0 &&

@@ -19,7 +19,10 @@ const DashboardStandard = ({
   fat,
   barChartData,
   lineChartData,
-  maintenanceCalories
+  maintenanceCalories,
+  proteinBarChartData,
+  weelkyMacroDistribution,
+  proteinWeeklyAverage,
 }) => {
 
   return (
@@ -69,6 +72,7 @@ const DashboardStandard = ({
                   <p className="text-2xl">{protein}</p>
                   <p className="text-xs">{`${protein - 10} - ${protein + 10
                     } g`}</p>
+                    <p className="text-xs">{ Math.round(proteinWeeklyAverage / protein * 100) }%</p>
                 </div>
               </div>
             </div>
@@ -86,8 +90,8 @@ const DashboardStandard = ({
               <div className="flex-column w-6/12">
                 <ChartHeader title="Target" />
                 <PieChart
-                  series={[protein, fat + carbs]}
-                  labels={["Protein", "Fat", "Carbohydrates"]}
+                  series={[protein * 4, fat * 9 + carbs * 4]}
+                  labels={["Protein", "Fat & Carbs"]}
                 />
               </div>
 
@@ -95,8 +99,8 @@ const DashboardStandard = ({
               <div className="flex-column w-6/12">
                 <ChartHeader title="Actual" />
                 <PieChart
-                  series={[protein, fat + carbs]}
-                  labels={["Protein", "Fat", "Carbohydrates"]}
+                  series={[weelkyMacroDistribution[0] * 4, weelkyMacroDistribution[1] * 9 + weelkyMacroDistribution[2] * 4]}
+                  labels={["Protein", "Fat & Carbs"]}
                 />
               </div>
             </div>
@@ -119,10 +123,10 @@ const DashboardStandard = ({
         </div>
 
         <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
-          {barChartData && barChartData.length > 0 &&
+          {proteinBarChartData && proteinBarChartData.length > 0 &&
             <div className="w-6/12 bg-white align-center pb-5 pt-5">
               <ChartHeader title="Protein Distribution over Time" />
-              <Stacked width="auto" data={barChartData} height="300px" />
+              <Stacked width="auto" data={proteinBarChartData} height="300px" />
             </div>
           }
           {lineChartData && lineChartData.length > 0 &&

@@ -6,7 +6,7 @@ import { stackedCustomSeries, stackedPrimaryXAxis, stackedPrimaryYAxis } from '.
 
 
 
-const Stacked = ({ width, height, data }) => {
+const Stacked = ({ width, height, data, name1, name2, name3 }) => {
   const stackedChartData = data;
 console.log(data);
   const stackedCustomSeries = [
@@ -15,7 +15,7 @@ console.log(data);
       dataSource: stackedChartData[0],
       xName: 'x',
       yName: 'y',
-      name: 'Protein',
+      name: name1,
       type: 'StackingColumn',
     },
 
@@ -23,7 +23,7 @@ console.log(data);
       dataSource: stackedChartData[1],
       xName: 'x',
       yName: 'y',
-      name: 'Fat',
+      name: name2,
       type: 'StackingColumn',
     },
 
@@ -31,7 +31,7 @@ console.log(data);
       dataSource: stackedChartData[2],
       xName: 'x',
       yName: 'y',
-      name: 'Carbs',
+      name: name3,
       type: 'StackingColumn',
     },
 

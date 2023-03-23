@@ -1,13 +1,7 @@
-import { ColumnDirective, ColumnsDirective, GridComponent } from '@syncfusion/ej2-react-grids';
 import React, { useEffect, useState } from 'react';
-import { getUserDetails, getUserMacros, getUserRow } from '../api-requests/dashboard';
-import { SideBar } from '../components';
-import ChartHeader from '../components/charts/ChartsHeader';
-import LineChart from '../components/charts/LineChart';
-import PieChart from '../components/charts/PieChart';
-import Stacked from '../components/charts/Stacked';
+import { getUserDetails, getUserMacros, getUserRow, getProteinProportion, getHungerScore } from '../api-requests/dashboard';
 import { createHabitGridData } from '../data/chartData';
-import { getCarbs, getFat, getMaintenanceCalories, getProtein, getTargetCalories } from '../helper-functions/nutritionCalculations';
+import { getCarbs, getFat, getMaintenanceCalories, getProtein, getTargetCalories, getweelkyMacroDistribution, getProteinWeeklyAverage, getFatWeeklyAverage, getCarbsWeeklyAverage, getHunger } from '../helper-functions/nutritionCalculations';
 import DashboardIntuitive from "../components/DashboardIntuitive";
 import DashboardPrecise from "../components/DashboardPrecise";
 import DashboardStandard from "../components/DashboardStandard";
@@ -62,14 +56,28 @@ const DashboardPage = () => {
   //set and store chart data
   const [lineChartData, setLineChartData] = useState([]);
   const [barChartData, setBarChartData] = useState([]);
+  const [proteinBarChartData, setProteinBarChartData] = useState([]);
+  const [hungerScore, setHungerScore] = useState([]);
+
 
   //calculate nutrition targets
   const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
   const targetCalories = getTargetCalories(inputs.weight_change_goal, maintenanceCalories);
-  const protein = getProtein(inputs.weight, inputs.sex,inputs.body_fat_percentage);
+  const protein = getProtein(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const carbs = getCarbs(targetCalories, protein, fat);
 
+  const weelkyMacroDistribution = getweelkyMacroDistribution(barChartData); //pro, fat, cho, n
+  const proteinWeeklyAverage = getProteinWeeklyAverage(weelkyMacroDistribution);
+  const fatWeeklyAverage = getFatWeeklyAverage(weelkyMacroDistribution);
+  const carbsWeeklyAverage = getCarbsWeeklyAverage(weelkyMacroDistribution);
+
+  const avgWeeklyHungerBefore = getHunger(hungerScore, 7, 0); //data, days, index
+  const avgWeeklyHungerAfter = getHunger(hungerScore, 7, 1); //data, days, index
+
+
+
+console.log('hunger', hungerScore)
 
   //gets user details and habit goals from the database
   useEffect(() => {
@@ -108,8 +116,33 @@ const DashboardPage = () => {
       .then((res) => {
         setBarChartData(res);
       })
+      .catch((err) => {
+        console.log(err);
+      })
   }, []);
 
+
+  //get protein data
+  useEffect(() => {
+    getProteinProportion()
+      .then((res) => {
+        setProteinBarChartData(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+   //get hunger data
+   useEffect(() => {
+    getHungerScore()
+      .then((res) => {
+        setHungerScore(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
 
   const props = {
     currentHabits,
@@ -122,14 +155,21 @@ const DashboardPage = () => {
     fat,
     barChartData,
     lineChartData,
-    maintenanceCalories
+    maintenanceCalories,
+    proteinBarChartData,
+    weelkyMacroDistribution,
+    proteinWeeklyAverage,
+    fatWeeklyAverage,
+    carbsWeeklyAverage,
+    avgWeeklyHungerBefore,
+    avgWeeklyHungerAfter
   }
 
   return (
     <div className="bg-slate-100">
       {mode === "precise" && <DashboardPrecise {...props} />}
-      {mode === "intuitive" && <DashboardIntuitive {...props} />}
       {mode === "standard" && <DashboardStandard {...props} />}
+      {mode === "intuitive" && <DashboardIntuitive {...props} />}
     </div >
   );
 };

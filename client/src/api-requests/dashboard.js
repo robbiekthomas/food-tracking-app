@@ -8,7 +8,7 @@ const getUserRow = () => {
         return response.data;
       });
 
-}
+};
 
 //api call for line chart data
 const getUserDetails = () => {
@@ -18,7 +18,7 @@ const getUserDetails = () => {
       return response.data;
     });
 
-}
+};
 
 
 //api call for stacked macro chart data
@@ -26,13 +26,31 @@ const getUserMacros = () => {
 
   return axios.get('http://localhost:8000/api/dashboard/stackedMacroGraph')
     .then((response) => {
-      console.log('res', response.data);
       return response.data;
     });
 
+};
+
+
+const getProteinProportion = () => {
+  return axios.get('http://localhost:8000/api/dashboard/stackedProteinGraph')
+  .then((response) => {
+    return response.data;
+  });
+  
+};
+
+
+const getHungerScore = () => {
+  return axios.get('http://localhost:8000/api/dashboard/foodReflection')
+  .then((response) => {
+    console.log('res', response)
+    return response.data;
+  });
+  
 }
 
 
 
 
-export { getUserRow, getUserDetails, getUserMacros };
+export { getUserRow, getUserDetails, getUserMacros, getProteinProportion, getHungerScore };
