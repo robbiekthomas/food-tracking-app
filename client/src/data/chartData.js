@@ -4,7 +4,8 @@ import {
   LineElement,
   CategoryScale, //xaxis related
   LinearScale, //yaxis
-  PointElement
+  PointElement,
+  //Legend
 } from 'chart.js'
 
 ChartJS.register(
@@ -12,6 +13,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
+ //Legend
 )
 
 
@@ -207,7 +209,7 @@ export const lineChartOptions = {
       id: 'left',
       type: 'linear',
       position: 'left',
-      beginAtZero: true,
+      beginAtZero: false,
 
 
     },
@@ -215,7 +217,7 @@ export const lineChartOptions = {
       id: 'right',
       type: 'linear',
       position: 'right',
-      beginAtZero: true,
+      beginAtZero: false,
       grid: {
         drawOnChartArea: false
       },

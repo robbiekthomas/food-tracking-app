@@ -142,8 +142,9 @@ const DashboardPrecise = ({
               < div className="col-span-2 shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
                 <div className='grid grid-cols-2 divide-x-1 divide-slate-200 '>
                   <LineChart datapoints={lineChartData} />
-                  <div>Summary</div>
+                  <div>STRETCH - SUMMARY STATS</div>
                 </div>
+                
 
               </div>
             }
