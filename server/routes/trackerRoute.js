@@ -172,9 +172,26 @@ router.post("/intuitive", (req, res) => {
     });
 });
 
+router.delete("/intuitive", (req, res) => {
+  console.log("deleting data... ");
+  console.log("req.body", req.body);
+  const deleteQueryStr = `
+  DELETE FROM food_logs 
+  WHERE id = $1 AND meal_id = $2;
+  `;
+
+  db.query(deleteQueryStr, req.body)
+    .then((result) => {
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+
 router.get("/intuitive-breakfast", (req, res) => {
   const queryStr = `
-  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE meal_id = 1 AND user_id = 1 AND meal_date = CURRENT_DATE;
+  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE hunger_before IS NOT NULL AND meal_id = 1 AND user_id = 1 AND meal_date = CURRENT_DATE;
   `;
   db.query(queryStr)
     .then((result) => {
@@ -187,7 +204,7 @@ router.get("/intuitive-breakfast", (req, res) => {
 
 router.get("/intuitive-lunch", (req, res) => {
   const queryStr = `
-  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE meal_id = 2 AND user_id = 1 AND meal_date = CURRENT_DATE;
+  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE hunger_before IS NOT NULL AND meal_id = 2 AND user_id = 1 AND meal_date = CURRENT_DATE;
   `;
   db.query(queryStr)
     .then((result) => {
@@ -200,7 +217,7 @@ router.get("/intuitive-lunch", (req, res) => {
 
 router.get("/intuitive-dinner", (req, res) => {
   const queryStr = `
-  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE meal_id = 4 AND user_id = 1 AND meal_date = CURRENT_DATE;
+  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE hunger_before IS NOT NULL AND meal_id = 4 AND user_id = 1 AND meal_date = CURRENT_DATE;
   `;
   db.query(queryStr)
     .then((result) => {
@@ -213,7 +230,7 @@ router.get("/intuitive-dinner", (req, res) => {
 
 router.get("/intuitive-snack", (req, res) => {
   const queryStr = `
-  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE meal_id = 3 AND user_id = 1 AND meal_date = CURRENT_DATE;
+  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE hunger_before IS NOT NULL AND meal_id = 3 AND user_id = 1 AND meal_date = CURRENT_DATE;
   `;
   db.query(queryStr)
     .then((result) => {
@@ -223,5 +240,8 @@ router.get("/intuitive-snack", (req, res) => {
       console.log(err.message);
     });
 });
+
+router.delete("")
+
 
 module.exports = router;

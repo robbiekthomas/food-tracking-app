@@ -11,19 +11,19 @@ const TrackingIntuitive = () => {
       <h1>Breakfast</h1>
      
       <IntuitiveList  setToggle={setToggle} mealId={1} meal={"Breakfast"}/>
-      <IntuitiveLog toggle={toggle} meal={"breakfast"}/>
+      <IntuitiveLog toggle={toggle} setToggle={setToggle} meal={"breakfast"} mealId={1}/>
       <h1>Lunch</h1>
       
       <IntuitiveList setToggle={setToggle} mealId={2} meal={"Lunch"}/>
-      <IntuitiveLog toggle={toggle} meal={"lunch"}/>
+      <IntuitiveLog toggle={toggle} setToggle={setToggle} meal={"lunch"} mealId={2}/>
       <h1>Dinner</h1>
       
       <IntuitiveList setToggle={setToggle} mealId={4} meal={"Dinner"}/>
-      <IntuitiveLog toggle={toggle} meal={"dinner"}/>
+      <IntuitiveLog toggle={toggle} setToggle={setToggle} meal={"dinner"} mealId={4}/>
       <h1>Snack</h1>
      
       <IntuitiveList setToggle={setToggle} mealId={3} meal={"Snack"}/>
-      <IntuitiveLog toggle={toggle} meal={"snack"}/>
+      <IntuitiveLog toggle={toggle} setToggle={setToggle} meal={"snack"} mealId={3}/>
     </div>
   );
 };
