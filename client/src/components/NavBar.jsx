@@ -49,14 +49,18 @@ function NavBar() {
 
   const handleLogin = () => {
     setLoggedIn(true);
+    localStorage.setItem("login", true);
   };
 
   const handleLogout = () => {
     setLoggedIn(false);
+    localStorage.setItem("login", false);
+
   };
 
   const handleModeChange = (event, newMode) => {
     setMode(newMode);
+    localStorage.setItem("trackerMode", newMode);
   };
 
 
