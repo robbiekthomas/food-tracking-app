@@ -260,12 +260,17 @@ router.get("/habitGoals", (req, res) => {
 router.post("/habitGoals", (req, res) => {
   const queryStr = `
   UPDATE habitGoal_logs 
-  SET is_complete = $1
-  WHERE user_id = 1 AND id = 1;
+  SET is_complete = 
+    case id
+      WHEN $1 then $2
+      WHEN $3 then $4
+      WHEN $5 then $6
+      else is_complete
+    end
+  WHERE user_id = 1 AND date = CURRENT_DATE;
   `;
-
   console.log("req.body", req.body);
-  const queryParams = [req.body[0]];
+  const queryParams = req.body
   
   db.query(queryStr, queryParams)
     .then((result) => {
