@@ -26,7 +26,7 @@ const TrackingPrecise = (props) => {
 
   return (
     <div>
-      <h1 className="font-xl">Food Tracker</h1>
+      <h1 className="font-xl">Precise Food Tracker</h1>
 
       <Dialog onClose={handleClose} open={open} fullWidth
           maxWidth="xl">

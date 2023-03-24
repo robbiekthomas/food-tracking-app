@@ -69,8 +69,7 @@ router.delete("/food-log", (req, res) => {
 
   db.query(deleteQueryStr, req.body)
     .then((result) => {
-      res.json(result.rows)
-      
+      res.json(result.rows);
     })
     .catch((err) => {
       console.log(err.message);
@@ -158,18 +157,67 @@ router.get("/food-log-dinner", (req, res) => {
 });
 
 // submit intuitive log to database
-router.post("/hunger", (req, res) => {
+router.post("/intuitive", (req, res) => {
   const hungerQueryStr = `
-  UPDATE food_logs
-  SET
-    hunger_before = $1
-    hunger_after = $2
-  WHERE id = 1
-  AND meal_id = $3;
+  INSERT INTO food_logs(hunger_before, hunger_after, feeling_after_eating, meal_id, user_id)
+  VALUES ($1, $2, $3, $4, $5);
   `;
-  db.query(hungerQueryStr, [req.body])
+  db.query(hungerQueryStr, [req.body[0], req.body[1], req.body[2], req.body[3], req.body[4]])
     .then((result) => {
-      res.json(result.rows)
+      console.log('testtest', req.body)
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+
+router.get("/intuitive-breakfast", (req, res) => {
+  const queryStr = `
+  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE meal_id = 1 AND user_id = 1 AND meal_date = CURRENT_DATE;
+  `;
+  db.query(queryStr)
+    .then((result) => {
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+
+router.get("/intuitive-lunch", (req, res) => {
+  const queryStr = `
+  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE meal_id = 2 AND user_id = 1 AND meal_date = CURRENT_DATE;
+  `;
+  db.query(queryStr)
+    .then((result) => {
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+
+router.get("/intuitive-dinner", (req, res) => {
+  const queryStr = `
+  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE meal_id = 4 AND user_id = 1 AND meal_date = CURRENT_DATE;
+  `;
+  db.query(queryStr)
+    .then((result) => {
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+
+router.get("/intuitive-snack", (req, res) => {
+  const queryStr = `
+  SELECT hunger_before, hunger_after, feeling_after_eating, id FROM food_logs WHERE meal_id = 3 AND user_id = 1 AND meal_date = CURRENT_DATE;
+  `;
+  db.query(queryStr)
+    .then((result) => {
+      res.json(result.rows);
     })
     .catch((err) => {
       console.log(err.message);
