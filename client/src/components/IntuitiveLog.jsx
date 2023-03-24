@@ -13,8 +13,8 @@ const IntuitiveLog = (props) => {
       .get(`http://localhost:8000/api/tracker/intuitive-${props.meal}`)
       .then((response) => {
         setFeelings(response.data);
-        console.log("res.data", response.data);
-        console.log("feelings", feelings);
+        // console.log("res.data", response.data);
+        // console.log("feelings", feelings);
       })
       .catch((err) => {
         console.log(err);
@@ -76,7 +76,7 @@ const IntuitiveLog = (props) => {
 
   return (
     <div>
-      <div style={{ height: 300, width: "50%" }}>
+      <div style={{ height: 300, width: "100%" }}>
         <DataGrid rows={feelings} columns={columns} />
       </div>
     </div>

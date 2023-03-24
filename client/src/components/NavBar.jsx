@@ -28,7 +28,7 @@ const pages = ["dashboard", "tracker"];
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { loggedIn, setLoggedIn } = useLoginContext();
+  const { loggedIn, setLoggedIn, avatar, setAvatar } = useLoginContext();
   const { mode, setMode } = useModeContext();
   const { themeSettings, setThemeSettings, currentColor } = useStateContext();
 
@@ -171,7 +171,7 @@ function NavBar() {
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Avatar
                         alt="Remy Sharp"
-                        src="https://png.pngtree.com/png-vector/20200425/ourmid/pngtree-illustration-of-a-healthy-fat-man-situps-exercise-with-white-background-png-image_2194291.jpg"
+                        src={avatar}
                       />
                     </IconButton>
                   </Tooltip>
