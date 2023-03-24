@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { OutlinedInput, Chip, Modal, Box, Typography, TextField, InputLabel, Button, Select, MenuItem, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { Modal, Box, Typography, Slider, TextField, InputLabel, Button, Select, MenuItem, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { createHabitGridData } from '../data/chartData';
 import SwitchElement from './FormElements/Switch';
 import { bodyFatCalcHelper, targetWeightChangeHelper } from '../helper-functions/profileCalculations';
-import { Stacked } from '../components';
+
 import { habitsList } from '../data/chartData';
-import { useTheme } from '@mui/material/styles';
+
+import { useModeContext } from "../contexts/mode-status";
+
 
 
 
 //modal input states
 const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) => {
+  const { mode, setMode } = useModeContext();
   //modal state
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -49,27 +52,29 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
   const onHipMeasurementChange = (e) => setHipMeasurement(e.target.value);
   const onHeightChange = (e) => setHeight(e.target.value);
   const onManualTargetWeightChange = (e) => setTargetWeightChange(e.target.value)
+  const onModeChange = (e) => setMode(e.target.value);
 
 
   //update habit goals on the dashboard view
   const onGoal1Change = (e) => {
     const g = { goal_id: 1, is_complete: false, goal_name: e.target.value, date: '2024-03-09' };
     setGoal1(g)
-        const d = createHabitGridData(g, goal2, goal3);
-        setCurrentHabits(d);
+    const d = createHabitGridData(g, goal2, goal3);
+    setCurrentHabits(d);
   }
+
   const onGoal2Change = (e) => {
     const g = { goal_id: 2, is_complete: false, goal_name: e.target.value, date: '2024-03-09' };
     setGoal2(g)
-        const d = createHabitGridData(goal1, g, goal3);
-        setCurrentHabits(d);
+    const d = createHabitGridData(goal1, g, goal3);
+    setCurrentHabits(d);
   }
 
   const onGoal3Change = (e) => {
     const g = { goal_id: 3, is_complete: false, goal_name: e.target.value, date: '2024-03-09' };
     setGoal2(g)
-        const d = createHabitGridData(goal1, goal2, g);
-        setCurrentHabits(d);
+    const d = createHabitGridData(goal1, goal2, g);
+    setCurrentHabits(d);
   }
 
 
@@ -199,9 +204,9 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: '50%',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '2px solid #fff',
     boxShadow: 24,
     p: 4,
   };
@@ -209,52 +214,81 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
 
 
   return (
-    <div>
       <div>
-        <Button onClick={handleOpen}>Edit Profile</Button>
+        <Button onClick={handleOpen}>
+          <span className="text-right material-symbols-outlined">EDIT</span>
+        </Button>
         <Modal
+
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+
         >
-          <Box className='h-5/6 overflow-auto' sx={modalStyle}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Box
+            className='h-5/6 overflow-auto'
+            sx={modalStyle}
+          >
+            <Typography
+              sx={{ width: '100%' }}
+              className='text-center text-gray-800'
+              id="modal-modal-title"
+              variant="h6"
+            >
               Profile Settings
             </Typography>
-            <h2>General Account Information</h2>
-            <InputLabel>Name</InputLabel>
-            <TextField
-              name='name'
-              type='text'
-              onChange={(e) => onNameChange(e)}
-              placeholder={inputs.name}
-            />
-            <br />
 
-            <InputLabel>Email</InputLabel>
-            <TextField
-              name='email'
-              type='email'
-              onChange={(e) => onEmailChange(e)}
-              placeholder={inputs.email}
-            />
-            <br />
+            <h2 className='mt-5 text-center font-bold text-gray-600'>General Account Information</h2>
 
-            <InputLabel>Birthdate</InputLabel>
-            <TextField
-              name='birthdate'
-              type='date'
-              onChange={(e) => onBirthdateChange(e)}
-            />
-            <br />
+            {/**NAME */}
+            <div className='flex items-center'>
+              <InputLabel sx={{ fontWeight: 'medium', width: '20%' }} className='mt-3'>Full Name</InputLabel>
+              <TextField
+                margin="normal"
+                defaultValue={inputs.name}
+                sx={{ width: '80%' }}
+                size="small"
+                name='name'
+                type='text'
+                onChange={(e) => onNameChange(e)}
+              />
+            </div>
 
+            {/**EMAIL */}
+            <div className='flex items-center'>
+              <InputLabel sx={{ fontWeight: 'medium', width: '20%' }} className='mt-3'>Email</InputLabel>
+              <TextField
+                sx={{ width: '80%' }}
+                margin="normal"
+                size="small"
+                name='email'
+                type='email'
+                onChange={(e) => onEmailChange(e)}
+                defaultValue={inputs.email}
+              />
+            </div>
+
+            {/**BIRTHDAY */}
+            <div className='flex items-center'>
+              <InputLabel sx={{ fontWeight: 'medium', width: '20%' }} className='mt-3'>Birthdate</InputLabel>
+              <TextField
+                sx={{ width: '80%' }}
+                margin="normal"
+                size="small"
+                name='birthdate'
+                type='date'
+                onChange={(e) => onBirthdateChange(e)}
+              />
+            </div>
+
+            {/**SEX */}
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">Sex</FormLabel>
+              <FormLabel id="demo-radio-buttons-group-label" sx={{ fontWeight: 'medium' }} className='mt-5'>Sex</FormLabel>
               <RadioGroup
+                row
                 aria-labelledby="demo-radio-buttons-group-label"
-                value={sex}
-                defaultValue="other"
+                defaultValue={inputs.sex}
                 name="radio-buttons-group"
                 onChange={(e) => onSexChange(e)}
               >
@@ -265,68 +299,110 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
             </FormControl>
             <br />
 
-            <h2>Goal Settings</h2>
-            <InputLabel>Main Goal</InputLabel>
-            <Select
-              value={mainGoal}
-              onChange={(e) => onMaingoalChange(e)}
-            >
-              <MenuItem value={'maintain'}>Maintain</MenuItem>
-              <MenuItem value={'loseFat'}>Lose Fat</MenuItem>
-              <MenuItem value={'buildMuscle'}>Build Muscle</MenuItem>
-            </Select>
-            <br />
+
+            <h2 className='mt-10 text-center font-bold text-gray-600'>Goal Settings</h2>
+
+            {/**DEFAULT MODE */}
+            <FormControl>
+              <FormLabel sx={{ fontWeight: 'medium' }} id="demo-radio-buttons-group-label" className='mt-5' >Default Tracking Mode</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="demo-radio-buttons-group-label"
+                value={mode}
+                defaultValue="standard"
+                name="radio-buttons-group"
+                onChange={(e) => onModeChange(e)}
+              >
+                <FormControlLabel value="intuitive" control={<Radio />} label="Intuitive" />
+                <FormControlLabel value="standard" control={<Radio />} label="Standard" />
+                <FormControlLabel value="precise" control={<Radio />} label="Precise" />
+              </RadioGroup>
+            </FormControl>
+
+            {/**MAIN GOAL */}
+            <FormControl >
+              <FormLabel sx={{ fontWeight: 'medium' }} id="demo-radio-buttons-group-label" className='mt-5'>Main Goal</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="demo-radio-buttons-group-label"
+                name="radio-buttons-group"
+                onChange={(e) => onMaingoalChange(e)}
+                defaultValue={inputs.main_goal}
+              >
+                <FormControlLabel value="maintain" control={<Radio />} label="Maintain" />
+                <FormControlLabel value="loseFat" control={<Radio />} label="Lose Fat" />
+                <FormControlLabel value="buildMuscle" control={<Radio />} label="Build Muscle" />
+              </RadioGroup>
+            </FormControl>
+
 
             {/**habit goals */}
-            <InputLabel>Habit Goal One</InputLabel>
-            <Select onChange={(e) => onGoal1Change(e)}>
-              {habitsList.map((item, index) => (
-                <MenuItem
-                  key={index}
-                  value={item}
-                >
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-            <br />
+            <div className='flex items-center  mt-5'>
+              <InputLabel sx={{ fontWeight: 'medium', width: '30%' }} className='mt-3'>First Goal</InputLabel>
+              <Select
+                sx={{ width: '70%' }}
+                margin="normal"
+                size="small"
+                onChange={(e) => onGoal1Change(e)}
+                defaultValue={currentHabits[0].goal_name}
 
-            <InputLabel>Habit Goal Two</InputLabel>
-            <Select onChange={(e) => onGoal2Change(e)}>
-              {habitsList.map((item, index) => (
-                <MenuItem
-                  key={index}
-                  value={item}
-                >
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-            <br />
+              >
+                {habitsList.map((item, index) => (
+                  <MenuItem
+                    key={index}
+                    value={item}
+                  >
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
 
-            <InputLabel>Habit Goal Three</InputLabel>
-            <Select onChange={(e) => onGoal3Change(e)}>
-              {habitsList.map((item, index) => (
-                <MenuItem
-                  key={index}
-                  value={item}
-                >
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-            <br />
+            <div className='flex items-center mt-5'>
+              <InputLabel sx={{ fontWeight: 'medium', width: '30%' }} className='mt-3'>Second Goal</InputLabel>
+              <Select
+                margin="normal"
+                sx={{ width: '70%' }}
+                size="small"
+                onChange={(e) => onGoal2Change(e)}
+                defaultValue={currentHabits[1].goal_name}
+              >
+                {habitsList.map((item, index) => (
+                  <MenuItem
+                    key={index}
+                    value={item}
+                  >
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+
+            <div className='flex items-center  mt-5'>
+              <InputLabel sx={{ fontWeight: 'medium', width: '30%' }} className='mt-3'>Third Goal</InputLabel>
+              <Select
+                sx={{ width: '70%' }}
+                margin="normal"
+                size="small"
+                onChange={(e) => onGoal3Change(e)}
+                defaultValue={currentHabits[2].goal_name}
+              >
+                {habitsList.map((item, index) => (
+                  <MenuItem
+                    key={index}
+                    value={item}
+                  >
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
 
 
-            <h2>Body Fat and Weight</h2>
-            <InputLabel>Current Weight</InputLabel>
-            <TextField
-              name='weight'
-              type='number'
-              InputProps={{ inputProps: { min: -2, max: 2 } }}
-              onChange={(e) => onCurrentWeightChange(e)}
-            />
-            <InputLabel>Body Fat</InputLabel>
+            <h2 className='mt-10 text-center font-bold text-gray-600'>Body Fat</h2>
+
+            {/**Enable calculations */}
+            <InputLabel sx={{ fontWeight: 'medium' }} className='mt-3'>Body Fat</InputLabel>
             < SwitchElement
               label='enable calculations'
               checked={toggleBF}
@@ -334,59 +410,104 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
             />
             {toggleBF && (
               <>
-                <InputLabel>Height</InputLabel>
-                <TextField
-                  name='height'
-                  type='number'
-                  InputProps={{ inputProps: { min: 0 } }}
-                  onChange={(e) => onHeightChange(e)}
-                />
+                {/**height */}
+                <div className='flex items-center'>
+                  <InputLabel sx={{ fontWeight: 'medium', width: '40%' }} className='mt-3'>Height (cm)</InputLabel>
+                  <TextField
+                    sx={{ width: '60%' }}
+                    margin="normal"
+                    size="small"
+                    name='height'
+                    type='number'
+                    InputProps={{ inputProps: { min: 0 } }}
+                    onChange={(e) => onHeightChange(e)}
+                    defaultValue={inputs.height}
+                  />
+                </div>
 
-                <InputLabel>Waist Circumference</InputLabel>
-                <TextField
-                  name='waist'
-                  type='number'
-                  InputProps={{ inputProps: { min: 0 } }}
-                  onChange={(e) => onWaistMeasurementChange(e)}
-                />
+                <div className='flex items-center'>
+                  {/**waist */}
+                  <InputLabel sx={{ fontWeight: 'medium', width: '40%' }} className='mt-3'>Waist Circumference (cm)</InputLabel>
+                  <TextField
+                    sx={{ width: '60%' }}
+                    margin="normal"
+                    defaultValue={inputs.waist_circumference}
+                    size="small"
+                    name='waist'
+                    type='number'
+                    InputProps={{ inputProps: { min: 0 } }}
+                    onChange={(e) => onWaistMeasurementChange(e)}
+                  />
+                </div>
+                {/**neck calculations */}
+                <div className='flex items-center'>
+                  <InputLabel sx={{ fontWeight: 'medium', width: '40%' }} className='mt-3'>Neck Circumference (cm)</InputLabel>
+                  <TextField
+                    margin="normal"
+                    sx={{ width: '60%' }}
+                    defaultValue={inputs.neck_circumference}
+                    size="small"
+                    name='neck'
+                    type='number'
+                    InputProps={{ inputProps: { min: 0 } }}
+                    onChange={(e) => onNeckMeasurementChange(e)}
+                  />
+                </div>
 
-                <InputLabel>Neck Circumference</InputLabel>
-                <TextField
-                  name='neck'
-                  type='number'
-                  InputProps={{ inputProps: { min: 0 } }}
-                  onChange={(e) => onNeckMeasurementChange(e)}
-                />
-
+                {/**hip calculations */}
                 {sex !== "Male" && (
-                  <>
-                    <InputLabel>Hip Circumference</InputLabel>
+                  <div className='flex items-center'>
+                    <InputLabel sx={{ fontWeight: 'medium', width: '40%' }} className='mt-3'>Hip Circumference (cm)</InputLabel>
                     <TextField
+                      margin="normal"
+                      sx={{ width: '60%' }}
+                      defaultValue={inputs.hip_circumference}
                       name='hips'
+                      size="small"
                       type='number'
                       InputProps={{ inputProps: { min: 0 } }}
                       onChange={(e) => onHipMeasurementChange(e)}
                     />
-                  </>
+                  </div>
+
                 )}
               </>
             )}
 
+            {/**body fat estimate */}
             {!toggleBF && (
-              <>
-                <InputLabel>Body Fat %</InputLabel>
+              <div className='flex items-center'>
+                <InputLabel sx={{ fontWeight: 'medium', width: '30%' }} className='mt-3'>Body Fat %</InputLabel>
                 <TextField
+                  margin="normal"
+                  sx={{ width: '70%' }}
+                  defaultValue={inputs.body_fat_percentage}
                   name='bodyFat'
+                  size="small"
                   type='number'
                   InputProps={{ inputProps: { min: 0 } }}
                   onChange={(e) => onManualBodyFatChange(e)}
                 />
-              </>
+              </div>
             )}
 
-            <h2>Weight</h2>
+            {/**weight */}
+            <h2 className='mt-10 text-center font-bold text-gray-600'>Weight</h2>
 
-            <InputLabel>Weekly Weight Change Goal</InputLabel>
+            <div className='flex items-center'>
+              <InputLabel sx={{ fontWeight: 'medium', width: '30%' }} className='mt-3'>Current Weight (lbs)</InputLabel>
+              <TextField
+                margin="normal"
+                sx={{ width: '70%' }}
+                size="small"
+                name='weight'
+                type='number'
+                InputProps={{ inputProps: { min: -2, max: 2 } }}
+                onChange={(e) => onCurrentWeightChange(e)}
+                defaultValue={inputs.weight}
+              />
+            </div>
+            <InputLabel className='mt-5'>Weekly Weight Change Goal</InputLabel>
             < SwitchElement
               label='enable calculations'
               checked={toggleWCC}
@@ -395,12 +516,30 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
             <br />
 
             {toggleWCC && (
-              <h3>Estimated Target: {'toDo'}</h3>
+              <h3>Estimated Target: {'todo'}</h3>
             )}
             {!toggleWCC && (
               <>
-                <InputLabel>pounds per week</InputLabel>
+                <InputLabel sx={{ fontWeight: 'medium' }}>Weight Change Goal (lbs / week)</InputLabel>
+                <Slider
+
+                  margin="normal"
+                  aria-label="Custom marks"
+                  defaultValue={inputs.weight_change_goal}
+                  step={0.5}
+                  marks
+                  min={-2}
+                  max={2}
+                  valueLabelDisplay="auto"
+                  onChange={(e) => onManualTargetWeightChange(e)}
+
+                />
                 <TextField
+
+                  margin="normal"
+                  halfWidth
+                  defaultValue={inputs.weight_change_goal}
+                  size="small"
                   name='weightTarget'
                   type='number'
                   InputProps={{ inputProps: { min: -2, max: 2 } }}
@@ -409,13 +548,15 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
               </>
             )}
             <br />
-            <Button variant="contained" onClick={validateSubmission}>Save Changes</Button>
+            <Button
+              className='mt-5'
+              variant="contained"
+              onClick={validateSubmission}>Save Changes
+            </Button>
           </Box>
         </Modal>
       </div>
 
-
-    </div>
   );
 };
 

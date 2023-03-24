@@ -36,6 +36,7 @@ const DashboardStandard = ({
       />}
       {/*Nutrition Targets (top cards on dashboard)*/}
       <div className="w-3/4">
+      <h1 className='h-16 w-12/12 text-center text-gray-600 text-2xl'><strong>Main Goal:</strong> {inputs.main_goal}</h1>
         <div className="flex flex-wrap justify-around max-w-screen-lg">
 
         <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">

@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
-const axios = require("axios");
-const add = require('date-fns/add');
+const { format, add } = require('date-fns');
 const differenceInDays = require('date-fns/differenceInDays')
 
 require("dotenv").config();
@@ -66,6 +65,7 @@ router.get("/weightGraph", (req, res) => {
           }
         }
 
+        
         let objBF = { x: startDate, y: yBF };
         let objWeight = { x: startDate, y: yWeight };
         //bodyfat
@@ -120,9 +120,11 @@ router.get("/stackedMacroGraph", (req, res) => {
           }
         }
 
-        let obPro = { x: startDate, y: yPro };
-        let objFat = { x: startDate, y: yFat };
-        let objCho = { x: startDate, y: yCho };
+        const dateString = format(startDate, 'yyyy-MM-dd');
+
+        let obPro = { x: dateString, y: yPro };
+        let objFat = { x: dateString, y: yFat };
+        let objCho = { x: dateString, y: yCho };
 
         //protein
         data[0].push(obPro);
