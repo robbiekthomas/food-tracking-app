@@ -148,6 +148,7 @@ const DashboardPage = () => {
     getProteinProportion()
       .then((res) => {
         setProteinBarChartData(res);
+        console.log(1, res)
       })
       .catch((err) => {
         console.log(err);
@@ -195,7 +196,10 @@ const DashboardPage = () => {
     carbsWeeklyAverage,
     avgWeeklyHungerBefore,
     avgWeeklyHungerAfter,
-    topThreeMoods
+    topThreeMoods,
+    habitGoal1,
+    habitGoal2,
+    habitGoal3
   }
 
   return (

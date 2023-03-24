@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavBar } from "./components";
 import { ContextProvider, useStateContext } from "./contexts/ContextProvider";
 import { LoginProvider } from "./contexts/login-status";

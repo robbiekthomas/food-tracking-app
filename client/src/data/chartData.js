@@ -11,7 +11,7 @@ ChartJS.register(
   LineElement,
   CategoryScale,
   LinearScale,
-  PointElement
+  PointElement,
 )
 
 
@@ -28,9 +28,8 @@ export const stackedPrimaryXAxis = {
 
 export const stackedPrimaryYAxis = {
   lineStyle: { width: 0 },
-  minimum: 100,
-
-  interval: 100,
+  minimum: 0,
+  interval: 500,
   majorTickLines: { width: 0 },
   majorGridLines: { width: 1 },
   minorGridLines: { width: 1 },
@@ -124,16 +123,24 @@ export const habitsList =
     'Put your food/utensils down between bites'
   ];
 
+  //format day to weekday from a string
+  export const formatDateToWeekday = (dateString) => {
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const date = new Date(dateString);
+    return weekdays[date.getDay()];
+  }
 
-//line chart data
-//get x-axiis values and format dates
+//get x-axis values and format dates
 export const buildLineXAxis = (datapoints) => {
   let xAxis = [];
   datapoints[0].forEach(element => {
     xAxis.push(element.x.slice(0, 10));
   });
 
-  return xAxis;
+  //function to convert date strings to weekday string
+  const weekdays = xAxis.map((i) => formatDateToWeekday(i));
+
+  return weekdays;
 };
 
 
@@ -142,7 +149,7 @@ export const makeBodyFatLine = (datapoints) => {
   let bodyFat = []
   datapoints[1].forEach(element => {
     bodyFat.push(element.y);
-    
+
   });
   return bodyFat;
 };
@@ -188,38 +195,38 @@ export const compileLineData = (xAxis, bodyFat, weight) => {
 }
 
 export const lineChartOptions = {
-    plugins: {
-      legend: {
-        display: true,
-        position: 'bottom',
-      }
+  plugins: {
+    legend: {
+      display: true,
+      position: 'bottom',
+    }
+  },
+  scales: {
+
+    left: {
+      id: 'left',
+      type: 'linear',
+      position: 'left',
+      beginAtZero: true,
+
+
     },
-    scales: {
-
-      left: {
-        id: 'left',
-        type: 'linear',
-        position: 'left',
-       beginAtZero: true,
-
-
+    right: {
+      id: 'right',
+      type: 'linear',
+      position: 'right',
+      beginAtZero: true,
+      grid: {
+        drawOnChartArea: false
       },
-      right: {
-        id: 'right',
-        type: 'linear',
-        position: 'right',
-        beginAtZero: true,
-        grid: {
-          drawOnChartArea: false
-        },
-        ticks: {
-          callback: function(value) {
-            return `${value} %`;
-          }
+      ticks: {
+        callback: function(value) {
+          return `${value} %`;
         }
       }
-   }
- }
+    }
+  }
+}
 
 export const strictLineOptions = {
   plugins: {

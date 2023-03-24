@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 //import router
 const dashboardController = require('./routes/dashboardRoute');
 const trackerController = require('./routes/trackerRoute');
+const contextController = require('./routes/contextRoute');
 
 //use router
 app.use('/api/dashboard', dashboardController);
@@ -32,6 +33,7 @@ app.use('/api/dashboard/stackedMacroGraph', dashboardController);
 app.use('/api/dashboard/stackedProteinGraph', dashboardController);
 app.use('/api/dashboard/foodReflection', dashboardController);
 app.use('/api/dashboard/mood', dashboardController);
+app.use('/api/mode', contextController);
 app.use('/api/tracker', trackerController);
 
 

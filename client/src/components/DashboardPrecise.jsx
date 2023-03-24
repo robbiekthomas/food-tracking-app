@@ -5,6 +5,7 @@ import ChartHeader from './charts/ChartsHeader';
 import LineChart from './charts/LineChart';
 import PieChart from '../components/charts/PieChart';
 import Stacked from '../components/charts/Stacked';
+import Card from './charts/Card';
 
 
 
@@ -27,7 +28,10 @@ const DashboardPrecise = ({
 
 }) => {
 
-  
+  const proteinLabel = Math.round(protein * 4 / targetCalories * 100);
+  const fatLabel = Math.round(fat * 9 / targetCalories * 100);
+  const carbLabel = Math.round(carbs * 4 / targetCalories * 100)
+
   return (
     <div className="mt-5 flex">
       {/*Sidebar*/}
@@ -38,10 +42,13 @@ const DashboardPrecise = ({
         setCurrentHabits={setCurrentHabits}
       />}
       {/*Nutrition Targets (top cards on dashboard)*/}
-      <div className="w-3/4">
+      <div className="w-11/12">
+        <h1 className='h-16 w-12/12 text-center text-gray-600 text-2xl'><strong>Main Goal:</strong> {inputs.main_goal}</h1>
         <div className="flex flex-wrap justify-around max-w-screen-lg">
-          <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
-            <div className="rounded-xl p-8">
+
+          {/**CALORIES */}
+          <div className="h-28 w-1/5 flex flex-nowrap justify-center mr-1 ml-1 p-0.5">
+            <div className="bg-white rounded-xl p-8">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="font-bold text-gray-400">Target Calories</p>
@@ -53,60 +60,50 @@ const DashboardPrecise = ({
             </div>
           </div>
 
-          <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
-            <div className="rounded-xl p-8">
+          <div className="h-32 w-1/5 flex flex-nowrap justify-center mr-2 ml-2">
+            <div className="rounded-xl bg-white p-8">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="font-bold text-gray-400">Protein</p>
                   <p className="text-2xl">{protein}</p>
                   <p className="text-xs">{`${protein - 10} - ${protein + 10
                     } g`}</p>
-                    <p className="text-xs">{ Math.round(proteinWeeklyAverage / protein * 100) }%</p>
+                  <p className="text-xs">{Math.round(proteinWeeklyAverage / protein * 100)}%</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
-            <div className="rounded-xl p-8">
+          <div className="h-32 w-1/5 flex flex-nowrap justify-center mr-2 ml-2">
+            <div className="rounded-xl bg-white p-8">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="font-bold text-gray-400">Carbs</p>
                   <p className="text-2xl">{carbs}</p>
                   <p className="text-xs">{`${carbs - 10} - ${carbs + 10
                     } g`}</p>
-                    <p className="text-xs">{ Math.round(carbsWeeklyAverage / carbs * 100) }%</p>
+                  <p className="text-xs">{Math.round(carbsWeeklyAverage / carbs * 100)}%</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className=" h-32 w-57 bg-white flex flex-nowrap justify-center">
-            <div className="w-57 rounded-xl p-8">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-bold text-gray-400">Fat</p>
-                  <p className="text-2xl">{fat}</p>
-                  <p className="text-xs">{`${fat - 10} - ${fat + 10} g`}</p>
-                  <p className="text-xs">{ Math.round(fatWeeklyAverage / fat * 100) }%</p>
-                </div>
-              </div>
-            </div>
-          </div>
+<Card title={'Fat Target'} target={fat} unit={' grams'} performance={Math.round(fatWeeklyAverage / fat * 100)}/>
+          
         </div>
 
         {/* middle dashboard*/}
         <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
           <div className="w-5/12 bg-white align-center pb-5">
-            <p className="mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl">
-              Macronutrient Distribution (% Total Calories)
+            <p className="mt-5 mb-2 w-full text-center text-gray-400 font-bold text-l">
+              Macronutrient Proportions
             </p>
             <div className="flex justify-between">
               <div className="flex-column w-6/12">
-                <ChartHeader title="Target" />
+                <ChartHeader title="Goal" />
                 <PieChart
-                  series={[protein * 4, fat * 9, carbs * 4]}
-                  labels={["Protein", "Fat", "Carbohydrates"]}
+                  series={[proteinLabel, fatLabel, carbLabel]}
+                  labels={["Protein (%)", "Fat (%)", "Carbohydrates (%)"]}
                 />
               </div>
 
@@ -141,14 +138,14 @@ const DashboardPrecise = ({
           {barChartData && barChartData.length > 0 &&
             <div className="w-6/12 bg-white align-center pb-5 pt-5">
               <ChartHeader title="Macronutrient Distribution over Time" />
-              <Stacked 
-              width="auto" 
-              data={barChartData} 
-              height="300px"
-              name1="protein"
-              name2="fat"
-              name3="carbs"
-               />
+              <Stacked
+                width="auto"
+                data={barChartData}
+                height="300px"
+                name1="protein"
+                name2="fat"
+                name3="carbs"
+              />
             </div>
           }
           {lineChartData && lineChartData.length > 0 &&

@@ -85,11 +85,13 @@ const getweelkyMacroDistribution = (data) => {
   return distribution;
 };
 
+
 //in grams
 const getProteinWeeklyAverage = (macros) => {
   let x = macros[0] / macros[3];
   return x;
 };
+
 
 //in grams
 const getFatWeeklyAverage = (macros) => {
@@ -97,11 +99,13 @@ const getFatWeeklyAverage = (macros) => {
   return x;
 };
 
+
 //in grams
 const getCarbsWeeklyAverage = (macros) => {
   let x = macros[2] / macros[3];
   return x;
 };
+
 
 //gets hunger data, based on number of days we care about, and the index of that dataset (index 0 is hunger before and 1 is hungr after)
 const getHunger = (data, n, i) => {
@@ -120,6 +124,7 @@ const getHunger = (data, n, i) => {
 
   return avg;
 };
+
 
 //get today's daye in string format ('yyyy-mm-dd')
 const getTodaysDate= () => {

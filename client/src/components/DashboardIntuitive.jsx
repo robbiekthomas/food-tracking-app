@@ -42,6 +42,7 @@ const DashboardIntuitive = ({
       />}
       {/*Nutrition Targets (top cards on dashboard)*/}
       <div className="w-3/4">
+      <h1 className='h-16 w-12/12 text-center text-gray-600 text-2xl'><strong>Main Goal:</strong> {inputs.main_goal}</h1>
         <div className="flex flex-wrap justify-around max-w-screen-lg">
 
           <div className="h-32 w-57 bg-white flex flex-nowrap justify-center mr-2 ml-2">
@@ -154,21 +155,15 @@ const DashboardIntuitive = ({
           </div>
         </div>
 
-        <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
-          {proteinBarChartData && proteinBarChartData.length > 0 &&
-            <div className="w-6/12 bg-white align-center pb-5 pt-5">
-              <ChartHeader title="Protein Distribution over Time" />
-              <Stacked width="auto" data={proteinBarChartData} height="300px" />
-            </div>
-          }
+        
           {lineChartData && lineChartData.length > 0 &&
-            < div className="w-5/12 text-black bg-white align-center pb-5 pt-5">
+            < div className="w-12/12 text-black bg-white align-center mt-10 mb-10 ml-10 mr-10 pb-5 pt-5">
               <ChartHeader title="Weight Change" />
               <LineChart datapoints={lineChartData} />
             </div>
           }
 
-        </div>
+   
       </div>
     </div>
   );
