@@ -241,7 +241,40 @@ router.get("/intuitive-snack", (req, res) => {
     });
 });
 
-router.delete("")
+router.get("/habitGoals", (req, res) => {
+  const queryStr = `
+  SELECT goal_name, is_complete, habitGoal_logs.id
+  FROM habitGoals
+  JOIN habitGoal_logs ON goal_id = habitGoals.id
+  WHERE user_id = 1 AND date = CURRENT_DATE;
+  `;
+  db.query(queryStr)
+    .then((result) => {
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+
+router.post("/habitGoals", (req, res) => {
+  const queryStr = `
+  UPDATE habitGoal_logs 
+  SET is_complete = $1
+  WHERE user_id = 1 AND id = 1;
+  `;
+
+  console.log("req.body", req.body);
+  const queryParams = [req.body[0]];
+  
+  db.query(queryStr, queryParams)
+    .then((result) => {
+      res.json(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
 
 
 module.exports = router;
