@@ -1,11 +1,16 @@
 import React from 'react'
-import { ColumnDirective, ColumnsDirective, GridComponent } from '@syncfusion/ej2-react-grids';
+import HabitCard from '../components/charts/HabitCard'
 import SideBar from './SideBar';
 import ChartHeader from './charts/ChartsHeader';
 import LineChart from './charts/LineChart';
 import PieChart from '../components/charts/PieChart';
 import Stacked from '../components/charts/Stacked';
 import Card from './charts/Card';
+import classNames from 'classnames';
+import ViewSwitch from './ViewSwitch';
+
+
+
 
 
 
@@ -24,7 +29,9 @@ const DashboardPrecise = ({
   proteinWeeklyAverage,
   fatWeeklyAverage,
   carbsWeeklyAverage,
-  mood
+  mood,
+  calorieWeeklyAverage,
+  date
 
 }) => {
 
@@ -32,8 +39,10 @@ const DashboardPrecise = ({
   const fatLabel = Math.round(fat * 9 / targetCalories * 100);
   const carbLabel = Math.round(carbs * 4 / targetCalories * 100)
 
+
+
   return (
-    <div className="mt-5 flex">
+    <div className="flex">
       {/*Sidebar*/}
       {currentHabits.length > 0 && <SideBar
         inputs={inputs}
@@ -42,122 +51,110 @@ const DashboardPrecise = ({
         setCurrentHabits={setCurrentHabits}
       />}
       {/*Nutrition Targets (top cards on dashboard)*/}
-      <div className="w-11/12">
-        <h1 className='h-16 w-12/12 text-center text-gray-600 text-2xl'><strong>Main Goal:</strong> {inputs.main_goal}</h1>
-        <div className="flex flex-wrap justify-around max-w-screen-lg">
 
-          {/**CALORIES */}
-          <div className="h-28 w-1/5 flex flex-nowrap justify-center mr-1 ml-1 p-0.5">
-            <div className="bg-white rounded-xl p-8">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-bold text-gray-400">Target Calories</p>
-                  <p className="text-2xl">{targetCalories}</p>
-                  <p className="text-xs">{`${targetCalories - 100} - ${targetCalories + 100
-                    } cal`}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="w-3/4 ml-4 mr-4 pt-3">
+        <ViewSwitch
+          date={date}
+          goal={inputs.main_goal}
+          view1='All Time'
+          view2='Last 30 Days'
+          view3='Last 7 Days'
+        />
+        <div className={classNames('w-full', 'grid', 'grid-cols-3', 'grid-rows-2, gap-3')}>
+          <Card
+            title={'Calories'}
+            color='#666666'
+            target={`${targetCalories - 100} - ${targetCalories + 100} kcal`}
+            performance={Math.round(calorieWeeklyAverage / targetCalories * 100)} />
 
-          <div className="h-32 w-1/5 flex flex-nowrap justify-center mr-2 ml-2">
-            <div className="rounded-xl bg-white p-8">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-bold text-gray-400">Protein</p>
-                  <p className="text-2xl">{protein}</p>
-                  <p className="text-xs">{`${protein - 10} - ${protein + 10
-                    } g`}</p>
-                  <p className="text-xs">{Math.round(proteinWeeklyAverage / protein * 100)}%</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Card
+            title={'Protein'}
+            target={`${protein - 10} - ${protein + 10} grams`}
+            unit='grams'
+            color='#CB4141'
+            performance={Math.round(proteinWeeklyAverage / protein * 100)} />
 
-          <div className="h-32 w-1/5 flex flex-nowrap justify-center mr-2 ml-2">
-            <div className="rounded-xl bg-white p-8">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-bold text-gray-400">Carbs</p>
-                  <p className="text-2xl">{carbs}</p>
-                  <p className="text-xs">{`${carbs - 10} - ${carbs + 10
-                    } g`}</p>
-                  <p className="text-xs">{Math.round(carbsWeeklyAverage / carbs * 100)}%</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div className="shadow-sm relative rounded-lg row-span-2 bg-white align-center px-2">
+            <ChartHeader title={'Macronutrient Distribution'} />
 
-<Card title={'Fat Target'} target={fat} unit={' grams'} performance={Math.round(fatWeeklyAverage / fat * 100)}/>
-          
-        </div>
-
-        {/* middle dashboard*/}
-        <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
-          <div className="w-5/12 bg-white align-center pb-5">
-            <p className="mt-5 mb-2 w-full text-center text-gray-400 font-bold text-l">
-              Macronutrient Proportions
-            </p>
-            <div className="flex justify-between">
-              <div className="flex-column w-6/12">
-                <ChartHeader title="Goal" />
+            <div className="flex justify-around">
+              <div className='w-5/12'>
                 <PieChart
-                  series={[proteinLabel, fatLabel, carbLabel]}
-                  labels={["Protein (%)", "Fat (%)", "Carbohydrates (%)"]}
+                  title='Target'
+                  series={[protein, fat, carbs]}
+                  labels={['Protein (%)', 'Fat (%)', 'Carbohydrates (%)']}
                 />
               </div>
-
               {/* Actual Macro Distribution From Diet */}
-              <div className="flex-column w-6/12">
-                <ChartHeader title="Actual" />
+              <div className='w-5/12'>
                 <PieChart
+                  title='Actual'
                   series={[weelkyMacroDistribution[0] * 4, weelkyMacroDistribution[1] * 9, weelkyMacroDistribution[2] * 4]}
-                  labels={["Protein", "Fat", "Carbohydrates"]}
+                  labels={['Protein (%)', 'Fat (%)', 'Carbohydrates (%)']}
                 />
               </div>
             </div>
+          </div>
 
-            {/* Habit goals */}
-          </div>
-          <div className='bg-white w-6/12'>
-            <p className='mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl'>Habit Goals</p>
-            <div className='m-5 bg-white'>
-              <GridComponent dataSource={currentHabits}>
-                <ColumnsDirective>
-                  <ColumnDirective headerText='Status' field='is_complete' width='20' textAlign="Center" />
-                  <ColumnDirective headerText='Goal' field='goal_name' width='80' />
-                  <ColumnDirective field='goal_number' width='0' />
-                  <ColumnDirective field='goal_id' width='0' />
-                </ColumnsDirective>
-              </GridComponent>
-            </div>
-          </div>
+          <Card
+            title={'Carbohydrates'}
+            target={`${carbs - 10} - ${carbs + 10} grams`}
+            unit='grams'
+            color='#cbcb41'
+            performance={Math.round(carbsWeeklyAverage / carbs * 100)} />
+
+          <Card
+            title={'Fat'}
+            target={`${fat - 10} - ${fat + 10} grams`}
+            unit='grams'
+            color='#48b2c1'
+            performance={Math.round(fatWeeklyAverage / fat * 100)}
+          />
         </div>
 
-        <div className="flex justify-between mt-10 mb-10 ml-10 mr-10">
-          {barChartData && barChartData.length > 0 &&
-            <div className="w-6/12 bg-white align-center pb-5 pt-5">
-              <ChartHeader title="Macronutrient Distribution over Time" />
-              <Stacked
-                width="auto"
-                data={barChartData}
-                height="300px"
-                name1="protein"
-                name2="fat"
-                name3="carbs"
+        {/* HABIT GOALS*/}
+        <div className="mt-3">
+          <div className={classNames('w-full', 'grid', 'grid-cols-2', 'grid-rows-3 gap-3')}>
+            <div className="bg-white shadow-sm relative rounded-lg pl-2'">
+              <HabitCard
+                dataSource={currentHabits}
+                title='Habit Goals'
               />
             </div>
-          }
-          {lineChartData && lineChartData.length > 0 &&
-            < div className="w-5/12 text-black bg-white align-center pb-5 pt-5">
-              <ChartHeader title="Weight Change" />
-              <LineChart datapoints={lineChartData} />
-            </div>
-          }
+
+
+
+            {barChartData && barChartData.length > 0 &&
+              <div className="shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
+                <ChartHeader title="Macronutrients (% of total calories)" />
+                <Stacked
+                  width="auto"
+                  data={barChartData}
+                  height="200px"
+                  name1="protein"
+                  name2="fat"
+                  name3="carbs"
+                />
+              </div>
+            }
+
+            {lineChartData && lineChartData.length > 0 &&
+              < div className="col-span-2 shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
+                <div className='grid grid-cols-2 divide-x-1 divide-slate-200 '>
+                  <LineChart datapoints={lineChartData} />
+                  <div>Summary</div>
+                </div>
+
+              </div>
+            }
+          </div>
 
         </div>
+
+
       </div>
     </div>
+
   );
 };
 

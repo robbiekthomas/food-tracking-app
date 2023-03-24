@@ -22,3 +22,5 @@ router.post("/", (req, res) => {
       console.log(err.message);
     })
 });
+
+module.exports = router;

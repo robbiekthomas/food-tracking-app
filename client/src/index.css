@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -168,3 +169,4 @@ code {
   background: rgba(255, 255, 255, 0.6);
   filter: blur(750px);
 }
+

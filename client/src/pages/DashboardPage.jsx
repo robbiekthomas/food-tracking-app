@@ -4,6 +4,7 @@ import DashboardIntuitive from "../components/DashboardIntuitive";
 import DashboardPrecise from "../components/DashboardPrecise";
 import DashboardStandard from "../components/DashboardStandard";
 import { useModeContext } from "../contexts/mode-status";
+import '../styles/Dashboard.css'; 
 
 import {
   getUserDetails,
@@ -24,8 +25,10 @@ import {
   getProteinWeeklyAverage,
   getFatWeeklyAverage,
   getCarbsWeeklyAverage,
+  getCalorieWeeklyAverage,
   getHunger,
-  getTopThreeMoods
+  getTopThreeMoods,
+  getTodaysDate
 }
 from '../helper-functions/nutritionCalculations';
 
@@ -90,12 +93,13 @@ const DashboardPage = () => {
   const protein = getProtein(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const carbs = getCarbs(targetCalories, protein, fat);
+  const date = getTodaysDate();
 
   const weelkyMacroDistribution = getweelkyMacroDistribution(barChartData); //pro, fat, cho, n
   const proteinWeeklyAverage = getProteinWeeklyAverage(weelkyMacroDistribution);
   const fatWeeklyAverage = getFatWeeklyAverage(weelkyMacroDistribution);
   const carbsWeeklyAverage = getCarbsWeeklyAverage(weelkyMacroDistribution);
-
+  const  calorieWeeklyAverage = getCalorieWeeklyAverage(weelkyMacroDistribution)
   const avgWeeklyHungerBefore = getHunger(hungerScore, 7, 0); //data, days, index
   const avgWeeklyHungerAfter = getHunger(hungerScore, 7, 1); //data, days, index
   const topThreeMoods = getTopThreeMoods(mood);
@@ -199,7 +203,9 @@ const DashboardPage = () => {
     topThreeMoods,
     habitGoal1,
     habitGoal2,
-    habitGoal3
+    habitGoal3,
+    calorieWeeklyAverage,
+    date
   }
 
   return (

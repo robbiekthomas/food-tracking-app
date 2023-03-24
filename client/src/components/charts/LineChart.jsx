@@ -1,20 +1,8 @@
 import React from 'react';
-import { strictLineOptions, strictLinedata, buildLineXAxis, makeBodyFatLine, lineChartOptions, compileLineData, buildLineYAxis } from '../../data/chartData';
+import { buildLineXAxis, makeBodyFatLine, lineChartOptions, compileLineData, buildLineYAxis } from '../../data/chartData';
 import { Line } from 'react-chartjs-2';
-// import {
-//   Chart as ChartJS,
-//   LineElement,
-//   CategoryScale, //xaxis related
-//   LinearScale, //yaxis
-//   PointElement
-// } from 'chart.js'
+import ChartHeader from './ChartsHeader';
 
-// ChartJS.register(
-//   LineElement,
-//   CategoryScale,
-//   LinearScale,
-//   PointElement
-// )
 
 const LineChart = ({ datapoints }) => {
 
@@ -25,9 +13,12 @@ const LineChart = ({ datapoints }) => {
   const options = lineChartOptions;
 
   return (
-    <div className='chart' >
+    <div>
+      <ChartHeader title="Weight Change" />
       <Line data={data} options={options}></Line>
-    </div >
+    </div>
+
+
   )
 }
 

@@ -215,7 +215,7 @@ const EditProfileForm = ({ inputs, change, currentHabits, setCurrentHabits }) =>
 
   return (
       <div>
-        <Button fullwidth onClick={handleOpen}>
+        <Button onClick={handleOpen}>
           <span className="text-right material-symbols-outlined">EDIT</span>
         </Button>
         <Modal

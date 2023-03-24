@@ -106,6 +106,11 @@ const getCarbsWeeklyAverage = (macros) => {
   return x;
 };
 
+const getCalorieWeeklyAverage = (macros) => {
+  let x = (macros[0] * 4) + (macros[1] * 9) / macros[3];
+return x;
+}
+
 
 //gets hunger data, based on number of days we care about, and the index of that dataset (index 0 is hunger before and 1 is hungr after)
 const getHunger = (data, n, i) => {
@@ -127,7 +132,7 @@ const getHunger = (data, n, i) => {
 
 
 //get today's daye in string format ('yyyy-mm-dd')
-const getTodaysDate= () => {
+const getTodaysDate = () => {
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -192,5 +197,6 @@ export {
   getProteinWeeklyAverage, 
   getHunger,
   getTopThreeMoods,
-  getTodaysDate
+  getTodaysDate,
+  getCalorieWeeklyAverage
 };
