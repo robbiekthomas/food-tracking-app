@@ -6,8 +6,6 @@ const IntuitiveLog = (props) => {
   const [feelings, setFeelings] = useState([]);
   
 
-  // const rows = [2,3,'hungry',1]
-
   useEffect(() => {
     axios
       .get(`http://localhost:8000/api/tracker/intuitive-${props.meal}`)
@@ -42,8 +40,6 @@ const IntuitiveLog = (props) => {
     }
   ];
 
-  // console.log("feelings", feelings);
-  // console.log("columsn", columns);
   return (
     <div>
       <div style={{ height: 300, width: "50%" }}>
