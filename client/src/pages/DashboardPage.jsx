@@ -57,6 +57,7 @@ const DashboardPage = () => {
 
   //Set and store current habit goals
   const [currentHabits, setCurrentHabits] = useState([]);
+  
   const [habitGoal1, setCurrentHabitGoal1] = useState({
     goal_id: 0,
     is_complete: false,

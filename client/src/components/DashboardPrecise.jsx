@@ -101,18 +101,20 @@ const DashboardPrecise = ({
           />
         </div>
 
-        {/* HABIT GOALS*/}
         <div className="mt-3">
           <div className={classNames('w-full', 'grid', 'grid-cols-2', 'grid-rows-3 gap-3')}>
-            <div className="bg-white shadow-sm relative rounded-lg pl-2'">
-              <HabitCard
-                dataSource={currentHabits}
-                title='Habit Goals'
-              />
-            </div>
 
+            {/* HABIT GOALS*/}
+            {currentHabits && currentHabits.length > 0 &&
+              <div className="bg-white shadow-sm relative rounded-lg pl-2'">
+                <HabitCard
+                  dataSource={currentHabits}
+                  title='Habit Goals'
+                />
+              </div>
+            }
 
-
+            {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
             {barChartData && barChartData.length > 0 &&
               <div className="shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
                 <ChartHeader title="Macronutrients (grams per day)" />
@@ -125,14 +127,16 @@ const DashboardPrecise = ({
               </div>
             }
 
+            {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 &&
-              < div className="col-span-2 shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
-                <div className='grid grid-cols-2 divide-x-1 divide-slate-200 '>
+              < div className="col-span-3 shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
+                
                   <LineChart datapoints={lineChartData} />
-                  <div>STRETCH - SUMMARY STATS</div>
-                </div>
+              
+           
               </div>
             }
+
           </div>
         </div>
       </div>

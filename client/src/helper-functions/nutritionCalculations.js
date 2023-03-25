@@ -179,7 +179,6 @@ const getTopThreeMoods = (feelingsArr) => {
     acc[feeling] = count;
     return acc;
   }, {});
-  console.log(top3Feelings)
 
 return top3Feelings;
 }

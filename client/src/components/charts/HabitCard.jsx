@@ -4,7 +4,6 @@ import ChartHeader from './ChartsHeader';
 
 
 const HabitCard = ({ title, dataSource }) => {
-console.log(1, dataSource)
   const text = '\u2605';
 
   return (
@@ -14,7 +13,7 @@ console.log(1, dataSource)
         <Table aria-label="simple table">
           <TableBody>
             {dataSource.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row.goal_id}>
                 {row.is_complete &&
                   <TableCell>{text}</TableCell>
                 }

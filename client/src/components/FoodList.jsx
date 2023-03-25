@@ -78,7 +78,6 @@ const FoodList = (props) => {
     axios
       .post(url, values)
       .then((res) => {
-        console.log("res", res);
         props.setShowList((prev) => !prev);
       })
       .catch((err) => {

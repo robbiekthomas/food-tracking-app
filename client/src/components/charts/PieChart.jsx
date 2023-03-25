@@ -15,7 +15,7 @@ ChartJS.register(
 
 
 const PieChart = ({ series, labels, title }) => {
-console.log(labels, title)
+
   const options = {
     cutout: '75%',
     plugins: {
