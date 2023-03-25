@@ -10,6 +10,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import Slider from "@mui/material/Slider";
 import axios from "axios";
 
 const IntuitiveList = (props) => {
@@ -17,7 +18,7 @@ const IntuitiveList = (props) => {
   const [hungerAfter, setHungerAfter] = useState();
   const [feelingAfter, setFeelingAfter] = useState();
   const [open, setOpen] = useState(false);
-  
+
   const setToggle = props.setToggle;
 
   const handleClickOpen = () => {
@@ -25,11 +26,12 @@ const IntuitiveList = (props) => {
   };
 
   const handleHungerBeforeChange = (event) => {
-    setHungerBefore(event.target.value);
+    setHungerBefore(event);
+    // console.log("hungerBefore", event);
   };
 
   const handleHungerAfterChange = (event) => {
-    setHungerAfter(event.target.value);
+    setHungerAfter(event);
   };
 
   const handleFeelingChange = (event) => {
@@ -43,7 +45,7 @@ const IntuitiveList = (props) => {
   const handleSubmit = () => {
     console.log(hungerBefore, hungerAfter, feelingAfter);
     setOpen(false);
-    setToggle(prev => !prev);
+    setToggle((prev) => !prev);
     const values = [hungerBefore, hungerAfter, feelingAfter, props.mealId, 1];
 
     axios
@@ -58,59 +60,56 @@ const IntuitiveList = (props) => {
 
   return (
     <div>
-       <Button variant="outlined" onClick={handleClickOpen}>
-        How was {props.meal}?
+      <Button
+        sx={{ width: "100%", p: 1 }}
+        variant="contained"
+        onClick={handleClickOpen}
+      >
+        Add {props.meal}
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        PaperProps={{
+          sx: {
+            width: "50%",
+            maxHeight: 500,
+            p: 1,
+          },
+        }}
+        open={open}
+        onClose={handleClose}
+      >
         <DialogTitle> {props.meal} Log</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            How hungry were you before and after the meal?
+            How hungry were you before the meal?
           </DialogContentText>
-          <FormControl fullWidth>
-            <InputLabel id="hunger-before-label">Before</InputLabel>
-            <Select
-              labelId="hungerScore"
-              id="hunger-before"
-              value={hungerBefore}
-              label="hungerBefore"
-              onChange={handleHungerBeforeChange}
-              sx={{ width: "150px" }}
-            >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={6}>6</MenuItem>
-              <MenuItem value={7}>7</MenuItem>
-              <MenuItem value={8}>8</MenuItem>
-              <MenuItem value={9}>9</MenuItem>
-              <MenuItem value={10}>10</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id="hunger-after-label">After</InputLabel>
-            <Select
-              labelId="hungerScore"
-              id="hunger-after"
-              value={hungerAfter}
-              label="hungerAfter"
-              onChange={handleHungerAfterChange}
-              sx={{ width: "150px" }}
-            >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={6}>6</MenuItem>
-              <MenuItem value={7}>7</MenuItem>
-              <MenuItem value={8}>8</MenuItem>
-              <MenuItem value={9}>9</MenuItem>
-              <MenuItem value={10}>10</MenuItem>
-            </Select>
-          </FormControl>
+
+          <Slider
+            aria-label="hunger-before"
+            defaultValue={5}
+            getAriaValueText={handleHungerBeforeChange}
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={1}
+            max={10}
+          />
+
+          <DialogContentText>
+            How hungry were you after the meal?
+          </DialogContentText>
+
+          <Slider
+            aria-label="hunger-after"
+            defaultValue={5}
+            getAriaValueText={handleHungerAfterChange}
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={1}
+            max={10}
+          />
+
           <DialogContentText>How do you feel after the meal?</DialogContentText>
           <FormControl fullWidth>
             <InputLabel id="feeling-after-label">Feeling After</InputLabel>
@@ -138,11 +137,11 @@ const IntuitiveList = (props) => {
               </MenuItem>
             </Select>
           </FormControl>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleSubmit}>Submit</Button>
+          </DialogActions>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Submit</Button>
-        </DialogActions>
       </Dialog>
     </div>
   );
