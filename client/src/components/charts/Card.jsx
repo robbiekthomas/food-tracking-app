@@ -3,7 +3,9 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 
+
 const Card = ({ title, target, performance, color }) => {
+
   //color will change to be more vibrant to less vibrant as they get closer/farther from the target
 
   let pathValue = performance;

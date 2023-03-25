@@ -77,6 +77,7 @@ const EditProfileForm = ({
 
   //update habit goals on the dashboard view
   const onGoal1Change = (e) => {
+
     const g = {
       goal_id: 1,
       is_complete: false,
@@ -84,11 +85,13 @@ const EditProfileForm = ({
       date: "2024-03-09",
     };
     setGoal1(g);
+
     const d = createHabitGridData(g, goal2, goal3);
     setCurrentHabits(d);
   };
 
   const onGoal2Change = (e) => {
+
     const g = {
       goal_id: 2,
       is_complete: false,
@@ -96,11 +99,13 @@ const EditProfileForm = ({
       date: "2024-03-09",
     };
     setGoal2(g);
+
     const d = createHabitGridData(goal1, g, goal3);
     setCurrentHabits(d);
   };
 
   const onGoal3Change = (e) => {
+
     const g = {
       goal_id: 3,
       is_complete: false,
@@ -108,6 +113,7 @@ const EditProfileForm = ({
       date: "2024-03-09",
     };
     setGoal2(g);
+
     const d = createHabitGridData(goal1, goal2, g);
     setCurrentHabits(d);
   };
@@ -218,16 +224,26 @@ const EditProfileForm = ({
     };
 
     change(submissionValues);
-    updateDatabase(submissionValues);
+
+    updateDatabase(submissionValues, currentHabits);
+
   };
 
   //post updates -> server -> db
-  const updateDatabase = (values) => {
+  const updateDatabase = (values, habits) => {
     handleClose();
-    const url = "http://localhost:8000/api/dashboard/user/insert";
-    axios
-      .post(url, values)
-      .then((res) => {})
+
+    const urlUser = 'http://localhost:8000/api/dashboard/user/insert';
+    const urlHabits = 'http://localhost:8000/api/dashboard/habitGoals/insert';
+
+    axios.all([
+      axios.post(urlUser, values),
+      axios.post(urlHabits, habits)
+    ])
+      .then((res) => {
+        console.log("res", res)
+      })
+
       .catch((err) => {
         console.log(err);
       });
@@ -566,7 +582,7 @@ const EditProfileForm = ({
                   defaultValue={inputs.neck_circumference}
                   size="small"
                   name="neck"
-                  type="number"
+                  type="number"<<<<<<< tracking-page
                   InputProps={{ inputProps: { min: 0 } }}
                   onChange={(e) => onNeckMeasurementChange(e)}
                 />

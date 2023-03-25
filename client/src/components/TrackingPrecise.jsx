@@ -5,14 +5,19 @@ import Dialog from "@mui/material/Dialog";
 import { DataGrid } from "@mui/x-data-grid";
 import { FoodLog } from "./FoodLog";
 import FoodList from "./FoodList";
+import Card from "./charts/Card";
 
-const TrackingPrecise = (props) => {
+const TrackingPrecise = (inputs,
+  setUserInputs,
+  targetCalories,
+  protein,
+  carbs,
+  fat,
+  date) => {
   const [meal, setMeal] = useState("");
   const [showList, setShowList] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
-
-
 
   const handleClose = (value) => {
     setOpen(false);
@@ -28,8 +33,14 @@ const TrackingPrecise = (props) => {
     <div>
       <h1 className="font-xl">Precise Food Tracker</h1>
 
-      <Dialog onClose={handleClose} open={open} fullWidth
-          maxWidth="xl">
+      <Card
+        title={"Calories"}
+        color="#666666"
+        target={`${targetCalories - 100} - ${targetCalories + 100} kcal`}
+        performance={`${targetCalories - 100} - ${targetCalories + 100} kcal`}
+      />
+
+      <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xl">
         <FoodList
           meal={meal}
           setShowList={setShowList}
@@ -60,4 +71,4 @@ const TrackingPrecise = (props) => {
   );
 };
 
-export default TrackingPrecise
+export default TrackingPrecise;
