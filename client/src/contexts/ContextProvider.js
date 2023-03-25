@@ -1,40 +1,32 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 
 const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [currentColor, setCurrentColor] = useState("#03C9D7");
-  const [currentMode, setCurrentMode] = useState("dark");
   const [themeSettings, setThemeSettings] = useState(false);
 
-useEffect(() => {
-  const colorMode = localStorage.getItem('colorMode');
-  setCurrentColor(colorMode);
-}, [])
-
-  const setMode = (e) => {
-    setCurrentMode(e.target.value);
-    localStorage.setItem("themeMode", e.target.value);
-    
-  };
+  useEffect(() => {
+    const colorMode = localStorage.getItem("colorMode");
+    setCurrentColor(colorMode);
+  }, []);
 
   const setColor = (mode) => {
     setCurrentColor(mode);
     localStorage.setItem("colorMode", mode);
-    
   };
 
   return (
     <StateContext.Provider
       value={{
         currentColor,
-        currentMode,
+
         setCurrentColor,
-        setCurrentMode,
+
         themeSettings,
         setThemeSettings,
-        setMode,
+
         setColor,
       }}
     >
