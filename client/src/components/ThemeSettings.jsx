@@ -46,7 +46,7 @@ const themecolors = [
     name: "Saturn",
     color: "#f0ca89",
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Saturnx.png/1200px-Saturnx.png",
+      "https://www.pngitem.com/pimgs/m/427-4272061_planet-saturn-clipart-hd-png-download.png",
   },
 ];
 
@@ -89,7 +89,7 @@ const ThemeSettings = () => {
                       height: "2.5rem",
                       backgroundSize: "cover",
                     }}
-                    onClick={() => setColor(item.color)}
+                    onClick={() => setColor(item.color, item.image)}
                   >
                     <BsCheck
                       className={`ml-2 text-2xl text-white ${
