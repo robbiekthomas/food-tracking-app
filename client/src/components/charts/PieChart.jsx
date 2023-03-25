@@ -1,5 +1,5 @@
 import React from 'react'
-import Chart from "react-apexcharts";
+
 import {
   Chart as ChartJS,
   ArcElement,
@@ -17,7 +17,12 @@ ChartJS.register(
 const PieChart = ({ series, labels, title }) => {
 console.log(labels, title)
   const options = {
-    cutout: '75%'
+    cutout: '75%',
+    plugins: {
+      legend: {
+        display: false,
+      }
+    },
   }
 
   const data = {

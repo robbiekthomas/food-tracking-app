@@ -57,7 +57,7 @@ const Card = ({ title, target, performance, unit, color, colorLabel }) => {
                 strokeLinecap: 'round',
                 textSize: textSize,
                 pathTransitionDuration: 0.5,
-                pathColor: `rgba(${r}, ${g}, ${b}, ${pathValue / 100})`,
+                pathColor: `rgba(${r}, ${g}, ${b}, ${pathValue / 80})`,
                 textColor: color,
                 backgroundColor: color,
               })}
