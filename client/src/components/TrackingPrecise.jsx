@@ -6,6 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { FoodLog } from "./FoodLog";
 import FoodList from "./FoodList";
 
+
 const TrackingPrecise = (props) => {
   const [meal, setMeal] = useState("");
   const [showList, setShowList] = useState(false);
@@ -26,6 +27,7 @@ const TrackingPrecise = (props) => {
 
   return (
     <div>
+    
       <h1 className="font-xl">Precise Food Tracker</h1>
 
       <Dialog onClose={handleClose} open={open} fullWidth
