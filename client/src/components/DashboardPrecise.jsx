@@ -9,11 +9,6 @@ import Card from './charts/Card';
 import classNames from 'classnames';
 import ViewSwitch from './ViewSwitch';
 
-
-
-
-
-
 const DashboardPrecise = ({
   currentHabits,
   inputs,
@@ -29,16 +24,10 @@ const DashboardPrecise = ({
   proteinWeeklyAverage,
   fatWeeklyAverage,
   carbsWeeklyAverage,
-  mood,
   calorieWeeklyAverage,
   date
 
 }) => {
-
-  const proteinLabel = Math.round(protein * 4 / targetCalories * 100);
-  const fatLabel = Math.round(fat * 9 / targetCalories * 100);
-  const carbLabel = Math.round(carbs * 4 / targetCalories * 100)
-
 
 
   return (
@@ -62,7 +51,7 @@ const DashboardPrecise = ({
         />
         <div className={classNames('w-full', 'grid', 'grid-cols-3', 'grid-rows-2, gap-3')}>
           <Card
-            title={'Calories'}
+            title='Calories'
             color='#666666'
             target={`${targetCalories - 100} - ${targetCalories + 100} kcal`}
             performance={Math.round(calorieWeeklyAverage / targetCalories * 100)} />
@@ -100,37 +89,37 @@ const DashboardPrecise = ({
             title={'Carbohydrates'}
             target={`${carbs - 10} - ${carbs + 10} grams`}
             unit='grams'
-            color='#cbcb41'
+            color='#feaf1a'
             performance={Math.round(carbsWeeklyAverage / carbs * 100)} />
 
           <Card
             title={'Fat'}
             target={`${fat - 10} - ${fat + 10} grams`}
             unit='grams'
-            color='#48b2c1'
+            color='#00e396'
             performance={Math.round(fatWeeklyAverage / fat * 100)}
           />
         </div>
 
-        {/* HABIT GOALS*/}
         <div className="mt-3">
           <div className={classNames('w-full', 'grid', 'grid-cols-2', 'grid-rows-3 gap-3')}>
-            <div className="bg-white shadow-sm relative rounded-lg pl-2'">
-              <HabitCard
-                dataSource={currentHabits}
-                title='Habit Goals'
-              />
-            </div>
 
+            {/* HABIT GOALS*/}
+            {currentHabits && currentHabits.length > 0 &&
+              <div className="bg-white shadow-sm relative rounded-lg pl-2'">
+                <HabitCard
+                  dataSource={currentHabits}
+                  title='Habit Goals'
+                />
+              </div>
+            }
 
-
+            {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
             {barChartData && barChartData.length > 0 &&
               <div className="shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
-                <ChartHeader title="Macronutrients (% of total calories)" />
+                <ChartHeader title="Macronutrients (grams per day)" />
                 <Stacked
-                  width="auto"
                   data={barChartData}
-                  height="200px"
                   name1="protein"
                   name2="fat"
                   name3="carbs"
@@ -138,21 +127,18 @@ const DashboardPrecise = ({
               </div>
             }
 
+            {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 &&
-              < div className="col-span-2 shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
-                <div className='grid grid-cols-2 divide-x-1 divide-slate-200 '>
-                  <LineChart datapoints={lineChartData} />
-                  <div>STRETCH - SUMMARY STATS</div>
-                </div>
+              < div className="col-span-3 shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
                 
-
+                  <LineChart datapoints={lineChartData} />
+              
+           
               </div>
             }
+
           </div>
-
         </div>
-
-
       </div>
     </div>
 

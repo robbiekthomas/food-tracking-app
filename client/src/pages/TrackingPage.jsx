@@ -7,6 +7,8 @@ import TrackingIntuitive from "../components/TrackingIntuitive";
 import TrackingStandard from "../components/TrackingStandard";
 import TrackingPrecise from "../components/TrackingPrecise";
 import { useModeContext } from "../contexts/mode-status";
+import { useStateContext } from "../contexts/ContextProvider";
+import { Box } from "@mui/system";
 
 import { 
   getTargetCalories, 
@@ -23,6 +25,7 @@ import { getUserRow } from "../api-requests/dashboard";
 
 const TrackingPage = () => {
   const { mode, setMode } = useModeContext();
+  const { planet } = useStateContext();
   useEffect(() => {}, [mode]);
 
   const [inputs, setUserInputs] = useState({
@@ -73,7 +76,22 @@ const TrackingPage = () => {
 
   return (
     <div>
+
+      <Box
+        component="img"
+        sx={{
+          height: "100%",
+          width: "60%",
+          position: "absolute",
+          top: 0,
+          right: "-500px",
+          "z-index": "-1",
+          opacity: 0.2,
+        }}
+        src={planet}
+      />
       {mode === "precise" && <TrackingPrecise {...props} />}
+
       {mode === "intuitive" && <TrackingIntuitive />}
       {mode === "standard" && <TrackingStandard />}
     </div>

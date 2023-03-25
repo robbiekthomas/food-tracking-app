@@ -57,6 +57,7 @@ const DashboardPage = () => {
 
   //Set and store current habit goals
   const [currentHabits, setCurrentHabits] = useState([]);
+  
   const [habitGoal1, setCurrentHabitGoal1] = useState({
     goal_id: 0,
     is_complete: false,
@@ -152,7 +153,7 @@ const DashboardPage = () => {
     getProteinProportion()
       .then((res) => {
         setProteinBarChartData(res);
-        console.log(1, res)
+  
       })
       .catch((err) => {
         console.log(err);
