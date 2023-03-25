@@ -22,6 +22,21 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/food-log", (req, res) => {
+  console.log("getting food log data!");
+
+  const query = `SELECT * FROM food_logs WHERE meal_date = CURRENT_DATE;`;
+
+  db.query(foodQueryStr)
+    .then((result) => {
+      const data = result.rows;
+      res.json(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+})
+
 router.post("/food-log", (req, res) => {
   console.log("receiving data...");
 
