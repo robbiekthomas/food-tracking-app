@@ -3,8 +3,9 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 
-const Card = ({ title, target, performance, unit, color, colorLabel }) => {
+const Card = ({ title, target, performance, color }) => {
   //color will change to be more vibrant to less vibrant as they get closer/farther from the target
+
   let pathValue = performance;
 
   if (performance > 100) {
@@ -25,44 +26,59 @@ const Card = ({ title, target, performance, unit, color, colorLabel }) => {
   const hex = color.replace('#', '');
 
   // Convert the hex color code to a decimal value
-  var r = parseInt(hex.substring(0,2), 16);
-  var g = parseInt(hex.substring(2,4), 16);
-  var b = parseInt(hex.substring(4,6), 16);
+  var r = parseInt(hex.substring(0, 2), 16);
+  var g = parseInt(hex.substring(2, 4), 16);
+  var b = parseInt(hex.substring(4, 6), 16);
 
   return (
     <div className="shadow-sm relative flex-col  break-words bg-white  rounded-lg bg-clip-border">
       <div className="flex-column pl-1 pr-1 pt-2 pb-2 justify-center items-center">
         <div className="flex flex-wrap">
-          <div className="flex-none w-2/3 max-w-full px-5">
-            <div>
-              <p className="mb-2 font-sans font-semibold leading-normal text-l">{title}</p>
-              <div className='flex justify-between'>
-                <div className='flex'>
-                  <h5 className="mb-0 text-s">{target}</h5>
-
+          {(title !== 'Maintenance Calories' && title !== 'Hunger Before Eating' && title !== 'Hunger After Eating') &&
+            <div className="flex-none w-2/3 max-w-full px-5">
+              <div>
+                <p className="mb-2 font-sans font-semibold leading-normal text-l">{title}</p>
+                <div className='flex justify-between'>
+                  <div className='flex'>
+                    <h5 className="mb-0 text-s">{target}</h5>
+                  </div>
                 </div>
-
               </div>
             </div>
-          </div>
+          }
+          {(title === 'Maintenance Calories' || title === 'Hunger Before Eating' || title === 'Hunger After Eating') &&
+            <div className="flex-none w-3/3 max-w-full px-5">
+              <div>
+                <p className="mb-2 font-sans font-semibold leading-normal text-l">{title}</p>
+                <div className='flex justify-between'>
+                  <div className='flex'>
+                    <h5 className="mb-0 text-s">{target}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
 
-          <div
-            style={{ width: 60, height: 60 }}>
-            <CircularProgressbar
-              variant="success"
-              value={pathValue}
-              text={text}
-              styles={buildStyles({
-                rotation: 0.25,
-                strokeLinecap: 'round',
-                textSize: textSize,
-                pathTransitionDuration: 0.5,
-                pathColor: `rgba(${r}, ${g}, ${b}, ${pathValue / 100})`,
-                textColor: color,
-                backgroundColor: color,
-              })}
-            />
-          </div>
+          {(title !== 'Maintenance Calories' && title !== 'Hunger Before Eating' && title !== 'Hunger After Eating') &&
+            <div
+              style={{ width: 60, height: 60 }}>
+
+              <CircularProgressbar
+                variant="success"
+                value={pathValue}
+                text={text}
+                styles={buildStyles({
+                  rotation: 0.25,
+                  strokeLinecap: 'round',
+                  textSize: textSize,
+                  pathTransitionDuration: 0.5,
+                  pathColor: `rgba(${r}, ${g}, ${b}, ${pathValue / 80})`,
+                  textColor: color,
+                  backgroundColor: color,
+                })}
+              />
+            </div>
+          }
         </div>
       </div>
     </div>

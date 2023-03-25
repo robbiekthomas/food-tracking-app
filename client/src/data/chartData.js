@@ -5,7 +5,8 @@ import {
   CategoryScale, //xaxis related
   LinearScale, //yaxis
   PointElement,
-  //Legend
+  Legend,
+  Bar
 } from 'chart.js'
 
 ChartJS.register(
@@ -13,7 +14,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
- //Legend
+  Legend,
 )
 
 
@@ -125,12 +126,12 @@ export const habitsList =
     'Put your food/utensils down between bites'
   ];
 
-  //format day to weekday from a string
-  export const formatDateToWeekday = (dateString) => {
-    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const date = new Date(dateString);
-    return weekdays[date.getDay()];
-  }
+//format day to weekday from a string
+export const formatDateToWeekday = (dateString) => {
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const date = new Date(dateString);
+  return weekdays[date.getDay()];
+}
 
 //get x-axis values and format dates
 export const buildLineXAxis = (datapoints) => {
@@ -144,6 +145,7 @@ export const buildLineXAxis = (datapoints) => {
 
   return weekdays;
 };
+
 
 
 export const makeBodyFatLine = (datapoints) => {
@@ -169,67 +171,6 @@ export const buildLineYAxis = (datapoints) => {
 
 
 
-export const compileLineData = (xAxis, bodyFat, weight) => {
-  return {
-    labels: xAxis,
-    datasets: [{
-      label: 'Body Fat',
-      yAxisID: 'left',
-      spanGaps: true,
-      data: bodyFat,
-      backgroundColor: 'aqua',
-      borderColor: 'aqua',
-      pointBorderColor: 'aqua',
-      tension: 0.1
-    },
-    {
-      label: 'Weight',
-      yAxisID: 'right',
-      spanGaps: true,
-      data: weight,
-      backgroundColor: 'blue',
-      borderColor: 'blue',
-      pointBorderColor: 'blue',
-      tension: 0.2
-    }
-    ]
-  }
-}
-
-export const lineChartOptions = {
-  plugins: {
-    legend: {
-      display: true,
-      position: 'bottom',
-    }
-  },
-  scales: {
-
-    left: {
-      id: 'left',
-      type: 'linear',
-      position: 'left',
-      beginAtZero: false,
-
-
-    },
-    right: {
-      id: 'right',
-      type: 'linear',
-      position: 'right',
-      beginAtZero: false,
-      grid: {
-        drawOnChartArea: false
-      },
-      ticks: {
-        callback: function(value) {
-          return `${value} %`;
-        }
-      }
-    }
-  }
-}
-
 export const strictLineOptions = {
   plugins: {
     legend: {
@@ -238,13 +179,14 @@ export const strictLineOptions = {
     }
   },
   scales: {
-
     left: {
       id: 'left',
       type: 'linear',
       position: 'left',
       beginAtZero: true,
-
+      gridLines: {
+        display: false, // set display to false to remove gridlines
+      }
 
     },
     right: {
@@ -254,6 +196,9 @@ export const strictLineOptions = {
       beginAtZero: true,
       grid: {
         drawOnChartArea: false
+      },
+      gridLines: {
+        display: false, // set display to false to remove gridlines
       },
       ticks: {
         callback: function(value) {

@@ -7,7 +7,7 @@ function ViewSwitch({ view1, view2, view3, goal, date }) {
 
   return (
 
-    <div fullwidth className='mb-3 grid grid-cols-3 grid-rows-1 gap-3 font-bold text-gray-700'>
+    <div className='mb-3 grid grid-cols-3 grid-rows-1 gap-3 font-bold text-gray-700'>
       <div className='flex justify-center pt-1 pb-1 align-center bg-gray-200 rounded-lg'>Current Goal: {goal}</div>
       <ButtonGroup aria-label="Basic example">
         <Button

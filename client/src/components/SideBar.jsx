@@ -17,6 +17,7 @@ const SideBar = ({
       <EditProfileForm
         inputs={inputs}
         change={setUserInputs}
+        
         currentHabits={currentHabits}
         setCurrentHabits={setCurrentHabits}
       />
