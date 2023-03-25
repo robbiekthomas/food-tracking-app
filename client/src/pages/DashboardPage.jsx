@@ -152,7 +152,7 @@ const DashboardPage = () => {
     getProteinProportion()
       .then((res) => {
         setProteinBarChartData(res);
-        console.log(1, res)
+  
       })
       .catch((err) => {
         console.log(err);

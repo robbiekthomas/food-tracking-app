@@ -1,59 +1,99 @@
-import React from 'react'
-import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Legend, Category, StackingColumnSeries, Tooltip } from '@syncfusion/ej2-react-charts';
-import { stackedPrimaryXAxis, stackedPrimaryYAxis } from '../../data/chartData';
+import React from 'react';
+import Chart from 'react-apexcharts';
 
 
 
 
 
-const Stacked = ({ width, height, data, name1, name2, name3 }) => {
-  const stackedChartData = data;
-  const stackedCustomSeries = [
 
-    {
-      dataSource: stackedChartData[0],
-      xName: 'x',
-      yName: 'y',
+
+const Stacked = ({ data, name1, name2, name3 }) => {
+
+
+  const convertYValues = (arr) => {
+    const result = [];
+    for (const n of arr) {
+      result.push(n.y);
+    };
+    return result;
+  };
+
+  const convertXValues = (arr) => {
+    const result = [];
+    for (const n of arr) {
+      result.push(n.x);
+    };
+    return result;
+  };
+
+
+
+
+  const options = {
+    series: [{
       name: name1,
-      type: 'StackingColumn',
-    },
-
-    {
-      dataSource: stackedChartData[1],
-      xName: 'x',
-      yName: 'y',
+      data: convertYValues(data[0])
+    }, {
       name: name2,
-      type: 'StackingColumn',
-    },
-
-    {
-      dataSource: stackedChartData[2],
-      xName: 'x',
-      yName: 'y',
+      data: convertYValues(data[1])
+    }, {
       name: name3,
-      type: 'StackingColumn',
+      data: convertYValues(data[2])
+    }],
+    chart: {
+      type: 'bar',
+      height: 350,
+      stacked: true,
+      toolbar: {
+        show: false
+      },
+      zoom: {
+        enabled: true
+      }
     },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        legend: {
+          position: 'bottom',
+          offsetX: -10,
+          offsetY: 0
+        }
+      }
+    }],
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        borderRadius: 10,
+        dataLabels: {
+          total: {
+            enabled: true,
+            style: {
+              fontSize: '13px',
+              fontWeight: 900
+            }
+          }
+        }
+      },
+    },
+    xaxis: {
+      type: 'datetime',
+      categories: convertXValues(data[0]),
+    },
+    legend: {
+      position: 'right',
+      offsetY: 40
+    },
+    fill: {
+      opacity: 1
+    }
+  };
 
-  ];
-
+  
 
   return (
-    <ChartComponent
-      id='charts'
-      width={width}
-      height={height}
-      primaryXAxis={stackedPrimaryXAxis}
-      primaryYAxis={stackedPrimaryYAxis}
-      chartArea={{ border: { width: 0 } }}
-      tooltip={{ enable: true }}
-    >
-      <Inject services={[StackingColumnSeries, Category, Legend, Tooltip]} />
-      <SeriesCollectionDirective>
-        {stackedCustomSeries.map((item, index) => {
-          return <SeriesDirective key={index} {...item} />
-        })}
-      </SeriesCollectionDirective>
-    </ChartComponent>
+    <Chart options={options} series={options.series} type="bar" height={200} />
+
   )
 }
 

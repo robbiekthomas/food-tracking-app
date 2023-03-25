@@ -5,7 +5,8 @@ import {
   CategoryScale, //xaxis related
   LinearScale, //yaxis
   PointElement,
-  Legend
+  Legend,
+  Bar
 } from 'chart.js'
 
 ChartJS.register(
@@ -13,7 +14,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  Legend
+  Legend,
 )
 
 
@@ -168,48 +169,6 @@ export const buildLineYAxis = (datapoints) => {
 }
 
 
-
-
-
-
-
-
-// export const lineChartOptions = {
-//   onClick: handleClick,
-//   plugins: {
-//     legend: {
-//       display: true,
-//       position: 'top',
-//     }
-//   },
-//   scales: {
-    
-//     left: {
-//       id: 'left',
-//       type: 'linear',
-//       position: 'left',
-//       beginAtZero: false,
-//       scaleLabel: {
-//         display: true,
-//         labelString: 'My X-Axis Label'
-//       }
-//     },
-//     right: {
-//       id: 'right',
-//       type: 'linear',
-//       position: 'right',
-//       beginAtZero: false,
-//       grid: {
-//         drawOnChartArea: false
-//       },
-//       ticks: {
-//         callback: function(value) {
-//           return `${value} %`;
-//         }
-//       }
-//     }
-//   }
-// }
 
 export const strictLineOptions = {
   plugins: {

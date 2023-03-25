@@ -3,8 +3,7 @@ import { ColumnDirective, ColumnsDirective, GridComponent } from '@syncfusion/ej
 import SideBar from './SideBar';
 import ChartHeader from './charts/ChartsHeader';
 import LineChart from './charts/LineChart';
-import PieChart from '../components/charts/PieChart';
-import Stacked from '../components/charts/Stacked';
+
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 

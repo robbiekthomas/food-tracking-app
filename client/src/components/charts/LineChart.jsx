@@ -28,9 +28,9 @@ const LineChart = ({ datapoints }) => {
         yAxisID: 'left',
         spanGaps: true,
         data: bodyFat,
-        backgroundColor: 'rgb(45, 149, 147, 0.5)',
-        borderColor: 'rgb(45, 149, 147, 0.5)',
-        pointBorderColor:'rgb(45, 149, 147, 1)',
+        backgroundColor: 'rgb(45, 149, 147, 0.8)',
+        borderColor: 'rgb(45, 149, 147, 0.8)',
+        pointBorderColor:'rgb(45, 149, 147, 0.8)',
         borderWidth: 4,
         tension: 0.4
       },
@@ -39,9 +39,9 @@ const LineChart = ({ datapoints }) => {
         yAxisID: 'right',
         spanGaps: true,
         data: weight,
-        backgroundColor: 'rgba(37, 36, 93, 0.5)',
-        borderColor: 'rgba(37, 36, 93, 0.5)',
-        pointBorderColor: 'rgba(37, 36, 93, 1)',
+        backgroundColor: 'rgba(0, 0, 255, 0.1)',
+        borderColor: 'rgba(0, 0, 255, 0.1)',
+        pointBorderColor: 'rgba(0, 0, 255, 0.1)',
         borderWidth: 4,
         tension: 0.2
       }
