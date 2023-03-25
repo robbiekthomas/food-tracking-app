@@ -246,7 +246,9 @@ router.get("/habitGoals", (req, res) => {
   SELECT goal_name, is_complete, habitGoal_logs.id
   FROM habitGoals
   JOIN habitGoal_logs ON goal_id = habitGoals.id
-  WHERE user_id = 1 AND date = CURRENT_DATE;
+  WHERE user_id = 1 AND date = CURRENT_DATE
+  ORDER BY habitGoal_logs.id DESC
+  LIMIT 3;
   `;
   db.query(queryStr)
     .then((result) => {

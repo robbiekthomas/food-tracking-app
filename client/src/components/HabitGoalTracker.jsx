@@ -57,7 +57,7 @@ const HabitGoalTracker = () => {
         setChecked1(response.data[0].is_complete);
         setChecked2(response.data[1].is_complete);
         setChecked3(response.data[2].is_complete);
-        console.log("response", response.data);
+
       })
       .catch((err) => {
         console.log(err);

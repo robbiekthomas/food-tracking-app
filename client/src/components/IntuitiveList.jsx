@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Slider from "@mui/material/Slider";
+import HungerScore from "./HungerScore";
 import axios from "axios";
 
 const IntuitiveList = (props) => {
@@ -95,6 +96,8 @@ const IntuitiveList = (props) => {
             max={10}
           />
 
+          <HungerScore hungerScore={hungerBefore} />
+
           <DialogContentText>
             How hungry were you after the meal?
           </DialogContentText>
@@ -109,6 +112,8 @@ const IntuitiveList = (props) => {
             min={1}
             max={10}
           />
+
+          <HungerScore hungerScore={hungerAfter} />
 
           <DialogContentText>How do you feel after the meal?</DialogContentText>
           <FormControl fullWidth>
