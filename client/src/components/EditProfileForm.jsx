@@ -677,7 +677,7 @@ const EditProfileForm = ({
             </>
           )}
           <br />
-          <Typography>hi</Typography>
+          
           
           <Button
             className="mt-5"
