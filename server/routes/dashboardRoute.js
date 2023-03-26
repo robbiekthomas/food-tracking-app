@@ -50,6 +50,7 @@ router.get("/weightGraph", (req, res) => {
       const days = differenceInDays(endDate, startDate);
       let data = [[], []];
       let idx = 0;
+
       for (let i = 0; i < days; i++) {
         let yBF = null;
         let yWeight = null;
@@ -108,6 +109,7 @@ router.get("/stackedMacroGraph", (req, res) => {
       for (let i = 0; i < days; i++) {
         let yPro = null;
         let yFat = null;
+        let yCho = null;
 
         if (
           new Date(result.rows[idx].combine_day).getTime() ===
@@ -124,12 +126,12 @@ router.get("/stackedMacroGraph", (req, res) => {
 
         const dateString = format(startDate, "yyyy-MM-dd");
 
-        let obPro = { x: dateString, y: yPro };
+        let objPro = { x: dateString, y: yPro };
         let objFat = { x: dateString, y: yFat };
         let objCho = { x: dateString, y: yCho };
 
         //protein
-        data[0].push(obPro);
+        data[0].push(objPro);
         //fat
         data[1].push(objFat);
         //carbs
@@ -336,7 +338,7 @@ router.get("/mood", (req, res) => {
           result.push(obj);
         }
       });
-
+      
       res.json(result);
     })
 

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import EditProfileForm from "./EditProfileForm";
-import EditAvatar from "./EditAvatar";
+import { Avatar } from "@mui/material";
+import { useLoginContext } from "../contexts/login-status";
+
 
 
 const SideBar = ({
@@ -9,15 +11,18 @@ const SideBar = ({
   currentHabits,
   setCurrentHabits,
 }) => {
-  
+  const { avatar, setAvatar } = useLoginContext();
   return (
     <div className="bg-white w-1/4 h-screen flex-column text-center">
-      <EditAvatar  />
       
+      <Avatar
+        alt="Remy Sharp"
+        src={avatar}
+        sx={{ width: 200, height: 200, margin: "auto" }}
+      />
       <EditProfileForm
         inputs={inputs}
         change={setUserInputs}
-        
         currentHabits={currentHabits}
         setCurrentHabits={setCurrentHabits}
       />

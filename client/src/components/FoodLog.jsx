@@ -10,24 +10,34 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import axios from "axios";
+import {  upDateTrackerItems } from '../api-requests/tracker';
+import { useDateContext } from "../contexts/date-context";
 
-export const FoodLog = (props) => {
+
+
+export const FoodLog = ({meal, mealID, mealSummary, showList, onUpdate, selectedDate}) => {
   const [foodLog, setFoodLog] = useState([]);
   const [foodDelete, setFoodDelete] = useState(false);
 
+  const { selectedContextDate } = useDateContext();
+
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/tracker/food-log-${props.meal}`)
-      .then((response) => {
-        setFoodLog(response.data);
+    const m = Number(mealID)
+
+    upDateTrackerItems(m, selectedContextDate)
+      .then((res) => {
+        console.log('klklkl',res)
+        setFoodLog(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props.showList, foodDelete]);
-
+  }, [showList, foodDelete, selectedContextDate]);
+console.log('selectedContextDate', selectedContextDate)
   //params.id is the selected row food ID
   const handleDeleteClick = (params) => () => {
+
     foodLog.splice((params.id), 1);
     setFoodLog([...foodLog]);
     const values = [params.id, props.mealID];
@@ -42,7 +52,13 @@ export const FoodLog = (props) => {
       });
   };
 
+
   const rows = foodLog;
+
+  //made in order to change the values on the table once a new date is selected
+
+
+  console.log('props', foodLog)
 
   return (
     <TableContainer component={Paper} style={{ minHeight: 400, maxHeight: 400 }}>

@@ -28,6 +28,7 @@ const TrackingStandard = (props) => {
   };
 
   return (
+
     <Box>
       <Typography variant="h4" gutterBottom>
         March 26, 2023
@@ -137,6 +138,7 @@ const TrackingStandard = (props) => {
         <HabitGoalTracker />
       </Box>
     </Box>
+
   );
 };
 

@@ -6,7 +6,6 @@ import {
   LinearScale, //yaxis
   PointElement,
   Legend,
-  Bar
 } from 'chart.js'
 
 ChartJS.register(

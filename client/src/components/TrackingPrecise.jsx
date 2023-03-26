@@ -1,18 +1,31 @@
 import React, { useState, useEffect } from "react";
 
+
 import { Button, Typography, Box, Card } from "@mui/material";
+
 import Dialog from "@mui/material/Dialog";
 import { FoodLog } from "./FoodLog";
 import FoodList from "./FoodList";
-import MealToggle from "./MealToggle";
-import HabitGoalTracker from "./HabitGoalTracker";
-import Fade from '@mui/material/Fade';
 
-const TrackingPrecise = (props) => {
+import HabitGoalTracker from "./HabitGoalTracker";
+import Card from "./charts/Card";
+import { format } from 'date-fns';
+import MealToggle from "./MealToggle";
+
+const TrackingPrecise = (targetCalories, stringifiedDate, allTimeStats, dailyMealSummary, setDailyMealSummary) => {
+
+
   const [meal, setMeal] = useState("");
   const [showList, setShowList] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
+  const [mealSummary, setMealSummary] = useState({ 1: [], 2: [], 3: [], 4: [] });
+  const [date, setDate] = useState('');
+
+
+  useEffect((res) => {
+    setDate(stringifiedDate);
+  }, [stringifiedDate])
 
   const mealToggle = props.mealToggle;
   const handleToggle = props.handleToggle;
@@ -27,7 +40,13 @@ const TrackingPrecise = (props) => {
     setOpen(true);
   };
 
+  useEffect((res) => {
+    setMealSummary(dailyMealSummary);
+  }, [dailyMealSummary])
+
+
   return (
+
     <Box>
       <Typography variant="h4" gutterBottom>
         March 26, 2023
@@ -43,7 +62,8 @@ const TrackingPrecise = (props) => {
           borderRadius: 1,
         }}
       >
-        <Fade in={open}>
+
+        
         <Dialog
           onClose={handleClose}
           open={open}
@@ -62,7 +82,7 @@ const TrackingPrecise = (props) => {
             handleClose={handleClose}
           />
         </Dialog>
-          </Fade>
+      
         <div>
           <div class="ml-4">
           <MealToggle mealToggle handleToggle={handleToggle} />
@@ -81,7 +101,12 @@ const TrackingPrecise = (props) => {
               >
                 Add Breakfast
               </Button>
-              <FoodLog meal={"breakfast"} mealID={1} showList={showList} />
+              <FoodLog meal={"breakfast"}
+        mealID={1}
+        onUpdate={setMealSummary}
+        mealSummary={mealSummary}
+        showList={showList}
+        //selectedDate={dateStr} />
             </Card>
 
           )}
@@ -98,7 +123,11 @@ const TrackingPrecise = (props) => {
               >
                 Add Lunch
               </Button>
-              <FoodLog meal={"lunch"} mealID={2} showList={showList} />
+              <FoodLog meal={"lunch"}
+        mealID={2}
+        mealSummary={mealSummary}
+        showList={showList}
+        //selectedDate={dateStr} />
             </Card>
           )}
 
@@ -115,7 +144,11 @@ const TrackingPrecise = (props) => {
               >
                 Add Dinner
               </Button>
-              <FoodLog meal={"dinner"} mealID={4} showList={showList} />
+              <FoodLog meal={"dinner"}
+        mealID={4}
+        mealSummary={mealSummary}
+        showList={showList}
+        //selectedDate={dateStr} />
             </Card>
           )}
           {mealToggle === "snack" && (
@@ -131,13 +164,19 @@ const TrackingPrecise = (props) => {
               >
                 Add Snack
               </Button>
-              <FoodLog meal={"snack"} mealID={3} showList={showList} />
+              <FoodLog meal={"snack"}
+        mealID={3}
+        mealSummary={mealSummary}
+        showList={showList}
+        //selectedDate={dateStr} />
             </Card>
           )}
         </div>
         <HabitGoalTracker />
       </Box>
     </Box>
+
+    
   );
 };
 

@@ -34,7 +34,11 @@ app.use('/api/dashboard/stackedProteinGraph', dashboardController);
 app.use('/api/dashboard/foodReflection', dashboardController);
 app.use('/api/dashboard/mood', dashboardController);
 app.use('/api/mode', contextController);
+
 app.use('/api/tracker', trackerController);
+app.use('/api/tracker/trackerDashboardMacros', trackerController);
+app.use('/api/tracker/foodLogOfSelectedDay', trackerController);
+app.use('/api/tracker/upDateTrackerItems', trackerController);
 
 
 app.listen(port, () => {
