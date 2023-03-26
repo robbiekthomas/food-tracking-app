@@ -26,7 +26,7 @@ import {
 
 import { habitsList } from "../data/chartData";
 
-import { useModeContext } from "../contexts/mode-status";
+
 
 //modal input states
 const EditProfileForm = ({
@@ -35,7 +35,7 @@ const EditProfileForm = ({
   currentHabits,
   setCurrentHabits,
 }) => {
-  const { mode, setMode } = useModeContext();
+  
   //modal state
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -73,7 +73,7 @@ const EditProfileForm = ({
   const onHeightChange = (e) => setHeight(e.target.value);
   const onManualTargetWeightChange = (e) =>
     setTargetWeightChange(e.target.value);
-  const onModeChange = (e) => setMode(e.target.value);
+ 
 
   //update habit goals on the dashboard view
   const onGoal1Change = (e) => {
@@ -112,7 +112,7 @@ const EditProfileForm = ({
       goal_name: e.target.value,
       date: "2024-03-09",
     };
-    setGoal2(g);
+    setGoal3(g);
 
     const d = createHabitGridData(goal1, goal2, g);
     setCurrentHabits(d);
@@ -378,40 +378,7 @@ const EditProfileForm = ({
             Goal Settings
           </h2>
 
-          {/**DEFAULT MODE */}
-          <FormControl>
-            <FormLabel
-              sx={{ fontWeight: "medium" }}
-              id="demo-radio-buttons-group-label"
-              className="mt-5"
-            >
-              Default Tracking Mode
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="demo-radio-buttons-group-label"
-              value={mode}
-              defaultValue="standard"
-              name="radio-buttons-group"
-              onChange={(e) => onModeChange(e)}
-            >
-              <FormControlLabel
-                value="intuitive"
-                control={<Radio />}
-                label="Intuitive"
-              />
-              <FormControlLabel
-                value="standard"
-                control={<Radio />}
-                label="Standard"
-              />
-              <FormControlLabel
-                value="precise"
-                control={<Radio />}
-                label="Precise"
-              />
-            </RadioGroup>
-          </FormControl>
+         
 
           {/**MAIN GOAL */}
           <FormControl>

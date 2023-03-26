@@ -16,13 +16,14 @@ import AdbIcon from "@mui/icons-material/Adb";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Link } from "react-router-dom";
+import EditAvatar from "./EditAvatar";
 
 import ThemeSettings from "./ThemeSettings";
 import { useLoginContext } from "../contexts/login-status";
 import { useModeContext } from "../contexts/mode-status";
 import { useStateContext } from "../contexts/ContextProvider";
 import styles from "../style";
-import {fontSize} from "@mui/system";
+import { fontSize } from "@mui/system";
 
 const pages = ["dashboard", "tracker"];
 
@@ -66,14 +67,14 @@ function NavBar() {
   return (
     <>
       {themeSettings && <ThemeSettings />}
-      <AppBar position="static" style={{ background: currentColor}}>
+      <AppBar position="static" style={{ background: currentColor }}>
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             flexDirection: "row",
-            margin: '0 40px' 
+            margin: "0 40px",
           }}
         >
           <Box
@@ -83,8 +84,10 @@ function NavBar() {
               justifyContent: "space-between",
             }}
           >
-            <AdbIcon sx={{  mr: 1 }} />
-            <Link className="text-xl" to="/">NutritionShip</Link>
+            <AdbIcon sx={{ mr: 1 }} />
+            <Link className="text-xl" to="/">
+              NutritionShip
+            </Link>
 
             <Button
               onClick={handleCloseNavMenu}
@@ -101,14 +104,13 @@ function NavBar() {
           </Box>
 
           <ToggleButtonGroup
-            
             value={mode}
             exclusive
             onChange={handleModeChange}
             aria-label="Platform"
             size="medium"
             fullWidth
-            sx={{backgroundColor: 'white', width: '500px', mr: '100px'}}
+            sx={{ backgroundColor: "white", width: "500px", mr: "100px" }}
           >
             <ToggleButton value="intuitive">Intuitive</ToggleButton>
             <ToggleButton value="standard">Standard</ToggleButton>
@@ -145,9 +147,10 @@ function NavBar() {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Button onClick={() => setThemeSettings(true)}>
+                    {/* <Button onClick={() => setThemeSettings(true)}>
                       <Typography textAlign="center">Settings</Typography>
-                    </Button>
+                    </Button> */}
+                    <EditAvatar />
                   </MenuItem>
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Link
@@ -156,8 +159,9 @@ function NavBar() {
                         handleLogout();
                         handleCloseUserMenu();
                       }}
+                      className="text-blue-700"
                     >
-                      <Typography textAlign="center">Logout</Typography>
+                      <Typography sx={{ fontSize: "14px" }}>LOGOUT</Typography>
                     </Link>
                   </MenuItem>
                 </Menu>

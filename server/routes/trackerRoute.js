@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
-const axios = require("axios");
+const { format, add } = require("date-fns");
+const differenceInDays = require("date-fns/differenceInDays");
+
 require("dotenv").config();
 
 router.get("/", (req, res) => {
@@ -22,10 +24,14 @@ router.get("/", (req, res) => {
     });
 });
 
+//initial load will always default to the data from the current date
 router.get("/food-log", (req, res) => {
   console.log("getting food log data!");
 
-  const query = `SELECT * FROM food_logs WHERE meal_date = CURRENT_DATE;`;
+  const query = `
+  SELECT * FROM food_logs 
+  WHERE meal_date = CURRENT_DATE AND user_id = 1
+  `;
 
   db.query(foodQueryStr)
     .then((result) => {
@@ -37,6 +43,113 @@ router.get("/food-log", (req, res) => {
     });
 })
 
+
+
+
+
+//render food log contents based on day selection on the tracke
+router.get("/foodLogOfSelectedDay", (req, res) => {
+  const params = [req.query.day];
+  const str = `
+  SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id, food_logs.meal_id
+  FROM food_logs
+  JOIN foods ON foods.id = food_logs.food_id
+  WHERE food_logs.user_id = 1 AND food_logs.meal_date = $1;
+  `;
+
+  db.query(str, params)
+    .then((data) => {
+        
+      const arr = data.rows;
+        const sortedMeals = arr.sort((a, b) => a.meal_id - b.meal_id);
+
+        const groupedMeals = sortedMeals.reduce((acc, meal) => {
+          const { meal_id } = meal;
+          if (!acc[meal_id]) {
+            acc[meal_id] = [];
+          }
+          acc[meal_id].push(meal);
+          return acc;
+        }, {});
+
+      res.json(groupedMeals);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+//Get information needed for all dashboards in the tracking page
+router.get("/trackerDashboardMacros", (req, res) => {
+  console.log("getting food Dashboard data!");
+
+  const userQueryStr = `
+  SELECT AVG (food_logs.hunger_before) AS avg_hunger_before, AVG (food_logs.hunger_after) AS avg_hunger_after, SUM (food_logs.servings) AS servings, SUM (foods.carbs) AS carbs, SUM(foods.fat) AS fat, SUM( foods.protein) AS protein, TO_CHAR(food_logs.meal_date, 'YYYY-MM-DD') AS combine_day
+  FROM foods
+  LEFT JOIN food_logs ON foods.id = food_logs.food_id
+  WHERE food_logs.user_id = 1
+  GROUP BY combine_day
+  ORDER BY combine_day ASC
+
+      `;
+  db.query(userQueryStr)
+    .then((result) => {
+      let startDate = new Date(result.rows[0].combine_day);
+      const endDate = new Date();
+      const days = differenceInDays(endDate, startDate);
+
+      let data = [];
+      let idx = 0;
+
+      for (let i = 0; i < days; i++) {
+        let protein = null;
+        let fat = null;
+        let carbs = null;
+        let hungerBefore = null;
+        let hungerAfter = null;
+        let servings = null;
+
+        if (
+          new Date(result.rows[idx].combine_day).getTime() ===
+          startDate.getTime()
+        ) {
+          protein = result.rows[idx].protein;
+          fat = result.rows[idx].fat;
+          carbs = result.rows[idx].carbs;
+          hungerBefore = result.rows[idx].average_hunger_before;
+          hungerAfter = result.rows[idx].average_hunger_after;
+          servings = result.rows[idx].average_hunger_after;
+
+          if (idx !== result.rows.length - 1) {
+            idx++;
+          }
+        }
+        const date = format(startDate, "yyyy/MM/dd");
+        let obj = {
+          date,
+          protein,
+          fat,
+          carbs,
+          hungerBefore,
+          hungerAfter,
+          servings
+        };
+
+        data.push(obj);
+
+        startDate = add(startDate, { days: 1 });
+      }
+
+      res.json(data);
+    })
+
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+
+
 router.post("/food-log", (req, res) => {
   console.log("receiving data...");
 
@@ -45,13 +158,11 @@ router.post("/food-log", (req, res) => {
   let count = 1;
   for (let i = 0; i < req.body.length; i++) {
     if (i < req.body.length - 1) {
-      insertQueryStr += `($${count}, $${count + 1}, $${count + 2}, $${
-        count + 3
-      }),`;
+      insertQueryStr += `($${count}, $${count + 1}, $${count + 2}, $${count + 3
+        }),`;
     } else {
-      insertQueryStr += `($${count}, $${count + 1}, $${count + 2}, $${
-        count + 3
-      });`;
+      insertQueryStr += `($${count}, $${count + 1}, $${count + 2}, $${count + 3
+        });`;
     }
 
     queryParams.push(
@@ -91,17 +202,18 @@ router.delete("/food-log", (req, res) => {
     });
 });
 
-router.get("/food-log-breakfast", (req, res) => {
-  console.log("getting data!");
+router.get("/upDateTrackerItems", (req, res) => {
+  console.log(1, req.query.meal, req.query.date);
 
-  const foodQueryStr = `
+  const params = [req.query.meal, req.query.date];
+  const str = `
     SELECT foods.name, foods.calories, foods.grams_per_serving, foods.carbs, foods.fat, foods.protein, food_logs.servings, foods.id
     FROM food_logs
     JOIN foods ON foods.id = food_logs.food_id
-    WHERE food_logs.user_id = 1 AND food_logs.meal_id = 1 AND food_logs.meal_date = CURRENT_DATE;
+    WHERE food_logs.user_id = 1 AND food_logs.meal_id = $1 AND food_logs.meal_date = $2;
     `;
 
-  db.query(foodQueryStr)
+  db.query(str, params)
     .then((result) => {
       const data = result.rows;
       res.json(data);
@@ -288,7 +400,7 @@ router.post("/habitGoals", (req, res) => {
   `;
   console.log("req.body", req.body);
   const queryParams = req.body
-  
+
   db.query(queryStr, queryParams)
     .then((result) => {
       res.json(result.rows);
@@ -297,6 +409,9 @@ router.post("/habitGoals", (req, res) => {
       console.log(err.message);
     });
 });
+
+
+
 
 
 module.exports = router;

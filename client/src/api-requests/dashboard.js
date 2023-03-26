@@ -33,6 +33,7 @@ const getUserMacros = () => {
 
 
 const getProteinProportion = () => {
+
   return axios.get('http://localhost:8000/api/dashboard/stackedProteinGraph')
   .then((response) => {
     return response.data;
@@ -42,15 +43,20 @@ const getProteinProportion = () => {
 
 
 const getHungerScore = () => {
+
   return axios.get('http://localhost:8000/api/dashboard/foodReflection')
   .then((response) => {
     return response.data;
   });
   
 }
+
 const getMood = () => {
+
   return axios.get('http://localhost:8000/api/dashboard/mood')
+
   .then((response) => {
+    console.log(response.data)
     return response.data;
   });
   
