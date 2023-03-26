@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TrackingIntuitive from "../components/TrackingIntuitive";
 import TrackingStandard from "../components/TrackingStandard";
 import TrackingPrecise from "../components/TrackingPrecise";
+import { FoodToggleDay } from "../components/FoodToggleDay";
 import { useModeContext } from "../contexts/mode-status";
 import { useStateContext } from "../contexts/ContextProvider";
 import { Box } from "@mui/system";
@@ -138,6 +139,7 @@ const TrackingPage = () => {
         }}
         src={planet}
       />
+
       <Header
         day={selectedDate}
         changeDay={setSelectedDate}
