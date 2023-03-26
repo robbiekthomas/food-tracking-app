@@ -13,6 +13,7 @@ const FoodList = (props) => {
   useEffect(() => {
     getFoodRow()
       .then((res) => {
+        console.log('res',res.data);
         setfoodData(res);
       })
       .catch((err) => {

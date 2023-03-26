@@ -112,7 +112,7 @@ const EditProfileForm = ({
       goal_name: e.target.value,
       date: "2024-03-09",
     };
-    setGoal2(g);
+    setGoal3(g);
 
     const d = createHabitGridData(goal1, goal2, g);
     setCurrentHabits(d);

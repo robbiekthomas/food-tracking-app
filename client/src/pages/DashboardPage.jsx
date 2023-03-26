@@ -84,8 +84,6 @@ const DashboardPage = () => {
   const [barChartData, setBarChartData] = useState([]);
   const [proteinBarChartData, setProteinBarChartData] = useState([]);
   const [hungerScore, setHungerScore] = useState([]);
-
-  
   const [mood, setMood] = useState([]);
 
 

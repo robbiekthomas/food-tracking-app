@@ -11,9 +11,7 @@ const TrackingIntuitive = () => {
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
-        Intuitive Food Tracker
-      </Typography>
+     
       <Box
         sx={{
           display: 'flex',
