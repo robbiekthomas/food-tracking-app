@@ -6,6 +6,7 @@ import { FoodLog } from "./FoodLog";
 import FoodList from "./FoodList";
 import MealToggle from "./MealToggle";
 import HabitGoalTracker from "./HabitGoalTracker";
+import Fade from '@mui/material/Fade';
 
 const TrackingPrecise = (props) => {
   const [meal, setMeal] = useState("");
@@ -39,10 +40,10 @@ const TrackingPrecise = (props) => {
           justifyContent: "space-evenly",
           p: 1,
           m: 1,
-          bgcolor: "background.paper",
           borderRadius: 1,
         }}
       >
+        <Fade in={open}>
         <Dialog
           onClose={handleClose}
           open={open}
@@ -61,7 +62,7 @@ const TrackingPrecise = (props) => {
             handleClose={handleClose}
           />
         </Dialog>
-
+          </Fade>
         <div>
           <div class="ml-4">
           <MealToggle mealToggle handleToggle={handleToggle} />

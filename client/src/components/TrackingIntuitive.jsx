@@ -23,7 +23,6 @@ const TrackingIntuitive = (props) => {
           justifyContent: "space-evenly",
           p: 1,
           m: 1,
-          bgcolor: "background.paper",
           borderRadius: 1,
         }}
       >

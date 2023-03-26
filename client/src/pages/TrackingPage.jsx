@@ -10,8 +10,7 @@ import { FoodToggleDay } from "../components/FoodToggleDay";
 import { useModeContext } from "../contexts/mode-status";
 import { useStateContext } from "../contexts/ContextProvider";
 import { Box } from "@mui/system";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Fade from '@mui/material/Fade';
 
 import {
   getTargetCalories,
