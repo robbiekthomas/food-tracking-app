@@ -108,7 +108,7 @@ const getCarbsWeeklyAverage = (macros) => {
 
 const getCalorieWeeklyAverage = (macros) => {
   let x = (macros[0] * 4) + (macros[1] * 9) / macros[3];
-return x;
+  return x;
 }
 
 
@@ -117,15 +117,15 @@ const getHunger = (data, n, i) => {
   let sum = 0;
   if (!data[i]) return
 
-  if(data[i].length < n) {
+  if (data[i].length < n) {
     n = data[i].length;
   }
 
   sum += data[i].reduce(function(prev, cur) {
-     return Number(prev) + Number(cur.y);
-   }, 0);
- 
-  const avg = (Math.round(sum / n * 10) /10).toFixed(1)
+    return Number(prev) + Number(cur.y);
+  }, 0);
+
+  const avg = (Math.round(sum / n * 10) / 10).toFixed(1)
 
   return avg;
 };
@@ -149,16 +149,28 @@ const calculateDifferenceInDays = (dateStr1, dateStr2) => {
   return numDays;
 }
 
+const getEntryCount = (mood) => {
+  let sum = 0;
+
+  for (const key of mood) {
+    for (const i in key) {
+      let j = Object.values(key[i])
+      sum += j.reduce((x, y) => Number(x) + Number(y), 0);
+
+    }
+  }
+
+  return sum;
+}
+
+
+
 const getTopThreeMoods = (feelingsArr) => {
-  if(!feelingsArr[0]) return;
-  
-  // const startDate = Object.keys(feelingsArr[0])[0];
-  // const endDate = getTodaysDate();
-  // const days = calculateDifferenceInDays(startDate, endDate)
+  if (!feelingsArr[0]) return;
 
   const allFeelings = feelingsArr.reduce((acc, curr) => {
-    const currFeelings = Object.keys(curr).filter(key => key !== 'id').map(date => curr[date]);
-    currFeelings.forEach(feelings => {
+    const currFeelings = Object.keys(curr).filter((key) => key !== "id").map((date) => curr[date]);
+    currFeelings.forEach((feelings) => {
       Object.entries(feelings).forEach(([feeling, count]) => {
         const numCount = Number(count);
         if (acc[feeling] === undefined) {
@@ -170,32 +182,34 @@ const getTopThreeMoods = (feelingsArr) => {
     });
     return acc;
   }, {});
-  
-  const sortedFeelings = Object.entries(allFeelings)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 3);
-  
-  const top3Feelings = sortedFeelings.reduce((acc, [feeling, count]) => {
-    acc[feeling] = count;
-    return acc;
-  }, {});
 
-return top3Feelings;
-}
+  const sortedFeelings = Object.entries(allFeelings).sort((a, b) => b[1] - a[1]).slice(0, 3);
+
+  const top3Feelings = [
+    { mood: sortedFeelings[0][0], count: sortedFeelings[0][1] },
+    { mood: sortedFeelings[1][0], count: sortedFeelings[1][1] },
+    { mood: sortedFeelings[2][0], count: sortedFeelings[2][1] },
+  ];
+
+  console.log(1, top3Feelings)
+  return top3Feelings;
+};
 
 
-export { 
-  getMaintenanceCalories, 
-  getTargetCalories, 
-  getProtein, 
-  getFat, 
-  getCarbs, 
-  getweelkyMacroDistribution, 
-  getCarbsWeeklyAverage, 
-  getFatWeeklyAverage, 
-  getProteinWeeklyAverage, 
+
+export {
+  getMaintenanceCalories,
+  getTargetCalories,
+  getProtein,
+  getFat,
+  getCarbs,
+  getweelkyMacroDistribution,
+  getCarbsWeeklyAverage,
+  getFatWeeklyAverage,
+  getProteinWeeklyAverage,
   getHunger,
   getTopThreeMoods,
   getTodaysDate,
-  getCalorieWeeklyAverage
+  getCalorieWeeklyAverage,
+  getEntryCount
 };

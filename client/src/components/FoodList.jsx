@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 import { getFoodRow } from "../api-requests/tracker";
@@ -13,6 +13,7 @@ const FoodList = (props) => {
   useEffect(() => {
     getFoodRow()
       .then((res) => {
+        console.log('res',res.data);
         setfoodData(res);
       })
       .catch((err) => {
@@ -27,39 +28,39 @@ const FoodList = (props) => {
     {
       field: "grams_per_serving",
       headerName: "Grams Per Serving",
-      width: 180,
+      width: 150,
       type: "number",
       editable: false,
     },
     {
       field: "calories",
       headerName: "Calories",
-      width: 180,
+      width: 100,
       type: "number",
       editable: false,
     },
     {
       field: "carbs",
       headerName: "Carbs",
-      width: 180,
+      width: 100,
       type: "number",
       editable: false,
     },
     {
       field: "fat",
       headerName: "Fat",
-      width: 180,
+      width: 100,
       type: "number",
       editable: false,
     },
     {
       field: "protein",
       headerName: "Protein",
-      width: 180,
+      width: 100,
       type: "number",
       editable: false,
     },
-    { field: "servings", headerName: "Servings", width: 180, editable: true },
+    { field: "servings", headerName: "Servings", width: 100, editable: true },
   ];
 
   const createFoodValues = () => {
@@ -95,8 +96,8 @@ const FoodList = (props) => {
   };
 
   return (
-    <div>
-      <div style={{ height: 600, width: "100%" }}>
+    <div class="flex flex-col items-center">
+      <div style={{ height: 500, width: "100%" }}>
         <DataGrid
           rows={rows}
           columns={columns}
@@ -111,7 +112,13 @@ const FoodList = (props) => {
           slots={{ toolbar: GridToolbar }}
         />
       </div>
-      <Button onClick={() => createFoodValues()}>Send Data</Button>
+      <Button
+        sx={{ width: "80%", p: 1, m: 2 }}
+        variant="contained"
+        onClick={() => createFoodValues()}
+      >
+        Track my meal
+      </Button>
     </div>
   );
 };

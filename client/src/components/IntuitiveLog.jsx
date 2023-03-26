@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
 const IntuitiveLog = (props) => {
@@ -13,8 +21,7 @@ const IntuitiveLog = (props) => {
       .get(`http://localhost:8000/api/tracker/intuitive-${props.meal}`)
       .then((response) => {
         setFeelings(response.data);
-        // console.log("res.data", response.data);
-        // console.log("feelings", feelings);
+        console.log("res", response)
       })
       .catch((err) => {
         console.log(err);
@@ -22,7 +29,9 @@ const IntuitiveLog = (props) => {
   }, [props.toggle]);
 
   const handleDeleteClick = (params) => () => {
-    const values = [params.id, props.mealId]
+    const values = [params.id, props.mealId];
+    feelings.splice((params.id), 1);
+    setFeelings([...feelings]);
 
     axios
     .delete(`http://localhost:8000/api/tracker/intuitive`, { data: values })
@@ -36,50 +45,43 @@ const IntuitiveLog = (props) => {
     });
   };
 
-  const columns = [
-    {
-      field: "hunger_before",
-      headerName: "Hunger Before",
-      width: 180,
-      editable: false,
-    },
-    {
-      field: "hunger_after",
-      headerName: "Hunger After",
-      width: 180,
-      editable: false,
-    },
-    {
-      field: "feeling_after_eating",
-      headerName: "How I Felt",
-      width: 180,
-      editable: false,
-    },
-    {
-      field: "actions",
-      type: "actions",
-      headerName: "Delete",
-      width: 100,
-      cellClassName: "actions",
-      getActions: (params) => {
-        return [
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={handleDeleteClick(params)}
-            color="inherit"
-          />,
-        ];
-      },
-    },
-  ];
+  const rows = feelings;
 
   return (
-    <div>
-      <div style={{ height: 300, width: "100%" }}>
-        <DataGrid rows={feelings} columns={columns} />
-      </div>
-    </div>
+    <TableContainer component={Paper} style={{ minHeight: 400, maxHeight: 400 }}>
+      <Table sx={{ minWidth: 650 }} aria-label="Food Log">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">Hunger Before</TableCell>
+            <TableCell align="center">Hunger After</TableCell>
+            <TableCell align="center">How I Felt</TableCell>
+            <TableCell align="center"></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row, rowIndex) => (
+            <TableRow
+              key={row.name}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell align="center">{row.hunger_before}</TableCell>
+              <TableCell align="center">{row.hunger_after}</TableCell>
+              <TableCell align="center">{row.feeling_after_eating}</TableCell>
+              <TableCell align="center">
+                <IconButton
+                  size="small"
+                  onClick={
+                    handleDeleteClick(row)
+                  }
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
