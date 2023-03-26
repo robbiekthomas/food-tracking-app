@@ -30,6 +30,7 @@ const pages = ["dashboard", "tracker"];
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [landingActive, setLandingActive] = useState(false);
   const { loggedIn, setLoggedIn, avatar, setAvatar } = useLoginContext();
   const { mode, setMode } = useModeContext();
   const { themeSettings, setThemeSettings, currentColor } = useStateContext();
@@ -51,11 +52,13 @@ function NavBar() {
 
   const handleLogin = () => {
     setLoggedIn(true);
+    setLandingActive(false);
     localStorage.setItem("login", true);
   };
 
   const handleLogout = () => {
     setLoggedIn(false);
+    setLandingActive(true)
     localStorage.setItem("login", false);
   };
 
@@ -85,7 +88,11 @@ function NavBar() {
             }}
           >
             <AdbIcon sx={{ mr: 1 }} />
-            <Link className="text-xl" to="/">
+            <Link
+              onClick={() => setLandingActive(true)}
+              className="text-xl"
+              to="/"
+            >
               NutritionShip
             </Link>
 
@@ -93,30 +100,31 @@ function NavBar() {
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block", ml: 5 }}
             >
-              {<Link to={`/tracker`}>Tracker</Link>}
+              {<Link onClick={() => setLandingActive(false)} to={`/tracker`}>Tracker</Link>}
             </Button>
             <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              {<Link to={`/dashboard`}>Dashboard</Link>}
+              {<Link onClick={() => setLandingActive(false)} to={`/dashboard`}>Dashboard</Link>}
             </Button>
           </Box>
-
-          <ToggleButtonGroup
-            value={mode}
-            exclusive
-            onChange={handleModeChange}
-            aria-label="Platform"
-            size="medium"
-            fullWidth
-            sx={{ backgroundColor: "white", width: "500px", mr: "100px" }}
-          >
-            <ToggleButton value="intuitive">Intuitive</ToggleButton>
-            <ToggleButton value="standard">Standard</ToggleButton>
-            <ToggleButton value="precise">Precise</ToggleButton>
-          </ToggleButtonGroup>
-
+          {!landingActive && (
+            <ToggleButtonGroup
+              value={mode}
+              
+              exclusive
+              onChange={handleModeChange}
+              aria-label="Platform"
+              size="medium"
+              fullWidth
+              sx={{ backgroundColor: "rgba(0, 0, 0, 0.25)", color: "white", width: "600px", height: '40px', mr: "100px" }}
+            >
+              <ToggleButton sx={{color: 'white'}} value="intuitive">Intuitive</ToggleButton>
+              <ToggleButton sx={{color: 'white'}} value="standard">Standard</ToggleButton>
+              <ToggleButton sx={{color: 'white'}} value="precise">Precise</ToggleButton>
+            </ToggleButtonGroup>
+          )}
           <Box>
             {!loggedIn && (
               <Link to="/tracker" onClick={handleLogin}>

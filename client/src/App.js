@@ -8,6 +8,7 @@ import { DateProvider } from "./contexts/date-context";
 import DashboardPage from "./pages/DashboardPage";
 import LandingPage from "./pages/LandingPage";
 import TrackingPage from "./pages/TrackingPage";
+
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 
@@ -21,12 +22,14 @@ function App({ children }) {
           <LoginProvider>
             <DateProvider>
               <ModeProvider>
+              <ThemeProvider theme={MuiTheme}>
                 <NavBar />
                 <Routes>
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/tracker" element={<TrackingPage />} />
                   <Route path="/dashboard" element={<DashboardPage />} />
                 </Routes>
+                </ThemeProvider>
               </ModeProvider>
             </DateProvider>
           </LoginProvider>
