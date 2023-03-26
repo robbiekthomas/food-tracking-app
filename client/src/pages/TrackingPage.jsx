@@ -6,6 +6,9 @@ import { FoodToggleDay } from "../components/FoodToggleDay";
 import { useModeContext } from "../contexts/mode-status";
 import { useStateContext } from "../contexts/ContextProvider";
 import { Box } from "@mui/system";
+
+import Fade from '@mui/material/Fade';
+
 import Header from '../components/Header';
 import { getUserRow } from "../api-requests/dashboard";
 import { getDailyMacroStats, getFoodList } from "../api-requests/tracker";
@@ -18,6 +21,7 @@ import {
   getTodaysDate,
   getFat,
   getCarbs,
+
   getProtein
 }
   from "../helper-functions/nutritionCalculations";
@@ -28,6 +32,14 @@ const TrackingPage = () => {
   const { mode, setMode } = useModeContext();
   const { planet } = useStateContext();
   useEffect(() => { }, [mode]);
+
+
+  const [mealToggle, setMealToggle] = useState("breakfast");
+
+  const handleToggle = (event, meal) => {
+    setMealToggle(meal);
+  };
+
 
   const [inputs, setUserInputs] = useState({
     id: 1,
@@ -119,13 +131,15 @@ const TrackingPage = () => {
     dailyStats,
     dailyMealSummary,
     setDailyMealSummary,
-    stringifiedDate
+    stringifiedDate, 
+    mealToggle,
+    handleToggle
   }
+
 
   return (
 
     <div>
-
       <Box
         component="img"
         sx={{
@@ -140,6 +154,7 @@ const TrackingPage = () => {
         src={planet}
       />
 
+
       <Header
         day={selectedDate}
         changeDay={setSelectedDate}
@@ -153,8 +168,9 @@ const TrackingPage = () => {
       </Header>
 
       {(stringifiedDate && mode === "precise") && <TrackingPrecise {...props} />}
-      {(stringifiedDate && mode === "intuitive") && <TrackingIntuitive />}
-      {(stringifiedDate && mode === "standard") && <TrackingStandard />}
+      {(stringifiedDate && mode === "intuitive") && <TrackingIntuitive {...props}/>}
+      {(stringifiedDate && mode === "standard") && <TrackingStandard {...props}/>}
+
 
 
 
