@@ -263,9 +263,9 @@ const EditProfileForm = ({
   };
 
   return (
-    <div>
-      <Button onClick={handleOpen}>
-        <span className="text-right material-symbols-outlined">EDIT</span>
+    <div className="mt-2">
+      <Button sx={{border: 'solid'}}onClick={handleOpen}>
+        <span className="text-right text-white material-symbols-outlined">EDIT PROFILE</span>
       </Button>
       <Modal
         open={open}

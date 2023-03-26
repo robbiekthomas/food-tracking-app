@@ -9,20 +9,26 @@ import { ModeProvider } from "./contexts/mode-status";
 import DashboardPage from "./pages/DashboardPage";
 import LandingPage from "./pages/LandingPage";
 import TrackingPage from "./pages/TrackingPage";
+import { ThemeProvider } from '@mui/material/styles';
+import {MuiTheme} from "./components/MuiTheme"
 
 
 function App() {
+  
+
   return (
     <BrowserRouter>
       <ContextProvider>
         <LoginProvider>
           <ModeProvider>
-            <NavBar />
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/tracker" element={<TrackingPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-            </Routes>
+            <ThemeProvider theme={MuiTheme}>
+              <NavBar />
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/tracker" element={<TrackingPage />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+              </Routes>
+            </ThemeProvider>
           </ModeProvider>
         </LoginProvider>
       </ContextProvider>

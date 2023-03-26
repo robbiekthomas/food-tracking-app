@@ -31,7 +31,7 @@ const DashboardPrecise = ({
 
 
   return (
-    <div className="flex">
+    <div className="flex bg-primary">
       {/*Sidebar*/}
       {currentHabits.length > 0 && <SideBar
         inputs={inputs}
@@ -41,7 +41,7 @@ const DashboardPrecise = ({
       />}
       {/*Nutrition Targets (top cards on dashboard)*/}
 
-      <div className="w-3/4 ml-4 mr-4 pt-3">
+      <div className="w-3/4 ml-4 mr-4 pt-3 ">
         <ViewSwitch
           date={date}
           goal={inputs.main_goal}
@@ -63,7 +63,7 @@ const DashboardPrecise = ({
             color='#CB4141'
             performance={Math.round(proteinWeeklyAverage / protein * 100)} />
 
-          <div className="shadow-sm relative rounded-lg row-span-2 bg-white align-center px-2">
+          <div className="shadow-sm relative rounded-lg row-span-2 bg-secondary text-dimWhite align-center px-2">
             <ChartHeader title={'Macronutrient Distribution'} />
 
             <div className="flex justify-around">
@@ -106,7 +106,7 @@ const DashboardPrecise = ({
 
             {/* HABIT GOALS*/}
             {currentHabits && currentHabits.length > 0 &&
-              <div className="bg-white shadow-sm relative rounded-lg pl-2'">
+              <div className="bg-secondary shadow-sm relative rounded-lg pl-2'">
                 <HabitCard
                   dataSource={currentHabits}
                   title='Habit Goals'
@@ -116,7 +116,7 @@ const DashboardPrecise = ({
 
             {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
             {barChartData && barChartData.length > 0 &&
-              <div className="shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
+              <div className="shadow-sm relative rounded-lg bg-secondary align-center pb-2 pt-2">
                 <ChartHeader title="Macronutrients (grams per day)" />
                 <Stacked
                   data={barChartData}
@@ -129,7 +129,7 @@ const DashboardPrecise = ({
 
             {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 &&
-              < div className="col-span-3 shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
+              < div className="col-span-3 shadow-sm relative rounded-lg bg-secondary align-center pb-2 pt-2">
                 
                   <LineChart datapoints={lineChartData} />
               

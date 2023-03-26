@@ -33,7 +33,7 @@ const Card = ({ title, target, performance, color }) => {
   var b = parseInt(hex.substring(4, 6), 16);
 
   return (
-    <div className="shadow-sm relative flex-col  break-words bg-white  rounded-lg bg-clip-border">
+    <div className="shadow-sm relative flex-col  break-words bg-secondary text-dimWhite rounded-lg bg-clip-border ">
       <div className="flex-column pl-1 pr-1 pt-2 pb-2 justify-center items-center">
         <div className="flex flex-wrap">
           {(title !== 'Maintenance Calories' && title !== 'Hunger Before Eating' && title !== 'Hunger After Eating') &&

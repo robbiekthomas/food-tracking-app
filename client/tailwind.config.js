@@ -8,15 +8,15 @@ module.exports = {
       poppins: ["Poppins", "sans-serif"],
     },
     extend: {
-            backgroundColor: {
-        "main-bg": "#FAFBFB",
+            colors: {
+        "main-bg": "#251f25",
         "main-dark-bg": "#20232A",
         "secondary-dark-bg": "#33373E",
         "light-gray": "#F7F7F7",
         "half-transparent": "rgba(0, 0, 0, 0.5)",
-        primary: "#00040f",
-        secondary: "#00f6ff",
-        dimWhite: "rgba(255, 255, 255, 0.7)",
+        primary: "#251f25",
+        secondary: "#453745",
+        dimWhite: "#e2e8f0",
         dimBlue: "rgba(9, 151, 124, 0.1)",
       },
       borderWidth: {
