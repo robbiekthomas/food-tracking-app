@@ -37,11 +37,11 @@ export const FoodLog = (props) => {
   const initialRows = foodLog;
 
   const columns = [
-    { field: "name", headerName: "Name", width: 180, editable: false },
+    { field: "name", headerName: "Food", width: 180, editable: false },
     {
       field: "grams_per_serving",
-      headerName: "Grams Per Serving",
-      width: 180,
+      headerName: "Grams/Serving",
+      width: 90,
       type: "number",
       editable: false,
       
@@ -49,28 +49,28 @@ export const FoodLog = (props) => {
     {
       field: "calories",
       headerName: "Calories",
-      width: 180,
+      width: 70,
       type: "number",
       editable: false,
     },
     {
       field: "carbs",
       headerName: "Carbs",
-      width: 180,
+      width: 70,
       type: "number",
       editable: false,
     },
     {
       field: "fat",
       headerName: "Fat",
-      width: 180,
+      width: 70,
       type: "number",
       editable: false,
     },
     {
       field: "protein",
       headerName: "Protein",
-      width: 180,
+      width: 70,
       type: "number",
       editable: false,
     },
@@ -78,7 +78,7 @@ export const FoodLog = (props) => {
       field: "servings",
       headerName: "Servings",
       type: "number",
-      width: 180,
+      width: 70,
       editable: false,
     },
     {
@@ -102,8 +102,12 @@ export const FoodLog = (props) => {
 
   return (
     <div>
-      <div style={{ height: 600, width: "100%" }}>
-        <DataGrid rows={foodLog} columns={columns} />
+      <div style={{ height: 250, width: "100%"}}>
+        <DataGrid 
+        rows={foodLog} 
+        columns={columns} 
+        sx={{ p: 1}}
+        />
       </div>
     </div>
   );

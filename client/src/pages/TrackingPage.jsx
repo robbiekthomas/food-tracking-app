@@ -6,6 +6,7 @@ import FoodTracker from "../components/TrackingPrecise";
 import TrackingIntuitive from "../components/TrackingIntuitive";
 import TrackingStandard from "../components/TrackingStandard";
 import TrackingPrecise from "../components/TrackingPrecise";
+import { FoodToggleDay } from "../components/FoodToggleDay";
 import { useModeContext } from "../contexts/mode-status";
 import { useStateContext } from "../contexts/ContextProvider";
 import { Box } from "@mui/system";
@@ -90,6 +91,7 @@ const TrackingPage = () => {
         }}
         src={planet}
       />
+
       {mode === "precise" && <TrackingPrecise {...props} />}
 
       {mode === "intuitive" && <TrackingIntuitive />}

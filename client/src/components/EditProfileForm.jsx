@@ -79,7 +79,7 @@ const EditProfileForm = ({
   const onGoal1Change = (e) => {
 
     const g = {
-      goal_id: 1,
+      goal_number: 1,
       is_complete: false,
       goal_name: e.target.value,
       date: "2024-03-09",
@@ -93,7 +93,7 @@ const EditProfileForm = ({
   const onGoal2Change = (e) => {
 
     const g = {
-      goal_id: 2,
+      goal_number: 2,
       is_complete: false,
       goal_name: e.target.value,
       date: "2024-03-09",
@@ -107,7 +107,7 @@ const EditProfileForm = ({
   const onGoal3Change = (e) => {
 
     const g = {
-      goal_id: 3,
+      goal_number: 3,
       is_complete: false,
       goal_name: e.target.value,
       date: "2024-03-09",
@@ -224,7 +224,7 @@ const EditProfileForm = ({
     };
 
     change(submissionValues);
-
+    console.log("currentHabits", currentHabits)
     updateDatabase(submissionValues, currentHabits);
 
   };
@@ -582,7 +582,7 @@ const EditProfileForm = ({
                   defaultValue={inputs.neck_circumference}
                   size="small"
                   name="neck"
-                  type="number"<<<<<<< tracking-page
+                  type="number"
                   InputProps={{ inputProps: { min: 0 } }}
                   onChange={(e) => onNeckMeasurementChange(e)}
                 />
