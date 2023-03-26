@@ -582,7 +582,7 @@ const EditProfileForm = ({
                   defaultValue={inputs.neck_circumference}
                   size="small"
                   name="neck"
-                  type="number"<<<<<<< tracking-page
+                  type="number"
                   InputProps={{ inputProps: { min: 0 } }}
                   onChange={(e) => onNeckMeasurementChange(e)}
                 />

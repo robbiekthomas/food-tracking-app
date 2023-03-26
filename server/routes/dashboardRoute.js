@@ -337,6 +337,7 @@ router.get("/mood", (req, res) => {
         }
       });
 
+      console.log(Result)
       res.json(result);
     })
 

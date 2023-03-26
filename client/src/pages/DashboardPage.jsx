@@ -27,7 +27,6 @@ import {
   getCarbsWeeklyAverage,
   getCalorieWeeklyAverage,
   getHunger,
-  getTopThreeMoods,
   getTodaysDate
 }
 from '../helper-functions/nutritionCalculations';
@@ -85,6 +84,8 @@ const DashboardPage = () => {
   const [barChartData, setBarChartData] = useState([]);
   const [proteinBarChartData, setProteinBarChartData] = useState([]);
   const [hungerScore, setHungerScore] = useState([]);
+
+  
   const [mood, setMood] = useState([]);
 
 
@@ -103,7 +104,7 @@ const DashboardPage = () => {
   const  calorieWeeklyAverage = getCalorieWeeklyAverage(weelkyMacroDistribution)
   const avgWeeklyHungerBefore = getHunger(hungerScore, 7, 0); //data, days, index
   const avgWeeklyHungerAfter = getHunger(hungerScore, 7, 1); //data, days, index
-  const topThreeMoods = getTopThreeMoods(mood);
+  
 
   //gets user details and habit goals from the database
   useEffect(() => {
@@ -182,6 +183,9 @@ const DashboardPage = () => {
       })
   }, []);
 
+ 
+
+
   const props = {
     currentHabits,
     inputs,
@@ -201,7 +205,7 @@ const DashboardPage = () => {
     carbsWeeklyAverage,
     avgWeeklyHungerBefore,
     avgWeeklyHungerAfter,
-    topThreeMoods,
+    mood,
     habitGoal1,
     habitGoal2,
     habitGoal3,
