@@ -63,7 +63,7 @@ const IntuitiveList = (props) => {
     <div>
       <Button
         sx={{ width: "100%", p: 1 }}
-        variant="contained"
+        variant="outlined"
         onClick={handleClickOpen}
       >
         Add {props.meal}

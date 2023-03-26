@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import axios from "axios";
 
@@ -22,6 +29,9 @@ export const FoodLogStandard = (props) => {
   //params.id is the selected row food ID
   const handleDeleteClick = (params) => () => {
     const values = [params.id, props.mealID]
+    foodLog.splice((params.id), 1);
+    setFoodLog([...foodLog]);
+
     axios
     .delete(`http://localhost:8000/api/tracker/food-log`, { data: values })
     .then(response => {
@@ -34,63 +44,49 @@ export const FoodLogStandard = (props) => {
     });
   };
 
-  const initialRows = foodLog;
+  const rows = foodLog;
 
-  const columns = [
-    { field: "name", headerName: "Name", width: 180, editable: false },
-    {
-      field: "grams_per_serving",
-      headerName: "Grams Per Serving",
-      width: 180,
-      type: "number",
-      editable: false,
-      
-    },
-    {
-      field: "calories",
-      headerName: "Calories",
-      width: 180,
-      type: "number",
-      editable: false,
-    },
-    {
-      field: "protein",
-      headerName: "Protein",
-      width: 180,
-      type: "number",
-      editable: false,
-    },
-    {
-      field: "servings",
-      headerName: "Servings",
-      type: "number",
-      width: 180,
-      editable: false,
-    },
-    {
-      field: "actions",
-      type: "actions",
-      headerName: "Delete",
-      width: 100,
-      cellClassName: "actions",
-      getActions: (params) => {
-        return [
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={handleDeleteClick(params)}
-            color="inherit"
-          />,
-        ];
-      },
-    },
-  ];
 
   return (
-    <div>
-      <div style={{ height: 600, width: "100%" }}>
-        <DataGrid rows={foodLog} columns={columns} />
-      </div>
-    </div>
+    <TableContainer component={Paper} style={{ minHeight: 400, maxHeight: 400 }}>
+      <Table sx={{ minWidth: 650 }} aria-label="Food Log">
+        <TableHead>
+          <TableRow>
+            <TableCell>Food</TableCell>
+            <TableCell align="right">Grams/Serving</TableCell>
+            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell align="right">Servings</TableCell>
+            <TableCell align="right"></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row, rowIndex) => (
+            <TableRow
+              key={row.name}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.grams_per_serving}</TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.protein}</TableCell>
+              <TableCell align="right">{row.servings}</TableCell>
+              <TableCell align="center">
+                <IconButton
+                  size="small"
+                  onClick={
+                    handleDeleteClick(row)
+                  }
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };

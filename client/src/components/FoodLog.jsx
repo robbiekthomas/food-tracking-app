@@ -31,11 +31,10 @@ export const FoodLog = (props) => {
     foodLog.splice((params.id), 1);
     setFoodLog([...foodLog]);
     const values = [params.id, props.mealID];
-    console.log("values", values)
+
     axios
       .delete(`http://localhost:8000/api/tracker/food-log`, { data: values })
       .then((response) => {
-        console.log("res.data", response.data);
         setFoodDelete((prev) => !prev);
       })
       .catch((error) => {
@@ -46,7 +45,7 @@ export const FoodLog = (props) => {
   const rows = foodLog;
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} style={{ minHeight: 400, maxHeight: 400 }}>
       <Table sx={{ minWidth: 650 }} aria-label="Food Log">
         <TableHead>
           <TableRow>
@@ -57,7 +56,7 @@ export const FoodLog = (props) => {
             <TableCell align="right">Fat&nbsp;(g)</TableCell>
             <TableCell align="right">Protein&nbsp;(g)</TableCell>
             <TableCell align="right">Servings</TableCell>
-            <TableCell align="right">Delete</TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -78,11 +77,9 @@ export const FoodLog = (props) => {
               <TableCell align="center">
                 <IconButton
                   size="small"
-                  onClick={() => {
-                    handleDeleteClick(row);
-                    console.log("index", rowIndex)
-                    console.log("row", row)
-                  }}
+                  onClick={
+                    handleDeleteClick(row)
+                  }
                 >
                   <DeleteIcon fontSize="small" />
                 </IconButton>

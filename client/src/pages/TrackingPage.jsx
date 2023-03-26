@@ -10,74 +10,34 @@ import { FoodToggleDay } from "../components/FoodToggleDay";
 import { useModeContext } from "../contexts/mode-status";
 import { useStateContext } from "../contexts/ContextProvider";
 import { Box } from "@mui/system";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
-import { 
-  getTargetCalories, 
+import {
+  getTargetCalories,
   getMaintenanceCalories,
   getTodaysDate,
-  getFat, 
-  getCarbs, 
-  getProtein 
-} 
-from "../helper-functions/nutritionCalculations";
+  getFat,
+  getCarbs,
+  getProtein,
+} from "../helper-functions/nutritionCalculations";
 
 import { getUserRow } from "../api-requests/dashboard";
-
 
 const TrackingPage = () => {
   const { mode, setMode } = useModeContext();
   const { planet } = useStateContext();
   useEffect(() => {}, [mode]);
 
-  const [inputs, setUserInputs] = useState({
-    id: 1,
-    name: "",
-    email: "",
-    birthdate: "",
-    sex: "",
-    toggleBF: false,
-    mainGoal: "",
-    bodyFatPercentage: 0,
-    waist: 0,
-    hips: 0,
-    neck: 0,
-    height: 0,
-    toggleWCC: false,
-    weight_change_goal: 0,
-  });
+  const [mealToggle, setMealToggle] = useState("breakfast");
 
-  const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
-  const targetCalories = getTargetCalories(inputs.weight_change_goal, maintenanceCalories);
-  const protein = getProtein(inputs.weight, inputs.sex, inputs.body_fat_percentage);
-  const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
-  const carbs = getCarbs(targetCalories, protein, fat);
-  const date = getTodaysDate();
+  const handleToggle = (event, meal) => {
+    setMealToggle(meal);
+  };
 
-
-  useEffect(() => {
-    getUserRow()
-    .then((res) => {
-      setUserInputs(res[0]);
-      
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }, [])
-
-  const props = {
-    inputs,
-    setUserInputs,
-    targetCalories,
-    protein,
-    carbs,
-    fat,
-    date
-  }
 
   return (
     <div>
-
       <Box
         component="img"
         sx={{
@@ -92,10 +52,10 @@ const TrackingPage = () => {
         src={planet}
       />
 
-      {mode === "precise" && <TrackingPrecise {...props} />}
+      {mode === "precise" && <TrackingPrecise mealToggle={mealToggle} handleToggle={handleToggle} />}
 
-      {mode === "intuitive" && <TrackingIntuitive />}
-      {mode === "standard" && <TrackingStandard />}
+      {mode === "intuitive" && <TrackingIntuitive mealToggle={mealToggle} handleToggle={handleToggle} />}
+      {mode === "standard" && <TrackingStandard mealToggle={mealToggle} handleToggle={handleToggle} />}
     </div>
   );
 };
