@@ -21,7 +21,6 @@ import {
   getTodaysDate,
   getFat,
   getCarbs,
-
   getProtein
 }
   from "../helper-functions/nutritionCalculations";

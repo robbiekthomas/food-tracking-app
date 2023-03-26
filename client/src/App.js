@@ -8,6 +8,8 @@ import { DateProvider } from "./contexts/date-context";
 import DashboardPage from "./pages/DashboardPage";
 import LandingPage from "./pages/LandingPage";
 import TrackingPage from "./pages/TrackingPage";
+import { ThemeProvider } from '@mui/material/styles';
+import { MuiTheme } from "./components/MuiTheme"
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
