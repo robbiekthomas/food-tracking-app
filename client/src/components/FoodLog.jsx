@@ -2,26 +2,33 @@ import React, { useState, useEffect } from "react";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import axios from "axios";
+import {  upDateTrackerItems } from '../api-requests/tracker';
+import { useDateContext } from "../contexts/date-context";
 
-export const FoodLog = (props) => {
+
+
+export const FoodLog = ({meal, mealID, mealSummary, showList, onUpdate, selectedDate}) => {
   const [foodLog, setFoodLog] = useState([]);
   const [foodDelete, setFoodDelete] = useState(false);
   
+  const { selectedContextDate } = useDateContext();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/tracker/food-log-${props.meal}`)
-      .then((response) => {
-        setFoodLog(response.data);
+    const m = Number(mealID)
+
+    upDateTrackerItems(m, selectedContextDate)
+      .then((res) => {
+        console.log('klklkl',res)
+        setFoodLog(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props.showList, foodDelete]);
-
+  }, [showList, foodDelete, selectedContextDate]);
+console.log('selectedContextDate', selectedContextDate)
   //params.id is the selected row food ID
   const handleDeleteClick = (params) => () => {
-    const values = [params.id, props.mealID]
+    const values = [params.id, mealID]
     axios
     .delete(`http://localhost:8000/api/tracker/food-log`, { data: values })
     .then(response => {
@@ -34,8 +41,10 @@ export const FoodLog = (props) => {
     });
   };
 
-  const initialRows = foodLog;
+  //made in order to change the values on the table once a new date is selected
 
+
+  console.log('props', foodLog)
   const columns = [
     { field: "name", headerName: "Name", width: 180, editable: false },
     {

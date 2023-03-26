@@ -1,14 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HabitCard from '../components/charts/HabitCard'
 import SideBar from './SideBar';
-import ChartHeader from './charts/ChartsHeader';
 import LineChart from './charts/LineChart';
-import PieChart from '../components/charts/PieChart';
-import Stacked from '../components/charts/Stacked';
 import Card from './charts/Card';
 import classNames from 'classnames';
 import ViewSwitch from './ViewSwitch';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { getTopThreeMoods, getEntryCount } from '../helper-functions/nutritionCalculations';
 
 
 const DashboardIntuitive = ({
@@ -25,9 +23,32 @@ const DashboardIntuitive = ({
   weelkyMacroDistribution,
   avgWeeklyHungerBefore,
   avgWeeklyHungerAfter,
-  topThreeMoods,
+  mood
+
 
 }) => {
+  const [topThreeMoods, setTopThreeMoods] = useState([])
+  const [mood1, setMood1] = useState({})
+  const [mood2, setMood2] = useState({})
+  const [mood3, setMood3] = useState({})
+  const [totalMoodEntries, setTotalMoodEntries] = useState(0);
+
+  console.log(5, mood1, mood2, mood3);
+
+  useEffect(() => {
+    let d = [{},{},{}]
+    let e = 0;
+    if (mood.length > 0) {
+      d = getTopThreeMoods(mood)
+      e = getEntryCount(mood)
+    }
+    setTopThreeMoods(d)
+    setMood1(d[0])
+    setMood2(d[1])
+    setMood3(d[2])
+    setTotalMoodEntries(e);
+  }, [mood]);
+
 
 
   return (
@@ -87,7 +108,7 @@ const DashboardIntuitive = ({
           }
 
           {/* TOP THREE MOODS */}
-          {(topThreeMoods && topThreeMoods.length > 0) &&
+          {(mood && mood.length > 0) &&
             <div className="w-5/12 bg-white align-center pb-5">
               <p className="mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl">
                 Top 3 Feelings After Eating
@@ -96,25 +117,25 @@ const DashboardIntuitive = ({
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Count</TableCell>
+                      <TableCell>Percent of Entries</TableCell>
                       <TableCell>Feeling</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
 
                     <TableRow>
-                      <TableCell>{JSON.stringify(Object.entries(topThreeMoods)[0]).replace(/\D/g, '')}</TableCell>
-                      <TableCell>{JSON.stringify(Object.entries(topThreeMoods)[0]).replace(/[^a-zA-Z\s]/g, '')}</TableCell>
+                      <TableCell>{Math.round(mood1.count / totalMoodEntries * 100)}%</TableCell>
+                      <TableCell>{mood1.mood}</TableCell>
                     </TableRow>
 
                     <TableRow>
-                      <TableCell>{JSON.stringify(Object.entries(topThreeMoods)[1]).replace(/\D/g, '')}</TableCell>
-                      <TableCell>{JSON.stringify(Object.entries(topThreeMoods)[1]).replace(/[^a-zA-Z\s]/g, '')}</TableCell>
+                      <TableCell>{Math.round(mood2.count / totalMoodEntries * 100)}%</TableCell>
+                      <TableCell>{mood2.mood}</TableCell>
                     </TableRow>
 
                     <TableRow>
-                      <TableCell>{JSON.stringify(Object.entries(topThreeMoods)[2]).replace(/\D/g, '')}</TableCell>
-                      <TableCell>{JSON.stringify(Object.entries(topThreeMoods)[2]).replace(/[^a-zA-Z\s]/g, '')}</TableCell>
+                      <TableCell>{Math.round(mood3.count / totalMoodEntries * 100)}%</TableCell>
+                      <TableCell>{mood3.mood}</TableCell>
                     </TableRow>
 
                   </TableBody>
