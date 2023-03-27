@@ -31,7 +31,7 @@ const DashboardStandard = ({
 
 
   return (
-    <div className="flex">
+    <div className="flex bg-primary">
       {/*Sidebar*/}
       {currentHabits.length > 0 && <SideBar
         inputs={inputs}
