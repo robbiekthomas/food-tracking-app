@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { createHabitGridData } from '../data/chartData';
+import React, { useEffect, useState } from "react";
+import { createHabitGridData } from "../data/chartData";
 import DashboardIntuitive from "../components/DashboardIntuitive";
 import DashboardPrecise from "../components/DashboardPrecise";
 import DashboardStandard from "../components/DashboardStandard";
 import { useModeContext } from "../contexts/mode-status";
-import '../styles/Dashboard.css'; 
-import { Box } from '@mui/system';
-
+import "../styles/Dashboard.css";
+import { Box } from "@mui/system";
 
 import {
   getUserDetails,
@@ -15,8 +14,8 @@ import {
   getProteinProportion,
   getHungerScore,
   getMood,
-  getConsistencyStreak
-} from '../api-requests/dashboard';
+  getConsistencyStreak,
+} from "../api-requests/dashboard";
 
 import {
   getCarbs,
@@ -30,14 +29,13 @@ import {
   getCarbsWeeklyAverage,
   getCalorieWeeklyAverage,
   getHunger,
-  getTodaysDate
-}
-from '../helper-functions/nutritionCalculations';
-
+  getTodaysDate,
+} from "../helper-functions/nutritionCalculations";
+import mercury from "../assets/bg/mercury.png";
 
 const DashboardPage = () => {
   const { mode, setMode } = useModeContext();
-  useEffect(() => { }, [mode]);
+  useEffect(() => {}, [mode]);
 
   //will store the users old data technically then get submitted as package for post request
   const [inputs, setUserInputs] = useState({
@@ -59,7 +57,7 @@ const DashboardPage = () => {
 
   //Set and store current habit goals
   const [currentHabits, setCurrentHabits] = useState([]);
-  
+
   const [habitGoal1, setCurrentHabitGoal1] = useState({
     goal_id: 0,
     is_complete: false,
@@ -81,7 +79,6 @@ const DashboardPage = () => {
     date: "",
   });
 
-
   //set and store chart data
   const [lineChartData, setLineChartData] = useState([]);
   const [barChartData, setBarChartData] = useState([]);
@@ -89,11 +86,20 @@ const DashboardPage = () => {
   const [hungerScore, setHungerScore] = useState([]);
   const [mood, setMood] = useState([]);
 
-
   //calculate nutrition targets
-  const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
-  const targetCalories = getTargetCalories(inputs.weight_change_goal, maintenanceCalories);
-  const protein = getProtein(inputs.weight, inputs.sex, inputs.body_fat_percentage);
+  const maintenanceCalories = getMaintenanceCalories(
+    inputs.weight,
+    inputs.body_fat_percentage
+  );
+  const targetCalories = getTargetCalories(
+    inputs.weight_change_goal,
+    maintenanceCalories
+  );
+  const protein = getProtein(
+    inputs.weight,
+    inputs.sex,
+    inputs.body_fat_percentage
+  );
   const fat = getFat(inputs.weight, inputs.sex, inputs.body_fat_percentage);
   const carbs = getCarbs(targetCalories, protein, fat);
   const date = getTodaysDate();
@@ -102,10 +108,9 @@ const DashboardPage = () => {
   const proteinWeeklyAverage = getProteinWeeklyAverage(weelkyMacroDistribution);
   const fatWeeklyAverage = getFatWeeklyAverage(weelkyMacroDistribution);
   const carbsWeeklyAverage = getCarbsWeeklyAverage(weelkyMacroDistribution);
-  const  calorieWeeklyAverage = getCalorieWeeklyAverage(weelkyMacroDistribution)
+  const calorieWeeklyAverage = getCalorieWeeklyAverage(weelkyMacroDistribution);
   const avgWeeklyHungerBefore = getHunger(hungerScore, 7, 0); //data, days, index
   const avgWeeklyHungerAfter = getHunger(hungerScore, 7, 1); //data, days, index
-  
 
   //gets user details and habit goals from the database
   useEffect(() => {
@@ -117,7 +122,7 @@ const DashboardPage = () => {
         setCurrentHabitGoal3(res[2]);
       })
       .catch((err) => {
-         console.log('getUserRow', err);
+        console.log("getUserRow", err);
       });
   }, []);
 
@@ -126,7 +131,6 @@ const DashboardPage = () => {
     setCurrentHabits(d);
   }, [habitGoal1, habitGoal2, habitGoal3]);
 
-
   //get data for weight change chart and bf%
   useEffect(() => {
     getUserDetails()
@@ -134,7 +138,7 @@ const DashboardPage = () => {
         setLineChartData(res);
       })
       .catch((err) => {
-         console.log('getUserDetails', err);
+        console.log("getUserDetails", err);
       });
   }, []);
 
@@ -145,35 +149,31 @@ const DashboardPage = () => {
         setBarChartData(res);
       })
       .catch((err) => {
-         console.log('getUserMacros', err);
-      })
+        console.log("getUserMacros", err);
+      });
   }, []);
-
 
   //get protein data
   useEffect(() => {
     getProteinProportion()
       .then((res) => {
         setProteinBarChartData(res);
-  
       })
       .catch((err) => {
-         console.log('getProteinProportion', err);
-      })
+        console.log("getProteinProportion", err);
+      });
   }, []);
 
   //get hunger data
   useEffect(() => {
     getHungerScore()
       .then((res) => {
-        
         setHungerScore(res);
       })
       .catch((err) => {
-         console.log('getHungerScore', err);
-      })
+        console.log("getHungerScore", err);
+      });
   }, []);
-
 
   //get habit consistency data
   useEffect(() => {
@@ -182,8 +182,8 @@ const DashboardPage = () => {
         //setHungerScore(res);
       })
       .catch((err) => {
-         console.log('getConsistencyStreak', err);
-      })
+        console.log("getConsistencyStreak", err);
+      });
   }, [habitGoal1]);
 
   useEffect(() => {
@@ -192,8 +192,8 @@ const DashboardPage = () => {
         //setHungerScore(res);
       })
       .catch((err) => {
-         console.log('getConsistencyStreak', err);
-      })
+        console.log("getConsistencyStreak", err);
+      });
   }, [habitGoal2]);
 
   useEffect(() => {
@@ -202,8 +202,8 @@ const DashboardPage = () => {
         //setHungerScore(res);
       })
       .catch((err) => {
-         console.log('getConsistencyStreak', err);
-      })
+        console.log("getConsistencyStreak", err);
+      });
   }, [habitGoal2]);
 
   //get mood data
@@ -213,13 +213,9 @@ const DashboardPage = () => {
         setMood(res);
       })
       .catch((err) => {
-        console.log('getMood', err);
-      })
+        console.log("getMood", err);
+      });
   }, []);
-
-
- 
-
 
   const props = {
     currentHabits,
@@ -245,17 +241,22 @@ const DashboardPage = () => {
     habitGoal2,
     habitGoal3,
     calorieWeeklyAverage,
-    date
-  }
+    date,
+  };
 
   return (
     <div className="bg-slate-100">
-      
-      
       {mode === "precise" && <DashboardPrecise {...props} />}
       {mode === "standard" && <DashboardStandard {...props} />}
       {mode === "intuitive" && <DashboardIntuitive {...props} />}
-    </div >
+      <Box
+        position="fixed"
+        bottom={20}
+        sx={{ zIndex: 0, width: "100vw", height: "100vh" }}
+      >
+        <img src={mercury} alt="mercury" />
+      </Box>
+    </div>
   );
 };
 

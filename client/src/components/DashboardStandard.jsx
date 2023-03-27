@@ -79,7 +79,7 @@ const DashboardStandard = ({
         <div className={classNames('mt-3', 'w-full', 'grid', 'grid-cols-2', 'grid-rows-1, gap-3')}>
           {/* HABIT GOALS*/}
           {currentHabits && currentHabits.length > 0 &&
-            <div className={`shadow-sm relative rounded-lg pl-2 ${gradientStyling}`}>
+            <div className={`shadow-sm relative rounded-lg pl-2 ${gradientStyling} z-10`}>
               <HabitCard
                 dataSource={currentHabits}
                 title='Habit Goals'
@@ -89,7 +89,7 @@ const DashboardStandard = ({
 
           {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
           {barChartData && barChartData.length > 0 &&
-            <div className={`shadow-sm relative rounded-lg align-center pb-2 pt-2 ${gradientStyling}`}>
+            <div className={`shadow-sm relative rounded-lg align-center pb-2 pt-2 ${gradientStyling} z-10`}>
               <ChartHeader title="Protein Distribution over Time (%)" />
               <Stacked
                 data={proteinBarChartData}
@@ -103,7 +103,7 @@ const DashboardStandard = ({
 
 
         <div className="mt-3">
-          <div className={classNames('w-full', 'grid', 'grid-cols-3', 'grid-rows-3 gap-3')}>
+          <div className={classNames('w-full', 'grid', 'grid-cols-3', 'grid-rows-1 gap-3')}>
 
 
 
@@ -112,13 +112,13 @@ const DashboardStandard = ({
 
             {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 &&
-              < div className={`h-72 col-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-3 w-full ${gradientStyling}`}>
+              < div className={`h-72 col-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-3 w-full ${gradientStyling} z-10`}>
                 <LineChart datapoints={lineChartData} />
               </div>
             }
 
             {/* MACROS*/}
-            <div className={`shadow-sm relative rounded-lg align-center px-2 ${gradientStyling}`}>
+            <div className={`shadow-sm relative rounded-lg align-center px-2 ${gradientStyling} z-10`}>
               <ChartHeader title={' Protein Percent of Total Calories'} />
               {/* Target Macro Distribution From Diet */}
               <div className="flex justify-around">

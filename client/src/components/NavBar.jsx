@@ -202,13 +202,7 @@ function NavBar() {
           </Box>
         </Box>
       </AppBar>
-      {/* <Box
-        position="fixed"
-        bottom={20}
-        sx={{ zIndex: 0, width: "100vw", height: "100vh" }}
-      > 
-        <img src={mercury} alt="mercury" />
-      </Box> */}
+     
     </>
   );
 }
