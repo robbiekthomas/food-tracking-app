@@ -32,10 +32,11 @@ const DashboardIntuitive = ({
   const [mood2, setMood2] = useState({})
   const [mood3, setMood3] = useState({})
   const [totalMoodEntries, setTotalMoodEntries] = useState(0);
-
+  console.log(avgWeeklyHungerBefore,
+    avgWeeklyHungerAfter)
 
   useEffect(() => {
-    let d = [{},{},{}]
+    let d = [{}, {}, {}]
     let e = 0;
     if (mood.length > 0) {
       d = getTopThreeMoods(mood)
@@ -76,21 +77,25 @@ const DashboardIntuitive = ({
             color='#666666'
             target={`${maintenanceCalories - 100} - ${maintenanceCalories + 100} kcal`}
           />
+          {avgWeeklyHungerBefore &&
+            <Card
+              title='Hunger Before Eating'
+              color='#666666'
+              target={`Aim for a rating of ${3} - ${5}`}
+              performance={avgWeeklyHungerBefore}
+            />
+          }
 
-          <Card
-            title='Hunger Before Eating'
-            color='#666666'
-            target={`Aim for a rating of ${3} - ${5}`}
-            performance={avgWeeklyHungerBefore}
-          />
+          {avgWeeklyHungerAfter &&
+            <Card
+              title={'Hunger After Eating'}
+              target={`Aim for a rating of ${5} - ${8}`}
+              unit='grams'
+              color='#CB4141'
+              performance={avgWeeklyHungerAfter}
+            />
+          }
 
-          <Card
-            title={'Hunger After Eating'}
-            target={`Aim for a rating of ${5} - ${8}`}
-            unit='grams'
-            color='#CB4141'
-            performance={avgWeeklyHungerAfter}
-          />
         </div>
 
 

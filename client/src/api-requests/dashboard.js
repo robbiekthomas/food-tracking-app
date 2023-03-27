@@ -43,8 +43,9 @@ const getProteinProportion = () => {
 
 const getConsistencyStreak = (goal) => {
 
-  return axios.get('http://localhost:8000/api/dashboard/goalStreak', {params: {goal}})
+  return axios.get('http://localhost:8000/api/dashboard/goal', {params: {goal}})
   .then((response) => {
+    console.log('getConsistencyStreakResponse', response.data)
     return response.data;
   });
   
