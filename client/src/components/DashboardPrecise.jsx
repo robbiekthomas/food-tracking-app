@@ -28,7 +28,7 @@ const DashboardPrecise = ({
   date,
 }) => {
   const gradientStyling =
-  "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2]";
+  "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
   return (
     <div className="flex bg-primary">

@@ -60,7 +60,7 @@ const DashboardIntuitive = ({
   }, [mood]);
 
   const gradientStyling =
-    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2]";
+    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
   return (
     <div className="flex bg-primary">
@@ -210,7 +210,7 @@ const DashboardIntuitive = ({
             {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 && (
               <div
-                className={`row-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-3 w-full ${gradientStyling} ${classNames(
+                className={`row-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-3 w-full z-10 ${gradientStyling} ${classNames(
                   "col-span-1",
                   "row-span-2"
                 )}`}
