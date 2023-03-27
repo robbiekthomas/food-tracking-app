@@ -28,13 +28,9 @@ const contextController = require('./routes/contextRoute');
 
 //use router
 app.use('/api/dashboard', dashboardController);
-app.use('/api/dashboard/weightGraph', dashboardController);
-app.use('/api/dashboard/stackedMacroGraph', dashboardController);
-app.use('/api/dashboard/stackedProteinGraph', dashboardController);
-app.use('/api/dashboard/foodReflection', dashboardController);
-app.use('/api/dashboard/mood', dashboardController);
+
 app.use('/api/mode', contextController);
-app.use('/api/dashboard/goalStreak', dashboardController);
+
 
 app.use('/api/tracker', trackerController);
 app.use('/api/tracker/trackerDashboardMacros', trackerController);
