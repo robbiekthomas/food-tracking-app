@@ -177,6 +177,7 @@ const DashboardPage = () => {
 
   //get habit consistency data
   useEffect(() => {
+    console.log('habitGoal1.goal_id',habitGoal1.goal_id)
     getConsistencyStreak(habitGoal1.goal_id)
       .then((res) => {
         //setHungerScore(res);
@@ -186,7 +187,9 @@ const DashboardPage = () => {
       })
   }, [habitGoal1]);
 
+  
   useEffect(() => {
+    console.log('habitGoal2.goal_id',habitGoal2.goal_id)
     getConsistencyStreak(habitGoal2.goal_id)
       .then((res) => {
         //setHungerScore(res);
@@ -197,14 +200,15 @@ const DashboardPage = () => {
   }, [habitGoal2]);
 
   useEffect(() => {
-    getConsistencyStreak(habitGoal2.goal_id)
+    console.log('habitGoal3.goal_id',habitGoal3.goal_id)
+    getConsistencyStreak(habitGoal3.goal_id)
       .then((res) => {
         //setHungerScore(res);
       })
       .catch((err) => {
          console.log('getConsistencyStreak', err);
       })
-  }, [habitGoal2]);
+  }, [habitGoal3]);
 
   //get mood data
   useEffect(() => {

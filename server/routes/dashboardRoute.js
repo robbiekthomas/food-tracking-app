@@ -34,24 +34,28 @@ router.get("/", (req, res) => {
 //
 //get goal streak for current goals
 //
-router.get("/goalStreak"), (req, res) => {
+router.get("/goal", (req, res) => {
+  console.log('getting habit streak')
+
+
+
   const str = `Select habitGoal_logs.*, habitGoals.goal_name
   FROM habitGoal_logs 
   JOIN habitGoals ON habitGoal_logs.goal_id = habitGoals.id
-  WHERE habitGoal_logs.goal_id = $1 AND habitGoal_logs.date = CURRENT_DATE;
- `
-  const goal = req.query.goal1;
-  const params = [goal]
+  ORDER BY date DESC
 
-  db.query(str, params)
+ `
+
+  db.query(str)
     .then((result) => {
+      
       res.json(result.rows);
     })
 
     .catch((err) => {
       console.error(err);
     });
-}
+});
 //
 //get data for the weight graph on the dashboard.
 //
