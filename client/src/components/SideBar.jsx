@@ -12,7 +12,7 @@ const SideBar = ({
   const { avatar, setAvatar } = useLoginContext();
   return (
     <div className="bg-primary text-dimWhite w-1/4 h-screen flex-column text-center">
-      <div className="bg-secondary m-10 p-10 rounded-3xl">
+      <div className="m-10 p-10 rounded-3xl bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
         <Avatar
           alt="Remy Sharp"
           src={avatar}

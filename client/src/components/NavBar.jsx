@@ -62,9 +62,9 @@ function NavBar() {
     localStorage.setItem("login", false);
   };
 
-  const handleModeChange = (event, newMode) => {
-    setMode(newMode);
-    localStorage.setItem("trackerMode", newMode);
+  const handleModeChange = (event) => {
+    setMode(event.target.value);
+    localStorage.setItem("trackerMode", event.target.value);
   };
 
   return (
