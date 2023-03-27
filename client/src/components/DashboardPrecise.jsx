@@ -102,11 +102,11 @@ const DashboardPrecise = ({
         </div>
 
         <div className="mt-3">
-          <div className={classNames('w-full', 'grid', 'grid-cols-2', 'grid-rows-3, gap-3')}>
+          <div className={classNames('w-full', 'grid', 'grid-cols-2', 'grid-rows-2, gap-3')}>
 
             {/* HABIT GOALS*/}
             {currentHabits && currentHabits.length > 0 &&
-              <div className="shadow-sm relative rounded-lg pl-2 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
+              <div className="shadow-sm relative rounded-lg pl-5 pr-5 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
                 <HabitCard
                   dataSource={currentHabits}
                   title='Habit Goals'
@@ -116,7 +116,7 @@ const DashboardPrecise = ({
 
             {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
             {barChartData && barChartData.length > 0 &&
-              <div className="shadow-sm relative rounded-lg align-center pb-2 pt-2 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
+              <div className="shadow-sm relative rounded-lg align-center pb-2 pt-2 pr-3 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
                 <ChartHeader title="Macronutrients (grams per day)" />
                 <Stacked
                   data={barChartData}
@@ -129,7 +129,7 @@ const DashboardPrecise = ({
 
             {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 &&
-              < div className="col-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-2 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
+              < div className="col-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-2 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1] ">
                 
                   <LineChart datapoints={lineChartData} />
               

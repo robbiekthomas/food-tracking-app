@@ -29,6 +29,7 @@ const DashboardStandard = ({
 
 }) => {
 
+  const gradientStyling = "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]";
 
   return (
     <div className="flex bg-primary">
@@ -78,7 +79,7 @@ const DashboardStandard = ({
         <div className={classNames('mt-3', 'w-full', 'grid', 'grid-cols-2', 'grid-rows-1, gap-3')}>
           {/* HABIT GOALS*/}
           {currentHabits && currentHabits.length > 0 &&
-            <div className="bg-white shadow-sm relative rounded-lg pl-2'">
+            <div className={`shadow-sm relative rounded-lg pl-2 ${gradientStyling}`}>
               <HabitCard
                 dataSource={currentHabits}
                 title='Habit Goals'
@@ -88,7 +89,7 @@ const DashboardStandard = ({
 
           {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
           {barChartData && barChartData.length > 0 &&
-            <div className="shadow-sm relative rounded-lg bg-white align-center pb-2 pt-2">
+            <div className={`shadow-sm relative rounded-lg align-center pb-2 pt-2 ${gradientStyling}`}>
               <ChartHeader title="Protein Distribution over Time (%)" />
               <Stacked
                 data={proteinBarChartData}
@@ -111,13 +112,13 @@ const DashboardStandard = ({
 
             {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 &&
-              < div className="h-72 col-span-2 shadow-sm relative rounded-lg bg-white align-center pb-2 pt-3 w-full">
+              < div className={`h-72 col-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-3 w-full ${gradientStyling}`}>
                 <LineChart datapoints={lineChartData} />
               </div>
             }
 
             {/* MACROS*/}
-            <div className="shadow-sm relative rounded-lg bg-white align-center px-2">
+            <div className={`shadow-sm relative rounded-lg align-center px-2 ${gradientStyling}`}>
               <ChartHeader title={' Protein Percent of Total Calories'} />
               {/* Target Macro Distribution From Diet */}
               <div className="flex justify-around">

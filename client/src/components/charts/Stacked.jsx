@@ -85,10 +85,18 @@ const Stacked = ({ data, name1, name2, name3 }) => {
       categories: convertXValues(data[0]),
       labels: {
         style: {
-          colors: ["#fcfafc"],
+          colors: "#fcfafc"
         },
       },
     },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "#fcfafc"
+        },
+      },
+    },
+
     legend: {
       show: false,
       position: "bottom",

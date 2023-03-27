@@ -6,7 +6,6 @@ import DashboardStandard from "../components/DashboardStandard";
 import { useModeContext } from "../contexts/mode-status";
 import '../styles/Dashboard.css'; 
 import { Box } from '@mui/system';
-import darkuranus from "../assets/bg/darkuranus.png"
 
 import {
   getUserDetails,
@@ -215,18 +214,6 @@ const DashboardPage = () => {
 
   return (
     <div className="bg-slate-100">
-      {/* <Box
-        component="img"
-        sx={{
-          height: "100%",
-          width: "100%",
-          position: "fixed",
-          top: 0,
-          "z-index": "-1"
-         
-        }}
-        src={darkuranus}
-      /> */}
       {mode === "precise" && <DashboardPrecise {...props} />}
       {mode === "standard" && <DashboardStandard {...props} />}
       {mode === "intuitive" && <DashboardIntuitive {...props} />}

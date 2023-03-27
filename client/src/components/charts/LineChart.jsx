@@ -115,6 +115,7 @@ const LineChart = ({ datapoints }) => {
           callback: function (value) {
             return `${value} %`;
           },
+          fontColor: "#FFFFFF"
         },
       },
     },
