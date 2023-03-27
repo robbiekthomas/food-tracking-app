@@ -1,17 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { format } from 'date-fns';
+import format from 'date-fns/format'
 
 export const DateContext = createContext();
 
 export const DateProvider = ({ children }) => {
-  const currentDate = format(new Date(), "yyyy/MM/dd");
+  const currentDate = new Date();
 
   const [selectedContextDate, setSelectedContextDate] = useState(currentDate);
 
 
   useEffect(() => {
-    // setDate();
-    console.log('curr', selectedContextDate)
+
   }, []);
 
   return (

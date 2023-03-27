@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react'
 import DateSelector from "./DateSelector";
 import { useModeContext } from "../contexts/mode-status";
 import CircularProgress from './charts/CircularProgressBar';
+import ScoreCard from './charts/ScoreCard';
 import ChartHeader from './charts/ChartsHeader';
 import classNames from 'classnames';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+
 
 const Header = (
   {
@@ -13,11 +16,13 @@ const Header = (
     targetCalories,
     fat,
     protein,
-    carbs
+    carbs,
+    mood
   }
 ) => {
   const { mode, setMode } = useModeContext();
 
+  console.log('mood', mood)
   const [proActual, setProActual] = useState(0)
   const [fatActual, setFatActual] = useState(0)
   const [choActual, setChoActual] = useState(0)
@@ -58,11 +63,129 @@ const Header = (
       {mode === "standard" && <h1 className="font-xl">Standard Food Tracker</h1>}
 
       {/**DATE PICKER */}
-      <DateSelector day={day} changeDay={changeDay} />
+      <DateSelector />
 
 
       {/**PRECISE */}
       {mode === "precise" &&
+        <div className={classNames('w-full', 'grid', 'grid-cols-4', 'grid-rows-2, gap-3')}>
+
+          {caloriesActual &&
+            <div className='flex-column justify-center align-center'>
+              <ChartHeader title={'Calories'} />
+              <CircularProgress
+                title='Calories'
+                color='#666666'
+                performance={Math.round(caloriesActual / targetCalories * 100)}
+              />
+            </div>
+          }
+
+          <div className='flex-column justify-center align-center'>
+            <ChartHeader title={'Protein'} />
+            <CircularProgress
+              title='Protein'
+              color='#666666'
+              performance={Math.round(proActual / protein * 100)}
+            />
+          </div>
+          <div className='flex-column justify-center align-center'>
+            <ChartHeader title={'Fat'} />
+            <CircularProgress
+              title='Fat'
+              color='#666666'
+              performance={Math.round(fatActual / fat * 100)}
+            />
+          </div>
+          <div className='flex-column justify-center align-center'>
+            <ChartHeader title={'Carbs'} />
+            <CircularProgress
+              title='Carbs'
+              color='#666666'
+              performance={Math.round(choActual / carbs * 100)}
+            />
+          </div>
+
+        </div>
+      }
+
+      {mode === "intuitive" &&
+        <div className={classNames('w-full', 'grid', 'grid-cols-4', 'grid-rows-2, gap-3')}>
+
+
+          <div className='flex-column justify-center align-center'>
+            <ScoreCard
+              title='Average Hunger Before Eating'
+              score={hungerBefore}
+              id='before'
+            />
+          </div>
+          <div className='flex-column justify-center align-center'>
+
+            <ScoreCard
+              title='Average Hunger After Eating'
+              score={hungerAfter}
+              id='after'
+            />
+          </div>
+
+
+          {(mood && mood.length > 0) &&
+            <div className="align-center pb-5">
+              <p className="mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl">
+                Top Feelings After Eating
+              </p>
+              <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Count of Entries</TableCell>
+                      <TableCell>Feeling</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+
+                  {mood.length < 1 &&
+                      <TableRow>
+                       
+                        <TableCell>No Moods to Display.</TableCell>
+                      </TableRow>
+                    }
+
+                    {mood.length > 0 &&
+                      <TableRow>
+                        <TableCell>{mood[0].count}</TableCell>
+                        <TableCell>{mood[0].feeling}</TableCell>
+                      </TableRow>
+                    }
+
+
+                    {mood.length > 1 &&
+                      <TableRow>
+                        <TableCell>{mood[1].count}</TableCell>
+                        <TableCell>{mood[1].feeling}</TableCell>
+                      </TableRow>
+                    }
+
+                    {mood.length > 2 &&
+                      <TableRow>
+                        <TableCell>{mood[2].count}</TableCell>
+                        <TableCell>{mood[2].feeling}</TableCell>
+                      </TableRow>
+                    }
+
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          }
+
+        </div>
+      }
+
+
+
+      {mode === "standard" &&
         <div className={classNames('w-full', 'grid', 'grid-cols-4', 'grid-rows-2, gap-3')}>
 
           <div className='flex-column justify-center align-center'>
@@ -81,32 +204,8 @@ const Header = (
               performance={Math.round(proActual / protein * 100)}
             />
           </div>
-          <div className='flex-column justify-center align-center'>
-            <ChartHeader title={'Fat'} />
-            <CircularProgress
-              title='Calories'
-              color='#666666'
-              performance={Math.round(fatActual / fat * 100)}
-            />
-          </div>
-          <div className='flex-column justify-center align-center'>
-            <ChartHeader title={'Carbs'} />
-            <CircularProgress
-              title='Calories'
-              color='#666666'
-              performance={Math.round(choActual / carbs * 100)}
-            />
-          </div>
 
-        </div>
-      }
 
-      {mode === "intuitive" &&
-        <div>
-        </div>
-      }
-      {mode === "standard" &&
-        <div>
         </div>
       }
     </div>

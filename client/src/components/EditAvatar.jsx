@@ -121,9 +121,10 @@ export default function EditAvatar() {
               "margin-top": "20px",
             }}
           >
-            {avatars.map((avatar) => {
+            {avatars.map((avatar, index) => {
               return (
                 <Box
+                key={index}
                   component="img"
                   sx={{
                     height: 100,

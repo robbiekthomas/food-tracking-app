@@ -41,6 +41,15 @@ const getProteinProportion = () => {
   
 };
 
+const getConsistencyStreak = (goal) => {
+
+  return axios.get('http://localhost:8000/api/dashboard/goalStreak', {params: {goal}})
+  .then((response) => {
+    return response.data;
+  });
+  
+};
+
 
 const getHungerScore = () => {
 
@@ -56,7 +65,6 @@ const getMood = () => {
   return axios.get('http://localhost:8000/api/dashboard/mood')
 
   .then((response) => {
-    console.log(response.data)
     return response.data;
   });
   
@@ -71,5 +79,6 @@ export {
   getUserMacros, 
   getProteinProportion, 
   getHungerScore, 
-  getMood 
+  getMood,
+  getConsistencyStreak
 };

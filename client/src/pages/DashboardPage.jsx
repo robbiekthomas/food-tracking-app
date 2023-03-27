@@ -14,7 +14,8 @@ import {
   getUserRow,
   getProteinProportion,
   getHungerScore,
-  getMood
+  getMood,
+  getConsistencyStreak
 } from '../api-requests/dashboard';
 
 import {
@@ -116,7 +117,7 @@ const DashboardPage = () => {
         setCurrentHabitGoal3(res[2]);
       })
       .catch((err) => {
-        console.log(err);
+         console.log('getUserRow', err);
       });
   }, []);
 
@@ -133,7 +134,7 @@ const DashboardPage = () => {
         setLineChartData(res);
       })
       .catch((err) => {
-        console.log(err);
+         console.log('getUserDetails', err);
       });
   }, []);
 
@@ -144,7 +145,7 @@ const DashboardPage = () => {
         setBarChartData(res);
       })
       .catch((err) => {
-        console.log(err);
+         console.log('getUserMacros', err);
       })
   }, []);
 
@@ -157,7 +158,7 @@ const DashboardPage = () => {
   
       })
       .catch((err) => {
-        console.log(err);
+         console.log('getProteinProportion', err);
       })
   }, []);
 
@@ -165,12 +166,45 @@ const DashboardPage = () => {
   useEffect(() => {
     getHungerScore()
       .then((res) => {
+        
         setHungerScore(res);
       })
       .catch((err) => {
-        console.log(err);
+         console.log('getHungerScore', err);
       })
   }, []);
+
+
+  //get habit consistency data
+  useEffect(() => {
+    getConsistencyStreak(habitGoal1.goal_id)
+      .then((res) => {
+        //setHungerScore(res);
+      })
+      .catch((err) => {
+         console.log('getConsistencyStreak', err);
+      })
+  }, [habitGoal1]);
+
+  useEffect(() => {
+    getConsistencyStreak(habitGoal2.goal_id)
+      .then((res) => {
+        //setHungerScore(res);
+      })
+      .catch((err) => {
+         console.log('getConsistencyStreak', err);
+      })
+  }, [habitGoal2]);
+
+  useEffect(() => {
+    getConsistencyStreak(habitGoal2.goal_id)
+      .then((res) => {
+        //setHungerScore(res);
+      })
+      .catch((err) => {
+         console.log('getConsistencyStreak', err);
+      })
+  }, [habitGoal2]);
 
   //get mood data
   useEffect(() => {
@@ -179,9 +213,10 @@ const DashboardPage = () => {
         setMood(res);
       })
       .catch((err) => {
-        console.log(err);
+        console.log('getMood', err);
       })
   }, []);
+
 
  
 
