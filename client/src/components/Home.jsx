@@ -15,7 +15,7 @@ const Home = () => {
       className={`flex flex-col items-stretch ${styles.paddingY} ${styles.paddingX} ${styles.flexCenter}`}
     >
       <img src={nebula} alt="nebula"  />
-      <div
+    <div
         className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 ml-10`}
       >
         <div className="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2">

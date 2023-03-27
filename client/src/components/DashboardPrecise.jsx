@@ -27,6 +27,9 @@ const DashboardPrecise = ({
   calorieWeeklyAverage,
   date,
 }) => {
+  const gradientStyling =
+  "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2]";
+
   return (
     <div className="flex bg-primary">
       {/*Sidebar*/}
@@ -73,7 +76,7 @@ const DashboardPrecise = ({
             performance={Math.round((proteinWeeklyAverage / protein) * 100)}
           />
 
-          <div className="shadow-sm relative rounded-lg row-span-2 text-dimWhite align-center px-2 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
+          <div className={`shadow-sm relative rounded-lg row-span-2 text-dimWhite align-center px-2 ${gradientStyling}`}>
             <ChartHeader title={"Macronutrient Distribution"} />
 
             <div className="flex justify-around">
@@ -121,8 +124,9 @@ const DashboardPrecise = ({
             {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 && (
               <div
-                className={`col-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-2 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1] ${classNames(
-                  "col-span-1"
+                className={`col-span-1 shadow-sm relative rounded-lg align-center pb-2 pt-2 ${gradientStyling} ${classNames(
+                  "col-span-1",
+                  "row-span-1"
                 )}`}
               >
                 <LineChart datapoints={lineChartData} />
@@ -140,7 +144,7 @@ const DashboardPrecise = ({
               {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
               {barChartData && barChartData.length > 0 && (
                 <div
-                  className={`shadow-sm relative rounded-lg align-center pb-2 pt-2 pr-3 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1] ${classNames(
+                  className={`shadow-sm relative rounded-lg align-center pb-2 pt-2 pr-3 ${gradientStyling} ${classNames(
                     "row-span-1"
                   )}`}
                 >
@@ -156,7 +160,7 @@ const DashboardPrecise = ({
               {/* HABIT GOALS*/}
               {currentHabits && currentHabits.length > 0 && (
                 <div
-                  className={`shadow-sm relative rounded-lg pl-5 pr-5 bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1] ${classNames(
+                  className={`shadow-sm relative rounded-lg pl-5 pr-5 ${gradientStyling} ${classNames(
                     "row-span-1"
                   )}`}
                 >
