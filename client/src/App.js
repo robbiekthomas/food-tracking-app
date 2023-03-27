@@ -26,6 +26,7 @@ function App({ children }) {
               <ModeProvider>
               <ThemeProvider theme={MuiTheme}>
                 <NavBar />
+               
                 <Routes>
                   <Route path="/" element={<LandingPage />} />
                   <Route path="/tracker" element={<TrackingPage />} />

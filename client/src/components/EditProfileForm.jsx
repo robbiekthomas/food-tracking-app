@@ -15,7 +15,7 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  Avatar
+  Avatar,
 } from "@mui/material";
 import { createHabitGridData } from "../data/chartData";
 import SwitchElement from "./FormElements/Switch";
@@ -26,8 +26,6 @@ import {
 
 import { habitsList } from "../data/chartData";
 
-
-
 //modal input states
 const EditProfileForm = ({
   inputs,
@@ -35,7 +33,6 @@ const EditProfileForm = ({
   currentHabits,
   setCurrentHabits,
 }) => {
-  
   //modal state
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -73,11 +70,9 @@ const EditProfileForm = ({
   const onHeightChange = (e) => setHeight(e.target.value);
   const onManualTargetWeightChange = (e) =>
     setTargetWeightChange(e.target.value);
- 
 
   //update habit goals on the dashboard view
   const onGoal1Change = (e) => {
-
     const g = {
       goal_number: 1,
       is_complete: false,
@@ -91,7 +86,6 @@ const EditProfileForm = ({
   };
 
   const onGoal2Change = (e) => {
-
     const g = {
       goal_number: 2,
       is_complete: false,
@@ -105,7 +99,6 @@ const EditProfileForm = ({
   };
 
   const onGoal3Change = (e) => {
-
     const g = {
       goal_number: 3,
       is_complete: false,
@@ -224,23 +217,21 @@ const EditProfileForm = ({
     };
 
     change(submissionValues);
-    updateDatabase(submissionValues, currentHabits);
 
+    updateDatabase(submissionValues, currentHabits);
   };
 
   //post updates -> server -> db
   const updateDatabase = (values, habits) => {
     handleClose();
 
-    const urlUser = 'http://localhost:8000/api/dashboard/user/insert';
-    const urlHabits = 'http://localhost:8000/api/dashboard/habitGoals/insert';
+    const urlUser = "http://localhost:8000/api/dashboard/user/insert";
+    const urlHabits = "http://localhost:8000/api/dashboard/habitGoals/insert";
 
-    axios.all([
-      axios.post(urlUser, values),
-      axios.post(urlHabits, habits)
-    ])
+    axios
+      .all([axios.post(urlUser, values), axios.post(urlHabits, habits)])
       .then((res) => {
-        console.log("res", res)
+        console.log("res", res);
       })
 
       .catch((err) => {
@@ -255,16 +246,20 @@ const EditProfileForm = ({
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "50%",
-    bgcolor: "background.paper",
-    border: "2px solid #fff",
+    bgcolor: "#1a1721",
+    border: "2px solid rgba(128, 128, 128, 0.5)",
+    borderRadius: "40px",
     boxShadow: 24,
+
     p: 4,
   };
 
   return (
     <div className="mt-2">
-      <Button sx={{border: 'solid'}}onClick={handleOpen}>
-        <span className="text-right text-white material-symbols-outlined">EDIT PROFILE</span>
+      <Button sx={{ border: "solid" }} onClick={handleOpen}>
+        <span className="text-right text-white material-symbols-outlined">
+          EDIT PROFILE
+        </span>
       </Button>
       <Modal
         open={open}
@@ -275,14 +270,14 @@ const EditProfileForm = ({
         <Box className="h-5/6 overflow-auto" sx={modalStyle}>
           <Typography
             sx={{ width: "100%" }}
-            className="text-center text-gray-800"
+            className="text-center text-white"
             id="modal-modal-title"
-            variant="h6"
+            variant="h4"
           >
             Profile Settings
           </Typography>
 
-          <h2 className="mt-5 text-center font-bold text-gray-600">
+          <h2 className="mt-5 text-center font-bold text-white text-xl">
             General Account Information
           </h2>
 
@@ -297,7 +292,11 @@ const EditProfileForm = ({
             <TextField
               margin="normal"
               defaultValue={inputs.name}
-              sx={{ width: "80%" }}
+              sx={{
+                width: "80%",
+                bgcolor: "#363042",
+                borderRadius: "5px",
+              }}
               size="small"
               name="name"
               type="text"
@@ -314,7 +313,7 @@ const EditProfileForm = ({
               Email
             </InputLabel>
             <TextField
-              sx={{ width: "80%" }}
+              sx={{ width: "80%", bgcolor: "#363042", borderRadius: "5px" }}
               margin="normal"
               size="small"
               name="email"
@@ -333,7 +332,11 @@ const EditProfileForm = ({
               Birthdate
             </InputLabel>
             <TextField
-              sx={{ width: "80%" }}
+              sx={{
+                width: "80%",
+                bgcolor: "#363042",
+                borderRadius: "5px",
+              }}
               margin="normal"
               size="small"
               name="birthdate"
@@ -346,17 +349,22 @@ const EditProfileForm = ({
           <FormControl>
             <FormLabel
               id="demo-radio-buttons-group-label"
-              sx={{ fontWeight: "medium" }}
+              sx={{
+                fontWeight: "medium",
+              }}
+              color="primary"
               className="mt-5"
             >
               Sex
             </FormLabel>
+
             <RadioGroup
               row
               aria-labelledby="demo-radio-buttons-group-label"
               defaultValue={inputs.sex}
               name="radio-buttons-group"
               onChange={(e) => onSexChange(e)}
+              sx={{ color: "white" }}
             >
               <FormControlLabel
                 value="female"
@@ -373,11 +381,9 @@ const EditProfileForm = ({
           </FormControl>
           <br />
 
-          <h2 className="mt-10 text-center font-bold text-gray-600">
+          <h2 className="mt-10 text-center font-bold text-white text-xl">
             Goal Settings
           </h2>
-
-         
 
           {/**MAIN GOAL */}
           <FormControl>
@@ -394,6 +400,7 @@ const EditProfileForm = ({
               name="radio-buttons-group"
               onChange={(e) => onMaingoalChange(e)}
               defaultValue={inputs.main_goal}
+              sx={{ color: "white" }}
             >
               <FormControlLabel
                 value="maintain"
@@ -422,14 +429,27 @@ const EditProfileForm = ({
               First Goal
             </InputLabel>
             <Select
-              sx={{ width: "70%" }}
+              sx={{
+                width: "70%",
+                bgcolor: "#363042",
+                borderRadius: "20px",
+                ".Mui-focused": {
+                  borderRadius: "20px",
+                },
+              }}
               margin="normal"
               size="small"
               onChange={(e) => onGoal1Change(e)}
               defaultValue={currentHabits[0].goal_name}
             >
               {habitsList.map((item, index) => (
-                <MenuItem key={index} value={item}>
+                <MenuItem
+                  key={index}
+                  value={item}
+                  sx={{
+                    bgcolor: "#363042",
+                  }}
+                >
                   {item}
                 </MenuItem>
               ))}
@@ -445,7 +465,14 @@ const EditProfileForm = ({
             </InputLabel>
             <Select
               margin="normal"
-              sx={{ width: "70%" }}
+              sx={{
+                width: "70%",
+                bgcolor: "#363042",
+                borderRadius: "20px",
+                ".Mui-focused": {
+                  borderRadius: "20px",
+                },
+              }}
               size="small"
               onChange={(e) => onGoal2Change(e)}
               defaultValue={currentHabits[1].goal_name}
@@ -466,7 +493,14 @@ const EditProfileForm = ({
               Third Goal
             </InputLabel>
             <Select
-              sx={{ width: "70%" }}
+              sx={{
+                width: "70%",
+                bgcolor: "#363042",
+                borderRadius: "20px",
+                ".Mui-focused": {
+                  borderRadius: "20px",
+                },
+              }}
               margin="normal"
               size="small"
               onChange={(e) => onGoal3Change(e)}
@@ -480,7 +514,7 @@ const EditProfileForm = ({
             </Select>
           </div>
 
-          <h2 className="mt-10 text-center font-bold text-gray-600">
+          <h2 className="mt-10 text-center font-bold text-white text-xl">
             Body Fat
           </h2>
 
@@ -504,7 +538,11 @@ const EditProfileForm = ({
                   Height (cm)
                 </InputLabel>
                 <TextField
-                  sx={{ width: "60%" }}
+                  sx={{
+                    width: "60%",
+                    bgcolor: "#363042",
+                    borderRadius: "5px",
+                  }}
                   margin="normal"
                   size="small"
                   name="height"
@@ -524,7 +562,11 @@ const EditProfileForm = ({
                   Waist Circumference (cm)
                 </InputLabel>
                 <TextField
-                  sx={{ width: "60%" }}
+                  sx={{
+                    width: "60%",
+                    bgcolor: "#363042",
+                    borderRadius: "5px",
+                  }}
                   margin="normal"
                   defaultValue={inputs.waist_circumference}
                   size="small"
@@ -544,7 +586,11 @@ const EditProfileForm = ({
                 </InputLabel>
                 <TextField
                   margin="normal"
-                  sx={{ width: "60%" }}
+                  sx={{
+                    width: "60%",
+                    bgcolor: "#363042",
+                    borderRadius: "5px",
+                  }}
                   defaultValue={inputs.neck_circumference}
                   size="small"
                   name="neck"
@@ -565,7 +611,11 @@ const EditProfileForm = ({
                   </InputLabel>
                   <TextField
                     margin="normal"
-                    sx={{ width: "60%" }}
+                    sx={{
+                      width: "60%",
+                      bgcolor: "#363042",
+                      borderRadius: "5px",
+                    }}
                     defaultValue={inputs.hip_circumference}
                     name="hips"
                     size="small"
@@ -589,7 +639,7 @@ const EditProfileForm = ({
               </InputLabel>
               <TextField
                 margin="normal"
-                sx={{ width: "70%" }}
+                sx={{ width: "70%", bgcolor: "#363042", borderRadius: "5px" }}
                 defaultValue={inputs.body_fat_percentage}
                 name="bodyFat"
                 size="small"
@@ -601,7 +651,9 @@ const EditProfileForm = ({
           )}
 
           {/**weight */}
-          <h2 className="mt-10 text-center font-bold text-gray-600">Weight</h2>
+          <h2 className="mt-10 text-center font-bold text-white text-xl">
+            Weight
+          </h2>
 
           <div className="flex items-center">
             <InputLabel
@@ -612,7 +664,7 @@ const EditProfileForm = ({
             </InputLabel>
             <TextField
               margin="normal"
-              sx={{ width: "70%" }}
+              sx={{ width: "70%", bgcolor: "#363042", borderRadius: "5px" }}
               size="small"
               name="weight"
               type="number"
@@ -629,13 +681,16 @@ const EditProfileForm = ({
           />
           <br />
 
-          {toggleWCC && <h3>Estimated Target: {"todo"}</h3>}
+          {toggleWCC && (
+            <h3 className="text-white">Estimated Target: {"todo"}</h3>
+          )}
           {!toggleWCC && (
             <>
               <InputLabel sx={{ fontWeight: "medium" }}>
                 Weight Change Goal (lbs / week)
               </InputLabel>
               <Slider
+                sx={{ color: "#73658f" }}
                 margin="normal"
                 aria-label="Custom marks"
                 defaultValue={inputs.weight_change_goal}
@@ -646,7 +701,9 @@ const EditProfileForm = ({
                 valueLabelDisplay="auto"
                 onChange={(e) => onManualTargetWeightChange(e)}
               />
+
               <TextField
+                sx={{ bgcolor: "#363042", borderRadius: "5px" }}
                 margin="normal"
                 halfWidth
                 defaultValue={inputs.weight_change_goal}
@@ -659,8 +716,7 @@ const EditProfileForm = ({
             </>
           )}
           <br />
-          
-          
+
           <Button
             className="mt-5"
             variant="contained"
