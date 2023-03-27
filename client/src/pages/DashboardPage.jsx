@@ -5,6 +5,8 @@ import DashboardPrecise from "../components/DashboardPrecise";
 import DashboardStandard from "../components/DashboardStandard";
 import { useModeContext } from "../contexts/mode-status";
 import '../styles/Dashboard.css'; 
+import { Box } from '@mui/system';
+
 
 import {
   getUserDetails,
@@ -248,6 +250,8 @@ const DashboardPage = () => {
 
   return (
     <div className="bg-slate-100">
+      
+      
       {mode === "precise" && <DashboardPrecise {...props} />}
       {mode === "standard" && <DashboardStandard {...props} />}
       {mode === "intuitive" && <DashboardIntuitive {...props} />}

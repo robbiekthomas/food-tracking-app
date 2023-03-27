@@ -2,7 +2,8 @@ import React from "react";
 import styles from "../style";
 import { discount, robot } from "../assets";
 import {useStateContext} from "../contexts/ContextProvider";
-import foodPlanet from "../assets/foodPlanet.png"
+import foodPlanet from "../assets/foodPlanet.png";
+import nebula from "../assets/bg/nebula.gif";
 
 
 const Home = () => {
@@ -11,9 +12,10 @@ const Home = () => {
   return (
     <section
       id="home"
-      className={`flex md:flex-row flex-col items-stretch ${styles.paddingY} ${styles.paddingX} ${styles.flexCenter}`}
+      className={`flex flex-col items-stretch ${styles.paddingY} ${styles.paddingX} ${styles.flexCenter}`}
     >
-      <div
+      <img src={nebula} alt="nebula"  />
+    <div
         className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 ml-10`}
       >
         <div className="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2">

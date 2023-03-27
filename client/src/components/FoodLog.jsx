@@ -41,7 +41,11 @@ export const FoodLog = ({ meal, mealID, mealSummary, showList, onUpdate, selecte
 
     foodLog.splice((params.id), 1);
     setFoodLog([...foodLog]);
+
     setFoodDelete((prev) => !prev);
+
+    const values = [params.id, mealID];
+
 
     const str = format(selectedContextDate, 'yyyy-MM-dd')
     deleteFoodFromDB(params.id, mealID, str)
