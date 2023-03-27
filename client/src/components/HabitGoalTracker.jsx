@@ -38,7 +38,6 @@ const HabitGoalTracker = () => {
     axios
       .post("http://localhost:8000/api/tracker/habitGoals", values)
       .then((res) => {
-        console.log("res", res);
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +48,6 @@ const HabitGoalTracker = () => {
     axios
       .get("http://localhost:8000/api/tracker/habitGoals")
       .then((response) => {
-        console.log('goal_name', response.data)
         // Format of habitGoal array: [habitGoals goal_name, habitGoals_log id]
 
         if (response.data.length > 0) {

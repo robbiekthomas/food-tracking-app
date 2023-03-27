@@ -25,8 +25,22 @@ const getQualitativeStats = (day) => {
     params: { day }
   })
     .then((res) => {
-      console.log('qualitativeTrackerDashboard', res.data)
-      return res.data;
+      let counts = {};
+      res.data.rows.forEach((item) => {
+        const feeling = item.feeling_after_eating;
+        if (feeling) {
+          if (counts[feeling]) {
+            counts[feeling]++;
+          } else {
+            counts[feeling] = 1;
+          }
+        }
+      });
+
+      const countsArray = Object.keys(counts).map(feeling => ({ feeling, count: counts[feeling] }));
+      countsArray.sort((a, b) => b.count - a.count);
+      
+      return countsArray;
     })
 
 }
@@ -59,7 +73,7 @@ const upDateTrackerItems = (meal, date) => {
 }
 
 const deleteFoodFromDB = (food, meal, date) => {
-  return axios.delete(`http://localhost:8000/api/tracker/food-log`, { params: {food, meal, date }})
+  return axios.delete(`http://localhost:8000/api/tracker/food-log`, { params: { food, meal, date } })
     .then((response) => {
       return response.data;
     })
@@ -73,24 +87,25 @@ const addFoodToLogs = (food, meal, date) => {
 }
 
 const getIntuitiveLogHistory = (meal, date) => {
-  return axios.get(`http://localhost:8000/api/tracker/hungerHistory`, { params: {meal, date }})
-  .then((response) => {
-    console.log('getIntuitiveLogHistory',response.data)
-    return response.data;
-  })
-  .catch((error) => {
-    console.log("error", error);
-  });
+  return axios.get(`http://localhost:8000/api/tracker/hungerHistory`, { params: { meal, date } })
+    .then((response) => {
+
+      return response.data;
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
 }
 
 
 
-export { 
-  getFoodRow, 
-  getDailyMacroStats, 
-  getFoodList, 
-  upDateTrackerItems, 
-  deleteFoodFromDB, 
-  addFoodToLogs, 
+export {
+  getFoodRow,
+  getDailyMacroStats,
+  getFoodList,
+  upDateTrackerItems,
+  deleteFoodFromDB,
+  addFoodToLogs,
   getQualitativeStats,
-  getIntuitiveLogHistory };
+  getIntuitiveLogHistory
+};

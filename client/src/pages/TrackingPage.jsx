@@ -23,7 +23,8 @@ import {
   getTodaysDate,
   getFat,
   getCarbs,
-  getProtein
+  getProtein,
+
 }
   from "../helper-functions/nutritionCalculations";
 import FoodList from "../components/FoodList";
@@ -71,7 +72,7 @@ const TrackingPage = () => {
     hungerAfter: 0
   });
 
-
+  const [moodArray, setMoodArray] = useState([]);
   const [dailyMealSummary, setDailyMealSummary] = useState({ 1: [], 2: [], 3: [], 4: [] }) //br, lu, sn, di
 
   //helper funtions
@@ -97,7 +98,7 @@ const TrackingPage = () => {
   useEffect(() => {
     getDailyMacroStats()
       .then((res) => {
-        console.log(55555,res);
+
         setAllTimeStats(res);
       })
       .catch((err) => {
@@ -105,7 +106,7 @@ const TrackingPage = () => {
       });
   }, [selectedContextDate])
 
-console.log(1, allTimeStats)
+
   
   useEffect(() => {
     let d = 0;
@@ -121,7 +122,7 @@ console.log(1, allTimeStats)
       getFoodList(d)
         .then((res) => {
           setDailyMealSummary(res);
-          console.log('getFoodList',res);
+     
         })
         .catch((err) => {
           console.log('getFoodList', err)
@@ -134,13 +135,12 @@ console.log(1, allTimeStats)
   useEffect(() => {
     if (selectedContextDate) {
       const d = format(selectedContextDate, "yyyy/MM/dd")
-      console.log('day', typeof(d) )
+   
       getQualitativeStats(d)
         .then((res) => {
           console.log('getQualitativeStats',res)
-          // setHungerBefore();
-          // setHungerAfter();
-          // setMoodArray();
+    
+          setMoodArray(res);
         })
         .catch((err) => {
           console.log('getQualitativeStats', err)
@@ -188,6 +188,7 @@ console.log(1, allTimeStats)
         protein={protein}
         carbs={carbs}
         fat={fat}
+        mood={moodArray}
       >
 
       </Header>

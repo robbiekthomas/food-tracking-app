@@ -44,7 +44,6 @@ const IntuitiveList = (props) => {
   };
 
   const handleSubmit = () => {
-    console.log(hungerBefore, hungerAfter, feelingAfter);
     setOpen(false);
     setToggle((prev) => !prev);
     const values = [hungerBefore, hungerAfter, feelingAfter, props.mealId, 1];
@@ -52,7 +51,6 @@ const IntuitiveList = (props) => {
     axios
       .post("http://localhost:8000/api/tracker/intuitive/", values)
       .then((res) => {
-        console.log("res", res);
       })
       .catch((err) => {
         console.log(err);

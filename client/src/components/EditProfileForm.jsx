@@ -224,7 +224,6 @@ const EditProfileForm = ({
     };
 
     change(submissionValues);
-    console.log("currentHabits", currentHabits)
     updateDatabase(submissionValues, currentHabits);
 
   };

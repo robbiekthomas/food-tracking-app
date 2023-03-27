@@ -115,7 +115,7 @@ const getCalorieWeeklyAverage = (macros) => {
 //gets hunger data, based on number of days we care about, and the index of that dataset (index 0 is hunger before and 1 is hungr after)
 const getHunger = (data, n, i) => {
   let sum = 0;
-  console.log('getHunger' , data)
+
   if (!data[i]) return
 
   if (data[i].length < n) {

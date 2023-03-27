@@ -22,7 +22,7 @@ const CircularProgress = ({ performance, color }) => {
 
   //customize colors
   const hex = color.replace('#', '');
-console.log('performance',performance);
+
   // Convert the hex color code to a decimal value
   var r = parseInt(hex.substring(0, 2), 16);
   var g = parseInt(hex.substring(2, 4), 16);

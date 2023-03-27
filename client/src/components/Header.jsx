@@ -5,6 +5,7 @@ import CircularProgress from './charts/CircularProgressBar';
 import ScoreCard from './charts/ScoreCard';
 import ChartHeader from './charts/ChartsHeader';
 import classNames from 'classnames';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 
 const Header = (
@@ -15,12 +16,13 @@ const Header = (
     targetCalories,
     fat,
     protein,
-    carbs
+    carbs,
+    mood
   }
 ) => {
   const { mode, setMode } = useModeContext();
 
-console.log(dailyStats, targetCalories,fat, protein, carbs )
+  console.log('mood', mood)
   const [proActual, setProActual] = useState(0)
   const [fatActual, setFatActual] = useState(0)
   const [choActual, setChoActual] = useState(0)
@@ -52,7 +54,7 @@ console.log(dailyStats, targetCalories,fat, protein, carbs )
     setCaloriesActual(kcal || 0);
   }, [proActual, fatActual, choActual])
 
-console.log(2, dailyStats.hungerBefore, hungerAfter)
+
   return (
     <div>
       {/**HEADINGS */}
@@ -126,6 +128,57 @@ console.log(2, dailyStats.hungerBefore, hungerAfter)
               id='after'
             />
           </div>
+
+
+          {(mood && mood.length > 0) &&
+            <div className="align-center pb-5">
+              <p className="mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl">
+                Top Feelings After Eating
+              </p>
+              <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Count of Entries</TableCell>
+                      <TableCell>Feeling</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+
+                  {mood.length < 1 &&
+                      <TableRow>
+                       
+                        <TableCell>No Moods to Display.</TableCell>
+                      </TableRow>
+                    }
+
+                    {mood.length > 0 &&
+                      <TableRow>
+                        <TableCell>{mood[0].count}</TableCell>
+                        <TableCell>{mood[0].feeling}</TableCell>
+                      </TableRow>
+                    }
+
+
+                    {mood.length > 1 &&
+                      <TableRow>
+                        <TableCell>{mood[1].count}</TableCell>
+                        <TableCell>{mood[1].feeling}</TableCell>
+                      </TableRow>
+                    }
+
+                    {mood.length > 2 &&
+                      <TableRow>
+                        <TableCell>{mood[2].count}</TableCell>
+                        <TableCell>{mood[2].feeling}</TableCell>
+                      </TableRow>
+                    }
+
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          }
 
         </div>
       }
