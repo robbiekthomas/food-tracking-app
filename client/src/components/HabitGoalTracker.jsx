@@ -49,14 +49,19 @@ const HabitGoalTracker = () => {
     axios
       .get("http://localhost:8000/api/tracker/habitGoals")
       .then((response) => {
+        console.log('goal_name', response.data)
         // Format of habitGoal array: [habitGoals goal_name, habitGoals_log id]
-        setHabitGoal3([response.data[0].goal_name, response.data[0].id]);
-        setHabitGoal2([response.data[1].goal_name, response.data[1].id]);
-        setHabitGoal1([response.data[2].goal_name, response.data[2].id]);
 
-        setChecked3(response.data[0].is_complete);
-        setChecked2(response.data[1].is_complete);
-        setChecked1(response.data[2].is_complete);
+        if (response.data.length > 0) {
+          setHabitGoal3([response.data[0].goal_name, response.data[0].id]);
+          setHabitGoal2([response.data[1].goal_name, response.data[1].id]);
+          setHabitGoal1([response.data[2].goal_name, response.data[2].id]);
+
+          setChecked3(response.data[0].is_complete);
+          setChecked2(response.data[1].is_complete);
+          setChecked1(response.data[2].is_complete);
+        }
+
 
       })
       .catch((err) => {
@@ -66,7 +71,7 @@ const HabitGoalTracker = () => {
 
   return (
     <div>
-      <Card variant="outlined" sx={{ width: '100%', maxWidth: 500, p: 2, m: 2,  borderRadius: '16px'}}>
+      <Card variant="outlined" sx={{ width: '100%', maxWidth: 500, p: 2, m: 2, borderRadius: '16px' }}>
         <Typography variant="h6" color="text.secondary" gutterBottom>
           Habit Tracker
         </Typography>

@@ -23,21 +23,7 @@ const TrackingPrecise = (
   const [showList, setShowList] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
-  const [mealSummary, setMealSummary] = useState({
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-  });
   
-
-  // useEffect(
-  //   (res) => {
-  //     setDate(stringifiedDate);
-  //   },
-  //   [stringifiedDate]
-  // );
-
 
   const handleClose = (value) => {
     setOpen(false);
@@ -49,12 +35,7 @@ const TrackingPrecise = (
     setOpen(true);
   };
 
-  useEffect(
-    (res) => {
-      setMealSummary(dailyMealSummary);
-    },
-    [dailyMealSummary]
-  );
+
 
   return (
     // <Box>
@@ -190,15 +171,6 @@ const TrackingPrecise = (
     //   </Box>
     // </Box>
     <div>
-      <h1 className="font-xl">Precise Food Tracker</h1>
-
-      <Card
-        title={"Calories"}
-        color="#666666"
-        target={`${targetCalories - 100} - ${targetCalories + 100} kcal`}
-        performance={`${targetCalories - 100} - ${targetCalories + 100} kcal`}
-      />
-
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xl">
         <FoodList
           meal={meal}

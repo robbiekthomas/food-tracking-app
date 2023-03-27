@@ -22,7 +22,7 @@ export const FoodLog = ({ meal, mealID, mealSummary, showList, onUpdate, selecte
 
   const { selectedContextDate } = useDateContext();
 
-  console.log('FoodLog')
+
   useEffect(() => {
     const m = Number(mealID)
     const str = format(selectedContextDate, 'yyyy-MM-dd')

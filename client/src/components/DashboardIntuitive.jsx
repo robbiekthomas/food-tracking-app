@@ -33,7 +33,6 @@ const DashboardIntuitive = ({
   const [mood3, setMood3] = useState({})
   const [totalMoodEntries, setTotalMoodEntries] = useState(0);
 
-  console.log(5, mood1, mood2, mood3);
 
   useEffect(() => {
     let d = [{},{},{}]

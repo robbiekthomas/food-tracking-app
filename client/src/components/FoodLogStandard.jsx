@@ -9,40 +9,42 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import axios from "axios";
+import { format } from 'date-fns';
+import { upDateTrackerItems, deleteFoodFromDB } from '../api-requests/tracker';
+import { useDateContext } from "../contexts/date-context";
 
-export const FoodLogStandard = (props) => {
+export const FoodLogStandard = ({ meal, mealID, mealSummary, showList, onUpdate, selectedDate }) => {
   const [foodLog, setFoodLog] = useState([]);
   const [foodDelete, setFoodDelete] = useState(false);
-  
+  const { selectedContextDate } = useDateContext();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/tracker/food-log-${props.meal}`)
-      .then((response) => {
-        setFoodLog(response.data);
+    const m = Number(mealID)
+    const str = format(selectedContextDate, 'yyyy-MM-dd')
+
+    upDateTrackerItems(m, str)
+      .then((res) => {
+        setFoodLog(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props.showList, foodDelete]);
+  }, [showList, foodDelete, selectedContextDate]);
 
   //params.id is the selected row food ID
-  const handleDeleteClick = (params) => () => {
-    const values = [params.id, props.mealID]
-    foodLog.splice((params.id), 1);
-    setFoodLog([...foodLog]);
+    const handleDeleteClick = (params) => () => {
 
-    axios
-    .delete(`http://localhost:8000/api/tracker/food-log`, { data: values })
-    .then(response => {
+      foodLog.splice((params.id), 1);
+      setFoodLog([...foodLog]);
+      setFoodDelete((prev) => !prev);
+  
+      const str = format(selectedContextDate, 'yyyy-MM-dd')
+      deleteFoodFromDB(params.id, mealID, str)
+      .then((res) => {
+        
+      })
       
-      console.log("res.data", response.data);
-      setFoodDelete(prev => !prev);
-    })
-    .catch(error => {
-      console.log("error", error);
-    });
-  };
+    };
 
   const rows = foodLog;
 

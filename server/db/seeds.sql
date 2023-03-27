@@ -27,10 +27,12 @@ VALUES ('Eat at least 20g of protein per meal'),
   ('Put your food/utensils down between bites');
 
 
-INSERT INTO habitGoal_logs (goal_id, user_id, goal_number, is_complete)
-VALUES (2, 1, 1, true),
-(5, 1, 2, true),
-(3, 1, 3, false);
+INSERT INTO habitGoal_logs (goal_id, user_id, goal_number, is_complete, date)
+VALUES (2, 1, 1, true, '2022-03-15'),
+(5, 1, 2, true, '2022-03-15'),
+(3, 1, 3, false, '2022-03-15'),
+(4, 1, 3, false, '2022-03-17'),
+(3, 1, 3, false, '2022-03-20');
 
 
 INSERT INTO foods (name, grams_per_serving, calories, protein, carbs, fat)
@@ -183,13 +185,13 @@ VALUES (2, 1, 1, 1, '2023-03-22', 3, 7, 'Energized and satisfied'),
 (39, 1, 4, 1, '2023-03-21', 3, 7, 'Energized and satisfied'),
 (60, 1, 4, 1, '2023-03-21', 4, 8, 'Stuffed and/or swollen'),
 
-(12, 1, 1, 1, '2023-03-17', 3, 4, 'Energized and satisfied'),
-(13, 1, 1, 1, '2023-03-17', 2, 8, 'Stuffed and/or swollen'),
-(23, 1, 2, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
-(57, 1, 2, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
-(39, 1, 2, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
-(23, 1, 4, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
-(56, 1, 4, 1, '2023-03-17', 4, 8, 'Stuffed and/or swollen'),
-(39, 1, 4, 1, '2023-03-17', 3, 7, 'Energized and satisfied'),
-(60, 1, 4, 1, '2023-03-17', 4, 8, 'Stuffed and/or swollen');
+(12, 1, 1, 1, '2023-03-27', 3, 4, 'Energized and satisfied'),
+(13, 1, 1, 1, '2023-03-27', 2, 8, 'Stuffed and/or swollen'),
+(23, 1, 2, 1, '2023-03-27', 3, 7, 'Energized and satisfied'),
+(57, 1, 2, 1, '2023-03-27', 3, 7, 'Energized and satisfied'),
+(39, 1, 2, 1, '2023-03-27', 3, 7, 'Energized and satisfied'),
+(23, 1, 4, 1, '2023-03-27', 3, 7, 'Energized and satisfied'),
+(56, 1, 4, 1, '2023-03-27', 4, 8, 'Stuffed and/or swollen'),
+(39, 1, 4, 1, '2023-03-27', 3, 7, 'Energized and satisfied'),
+(60, 1, 4, 1, '2023-03-27', 4, 8, 'Stuffed and/or swollen');
 

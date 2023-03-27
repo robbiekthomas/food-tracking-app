@@ -28,12 +28,12 @@ router.get("/", (req, res) => {
 router.get("/food-log", (req, res) => {
   console.log("getting food log data!");
 
-  const query = `
+  const str = `
   SELECT * FROM food_logs 
   WHERE meal_date = CURRENT_DATE AND user_id = 1
   `;
 
-  db.query(foodQueryStr)
+  db.query(str)
     .then((result) => {
       const data = result.rows;
       res.json(data);
@@ -96,12 +96,13 @@ router.get("/trackerDashboardMacros", (req, res) => {
     .then((result) => {
       let startDate = new Date(result.rows[0].combine_day);
       const endDate = new Date();
-      const days = differenceInDays(endDate, startDate);
-
+      const days = differenceInDays(endDate, startDate) + 1;
+console.log(result.rows, days);
       let data = [];
       let idx = 0;
 
       for (let i = 0; i < days; i++) {
+    
         let protein = null;
         let fat = null;
         let carbs = null;
@@ -116,14 +117,16 @@ router.get("/trackerDashboardMacros", (req, res) => {
           protein = result.rows[idx].protein;
           fat = result.rows[idx].fat;
           carbs = result.rows[idx].carbs;
-          hungerBefore = result.rows[idx].average_hunger_before;
-          hungerAfter = result.rows[idx].average_hunger_after;
-          servings = result.rows[idx].average_hunger_after;
+          hungerBefore = result.rows[idx].avg_hunger_before;
+          hungerAfter = result.rows[idx].avg_hunger_after;
+          servings = result.rows[idx].servings;
 
           if (idx !== result.rows.length - 1) {
             idx++;
           }
         }
+
+        startDate = add(startDate, { days: 1 });
         const date = format(startDate, "yyyy/MM/dd");
         let obj = {
           date,
@@ -137,9 +140,9 @@ router.get("/trackerDashboardMacros", (req, res) => {
 
         data.push(obj);
 
-        startDate = add(startDate, { days: 1 });
+        
       }
-
+      console.log(1, data)
       res.json(data);
     })
 
@@ -149,10 +152,30 @@ router.get("/trackerDashboardMacros", (req, res) => {
 });
 
 
+//get the qualitative data from the meal logs
+router.get("/qualitativeTrackerDashboard", (req, res) => {
+  //console.log('params', req.query.day)
+
+  const params = [req.query.day];
+  const str = `
+  SELECT feeling_after_eating FROM food_logs
+  WHERE user_id = 1 AND meal_date = $1;
+      `;
+  db.query(str, params)
+    .then((result) => {
+     // console.log('result', result)
+      res.json(result);
+    })
+
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
 
 router.post("/food-log", (req, res) => {
   console.log("receiving data...");
-  console.log(req.body);
+
   let insertQueryStr = `INSERT INTO food_logs (meal_date, user_id, meal_id, food_id, servings) VALUES `;
   let queryParams = [req.body[0]];
   let count = 2;
@@ -173,11 +196,10 @@ router.post("/food-log", (req, res) => {
     );
     count += 4;
   }
-  console.log(insertQueryStr);
-  console.log(queryParams);
+
   db.query(insertQueryStr, queryParams)
     .then((result) => {
-      console.log(result.rows[0]);
+   
       res.json(result.rows);
     })
     .catch((err) => {
@@ -200,7 +222,7 @@ router.delete("/food-log", (req, res) => {
 
   db.query(deleteQueryStr, params)
     .then((result) => {
-      console.log(result.rows)
+    
       res.json(result.rows);
     })
     .catch((err) => {
@@ -209,7 +231,6 @@ router.delete("/food-log", (req, res) => {
 });
 
 router.get("/upDateTrackerItems", (req, res) => {
-  console.log(1, req.query.meal, req.query.date);
 
   const params = [req.query.meal, req.query.date];
   const str = `
@@ -297,7 +318,7 @@ router.post("/intuitive", (req, res) => {
   `;
   db.query(hungerQueryStr, [req.body[0], req.body[1], req.body[2], req.body[3], req.body[4]])
     .then((result) => {
-      console.log('testtest', req.body)
+    
       res.json(result.rows);
     })
     .catch((err) => {
@@ -307,10 +328,10 @@ router.post("/intuitive", (req, res) => {
 
 router.delete("/intuitive", (req, res) => {
   console.log("deleting data... ");
-  console.log("req.body", req.body);
+ 
   const deleteQueryStr = `
   DELETE FROM food_logs 
-  WHERE id = $1 AND meal_id = $2;
+  WHERE id = $1 AND meal_id = $2 and meal_date = $3;
   `;
 
   db.query(deleteQueryStr, req.body)
@@ -379,7 +400,7 @@ router.get("/habitGoals", (req, res) => {
   SELECT goal_name, is_complete, habitGoal_logs.id
   FROM habitGoals
   JOIN habitGoal_logs ON goal_id = habitGoals.id
-  WHERE user_id = 1 AND date = CURRENT_DATE
+  WHERE user_id = 1
   ORDER BY habitGoal_logs.id DESC
   LIMIT 3;
   `;
@@ -404,7 +425,7 @@ router.post("/habitGoals", (req, res) => {
     end
   WHERE user_id = 1 AND date = CURRENT_DATE;
   `;
-  console.log("req.body", req.body);
+
   const queryParams = req.body
 
   db.query(queryStr, queryParams)
@@ -417,7 +438,27 @@ router.post("/habitGoals", (req, res) => {
 });
 
 
+router.get('/hungerHistory', (req, res) => {
+  const date = req.query.date;
+  const meal = req.query.meal;
+  console.log('hjgdlhgdhkj', date, meal)
+
+  params = [date, meal];
+  str = `SELECT hunger_before, hunger_after, feeling_after_eating
+  FROM food_logs
+  WHERE user_id = 1 AND meal_date = $1 AND meal_id = $2 AND hunger_before is NOT NULL`
+
+  db.query(str, params)
+  .then((result) => {
+    res.json(result.rows);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+})
+
 
 
 
 module.exports = router;
+

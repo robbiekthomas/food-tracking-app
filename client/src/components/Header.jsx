@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import DateSelector from "./DateSelector";
 import { useModeContext } from "../contexts/mode-status";
 import CircularProgress from './charts/CircularProgressBar';
+import ScoreCard from './charts/ScoreCard';
 import ChartHeader from './charts/ChartsHeader';
 import classNames from 'classnames';
+
 
 const Header = (
   {
@@ -18,6 +20,7 @@ const Header = (
 ) => {
   const { mode, setMode } = useModeContext();
 
+console.log(dailyStats, targetCalories,fat, protein, carbs )
   const [proActual, setProActual] = useState(0)
   const [fatActual, setFatActual] = useState(0)
   const [choActual, setChoActual] = useState(0)
@@ -49,7 +52,7 @@ const Header = (
     setCaloriesActual(kcal || 0);
   }, [proActual, fatActual, choActual])
 
-
+console.log(2, dailyStats.hungerBefore, hungerAfter)
   return (
     <div>
       {/**HEADINGS */}
@@ -58,11 +61,78 @@ const Header = (
       {mode === "standard" && <h1 className="font-xl">Standard Food Tracker</h1>}
 
       {/**DATE PICKER */}
-      <DateSelector day={day} changeDay={changeDay} />
+      <DateSelector />
 
 
       {/**PRECISE */}
       {mode === "precise" &&
+        <div className={classNames('w-full', 'grid', 'grid-cols-4', 'grid-rows-2, gap-3')}>
+
+          {caloriesActual &&
+            <div className='flex-column justify-center align-center'>
+              <ChartHeader title={'Calories'} />
+              <CircularProgress
+                title='Calories'
+                color='#666666'
+                performance={Math.round(caloriesActual / targetCalories * 100)}
+              />
+            </div>
+          }
+
+          <div className='flex-column justify-center align-center'>
+            <ChartHeader title={'Protein'} />
+            <CircularProgress
+              title='Protein'
+              color='#666666'
+              performance={Math.round(proActual / protein * 100)}
+            />
+          </div>
+          <div className='flex-column justify-center align-center'>
+            <ChartHeader title={'Fat'} />
+            <CircularProgress
+              title='Fat'
+              color='#666666'
+              performance={Math.round(fatActual / fat * 100)}
+            />
+          </div>
+          <div className='flex-column justify-center align-center'>
+            <ChartHeader title={'Carbs'} />
+            <CircularProgress
+              title='Carbs'
+              color='#666666'
+              performance={Math.round(choActual / carbs * 100)}
+            />
+          </div>
+
+        </div>
+      }
+
+      {mode === "intuitive" &&
+        <div className={classNames('w-full', 'grid', 'grid-cols-4', 'grid-rows-2, gap-3')}>
+
+
+          <div className='flex-column justify-center align-center'>
+            <ScoreCard
+              title='Average Hunger Before Eating'
+              score={hungerBefore}
+              id='before'
+            />
+          </div>
+          <div className='flex-column justify-center align-center'>
+
+            <ScoreCard
+              title='Average Hunger After Eating'
+              score={hungerAfter}
+              id='after'
+            />
+          </div>
+
+        </div>
+      }
+
+
+
+      {mode === "standard" &&
         <div className={classNames('w-full', 'grid', 'grid-cols-4', 'grid-rows-2, gap-3')}>
 
           <div className='flex-column justify-center align-center'>
@@ -81,32 +151,8 @@ const Header = (
               performance={Math.round(proActual / protein * 100)}
             />
           </div>
-          <div className='flex-column justify-center align-center'>
-            <ChartHeader title={'Fat'} />
-            <CircularProgress
-              title='Calories'
-              color='#666666'
-              performance={Math.round(fatActual / fat * 100)}
-            />
-          </div>
-          <div className='flex-column justify-center align-center'>
-            <ChartHeader title={'Carbs'} />
-            <CircularProgress
-              title='Calories'
-              color='#666666'
-              performance={Math.round(choActual / carbs * 100)}
-            />
-          </div>
 
-        </div>
-      }
 
-      {mode === "intuitive" &&
-        <div>
-        </div>
-      }
-      {mode === "standard" &&
-        <div>
         </div>
       }
     </div>

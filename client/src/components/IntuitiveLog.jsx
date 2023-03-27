@@ -10,34 +10,39 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import {  getIntuitiveLogHistory } from '../api-requests/tracker';
+import { useDateContext } from "../contexts/date-context";
+import { format } from 'date-fns';
+
 
 const IntuitiveLog = (props) => {
   const [feelings, setFeelings] = useState([]);
+  const { selectedContextDate } = useDateContext();
   
   const setToggle = props.setToggle;
 
+  //
   useEffect(() => {
-    axios
-      .get(`http://localhost:8000/api/tracker/intuitive-${props.meal}`)
-      .then((response) => {
-        setFeelings(response.data);
-        console.log("res", response)
-      })
+    const date = format(selectedContextDate, 'yyyy-MM-dd')
+    getIntuitiveLogHistory(props.mealId, date)
+    .then((res) => {
+      setFeelings(res);
+    })
+
       .catch((err) => {
         console.log(err);
       });
-  }, [props.toggle]);
+  }, [props.toggle, selectedContextDate]);
 
   const handleDeleteClick = (params) => () => {
-    const values = [params.id, props.mealId];
+    const date = format(selectedContextDate, 'yyyy-MM-dd')
+    const values = [params.id, props.mealId, date];
     feelings.splice((params.id), 1);
     setFeelings([...feelings]);
 
-    axios
-    .delete(`http://localhost:8000/api/tracker/intuitive`, { data: values })
+
+    axios.delete(`http://localhost:8000/api/tracker/intuitive`, { data: values })
     .then(response => {
-      
-      console.log("res.data", response.data);
       setToggle(prev => !prev);
     })
     .catch(error => {
@@ -61,7 +66,7 @@ const IntuitiveLog = (props) => {
         <TableBody>
           {rows.map((row, rowIndex) => (
             <TableRow
-              key={row.name}
+              key={rowIndex}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center">{row.hunger_before}</TableCell>

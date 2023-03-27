@@ -9,7 +9,7 @@ const getFoodRow = () => {
 
 }
 
-
+//get quantitative information for the cards on the tracker dashboard
 const getDailyMacroStats = () => {
 
   return axios.get('http://localhost:8000/api/tracker/trackerDashboardMacros')
@@ -17,6 +17,20 @@ const getDailyMacroStats = () => {
       return res.data;
     })
 }
+
+//get qualitative information for the cards on the dashboard
+const getQualitativeStats = (day) => {
+
+  return axios.get('http://localhost:8000/api/tracker/qualitativeTrackerDashboard', {
+    params: { day }
+  })
+    .then((res) => {
+      console.log('qualitativeTrackerDashboard', res.data)
+      return res.data;
+    })
+
+}
+
 
 const getFoodList = (day) => {
 
@@ -47,7 +61,6 @@ const upDateTrackerItems = (meal, date) => {
 const deleteFoodFromDB = (food, meal, date) => {
   return axios.delete(`http://localhost:8000/api/tracker/food-log`, { params: {food, meal, date }})
     .then((response) => {
-      console.log(12, response.data);
       return response.data;
     })
     .catch((error) => {
@@ -59,4 +72,25 @@ const addFoodToLogs = (food, meal, date) => {
   return
 }
 
-export { getFoodRow, getDailyMacroStats, getFoodList, upDateTrackerItems, deleteFoodFromDB, addFoodToLogs };
+const getIntuitiveLogHistory = (meal, date) => {
+  return axios.get(`http://localhost:8000/api/tracker/hungerHistory`, { params: {meal, date }})
+  .then((response) => {
+    console.log('getIntuitiveLogHistory',response.data)
+    return response.data;
+  })
+  .catch((error) => {
+    console.log("error", error);
+  });
+}
+
+
+
+export { 
+  getFoodRow, 
+  getDailyMacroStats, 
+  getFoodList, 
+  upDateTrackerItems, 
+  deleteFoodFromDB, 
+  addFoodToLogs, 
+  getQualitativeStats,
+  getIntuitiveLogHistory };
