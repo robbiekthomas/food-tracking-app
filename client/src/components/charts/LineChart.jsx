@@ -67,7 +67,7 @@ const LineChart = ({ datapoints }) => {
     plugins: {
       legend: {
         display: true,
-        position: "right",
+        position: "bottom",
         legend: {
           onClick: (legendItem) => {
             const chartInstance = legendItem.chart;

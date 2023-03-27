@@ -70,7 +70,7 @@ function NavBar() {
   return (
     <>
       {themeSettings && <ThemeSettings />}
-      <AppBar position="static" style={{ background: currentColor }}>
+      <AppBar position="static" style={{ background: currentColor }} sx={{ zIndex: 1100 }}>
         <Box
           sx={{
             display: "flex",

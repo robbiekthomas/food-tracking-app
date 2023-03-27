@@ -11,8 +11,8 @@ const MuiTheme = createTheme({
       main: '#f50057',
     },
     background: {
-      default: '#251f25',
-      paper: '#251f25',
+      default: '#0B031C',
+      paper: '#0B031C',
     },
     text: {
       primary: 'rgba(255,255,255,0.87)',

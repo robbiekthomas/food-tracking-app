@@ -5,6 +5,7 @@ import DashboardPrecise from "../components/DashboardPrecise";
 import DashboardStandard from "../components/DashboardStandard";
 import { useModeContext } from "../contexts/mode-status";
 import '../styles/Dashboard.css'; 
+import { Box } from '@mui/system';
 
 import {
   getUserDetails,

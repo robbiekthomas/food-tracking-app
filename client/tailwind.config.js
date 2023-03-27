@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     fontFamily: {
       display: ["Open Sans", "sans-serif"],
-      body: ["Open Sans", "sans-serif"],
+      body: ["Nunito Sans", "sans-serif"],
       poppins: ["Poppins", "sans-serif"],
     },
     extend: {
@@ -14,7 +14,7 @@ module.exports = {
         "secondary-dark-bg": "#33373E",
         "light-gray": "#F7F7F7",
         "half-transparent": "rgba(0, 0, 0, 0.5)",
-        primary: "#251f25",
+        primary: "#0B031C",
         secondary: "#453745",
         dimWhite: "#e2e8f0",
         dimBlue: "rgba(9, 151, 124, 0.1)",
