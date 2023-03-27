@@ -40,7 +40,7 @@ console.log('selectedContextDate', selectedContextDate)
 
     foodLog.splice((params.id), 1);
     setFoodLog([...foodLog]);
-    const values = [params.id, props.mealID];
+    const values = [params.id, mealID];
 
     axios
       .delete(`http://localhost:8000/api/tracker/food-log`, { data: values })
