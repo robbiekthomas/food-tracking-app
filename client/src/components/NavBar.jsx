@@ -17,6 +17,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Link } from "react-router-dom";
 import EditAvatar from "./EditAvatar";
+import mercury from "../assets/bg/mercury.png";
 
 import ThemeSettings from "./ThemeSettings";
 import { useLoginContext } from "../contexts/login-status";
@@ -58,7 +59,7 @@ function NavBar() {
 
   const handleLogout = () => {
     setLoggedIn(false);
-    setLandingActive(true)
+    setLandingActive(true);
     localStorage.setItem("login", false);
   };
 
@@ -70,7 +71,11 @@ function NavBar() {
   return (
     <>
       {themeSettings && <ThemeSettings />}
-      <AppBar position="static" style={{ background: currentColor }} sx={{ zIndex: 1100 }}>
+      <AppBar
+        position="relative"
+        style={{ background: currentColor }}
+        sx={{ zIndex: 1100 }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -100,29 +105,48 @@ function NavBar() {
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block", ml: 5 }}
             >
-              {<Link onClick={() => setLandingActive(false)} to={`/tracker`}>Tracker</Link>}
+              {
+                <Link onClick={() => setLandingActive(false)} to={`/tracker`}>
+                  Tracker
+                </Link>
+              }
             </Button>
             <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              {<Link onClick={() => setLandingActive(false)} to={`/dashboard`}>Dashboard</Link>}
+              {
+                <Link onClick={() => setLandingActive(false)} to={`/dashboard`}>
+                  Dashboard
+                </Link>
+              }
             </Button>
           </Box>
           {!landingActive && (
             <ToggleButtonGroup
               value={mode}
-              
               exclusive
               onChange={handleModeChange}
               aria-label="Platform"
               size="medium"
               fullWidth
-              sx={{ backgroundColor: "rgba(0, 0, 0, 0.25)", color: "white", width: "600px", height: '40px', mr: "100px" }}
+              sx={{
+                backgroundColor: "rgba(0, 0, 0, 0.25)",
+                color: "white",
+                width: "600px",
+                height: "40px",
+                mr: "100px",
+              }}
             >
-              <ToggleButton sx={{color: 'white'}} value="intuitive">Intuitive</ToggleButton>
-              <ToggleButton sx={{color: 'white'}} value="standard">Standard</ToggleButton>
-              <ToggleButton sx={{color: 'white'}} value="precise">Precise</ToggleButton>
+              <ToggleButton sx={{ color: "white" }} value="intuitive">
+                Intuitive
+              </ToggleButton>
+              <ToggleButton sx={{ color: "white" }} value="standard">
+                Standard
+              </ToggleButton>
+              <ToggleButton sx={{ color: "white" }} value="precise">
+                Precise
+              </ToggleButton>
             </ToggleButtonGroup>
           )}
           <Box>
@@ -178,6 +202,13 @@ function NavBar() {
           </Box>
         </Box>
       </AppBar>
+      {/* <Box
+        position="fixed"
+        bottom={20}
+        sx={{ zIndex: 0, width: "100vw", height: "100vh" }}
+      > 
+        <img src={mercury} alt="mercury" />
+      </Box> */}
     </>
   );
 }

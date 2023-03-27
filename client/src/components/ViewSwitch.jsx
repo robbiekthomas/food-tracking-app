@@ -3,8 +3,8 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 function ViewSwitch({ view1, view2, view3, goal, date }) {
   return (
-    <div className="mb-3 grid grid-cols-3 grid-rows-1 gap-3 font-bold text-gray-700 ">
-      <div className="flex justify-center pt-1 pb-1 align-center  rounded-lg text-dimWhite bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
+    <div className="mb-3 grid grid-cols-3 grid-rows-1 gap-3 font-bold text-white ">
+      <div className="flex justify-center pt-1 pb-1 align-center  rounded-lg text-dimWhite bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10">
         Current Goal: {goal}
       </div>
       {/* <ButtonGroup sx={{ width: "00px" }} aria-label="Basic example">
@@ -27,10 +27,10 @@ function ViewSwitch({ view1, view2, view3, goal, date }) {
           {view3}
         </Button>
       </ButtonGroup> */}
-      <div className="flex justify-center pt-1 pb-1 align-center  rounded-lg text-dimWhite bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
+      <div className="flex justify-center pt-1 pb-1 align-center  rounded-lg text-dimWhite bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10">
         Weekly View
       </div>
-      <div className="flex justify-center pt-1 pb-1 align-center rounded-lg  text-dimWhite bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]">
+      <div className="flex justify-center pt-1 pb-1 align-center rounded-lg  text-dimWhite bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10">
         {date}
       </div>
     </div>
