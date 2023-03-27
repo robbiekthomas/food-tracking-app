@@ -64,7 +64,7 @@ const TrackingStandard = (props) => {
         </Dialog>
 
         <div>
-          <div class="ml-4">
+          <div className="ml-4">
           <MealToggle mealToggle handleToggle={handleToggle} />
           </div>
           {mealToggle === "breakfast" && (

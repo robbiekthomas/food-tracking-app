@@ -9,7 +9,9 @@ import { useDateContext } from '../contexts/date-context';
 const DateSelector = ({ day, changeDay }) => {
 const { selectedContextDate, setSelectedContextDate } = useDateContext();
  
-  const onDayChange = (e) => setSelectedContextDate(e);
+  const onDayChange = (e) => {
+    setSelectedContextDate(e);
+  }
 
   return (
     <Stack spacing={4} sx={{ width: '250px' }}>

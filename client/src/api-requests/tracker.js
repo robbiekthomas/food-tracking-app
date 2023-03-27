@@ -35,14 +35,28 @@ const upDateTrackerItems = (meal, date) => {
   return axios.get('http://localhost:8000/api/tracker/upDateTrackerItems', {
     params: { meal, date }
   })
-  .then((response) => {
-    console.log(12, response.data);
-   return response.data;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
 }
 
-export { getFoodRow, getDailyMacroStats, getFoodList, upDateTrackerItems };
+const deleteFoodFromDB = (food, meal, date) => {
+  return axios.delete(`http://localhost:8000/api/tracker/food-log`, { params: {food, meal, date }})
+    .then((response) => {
+      console.log(12, response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+}
+
+const addFoodToLogs = (food, meal, date) => {
+  return
+}
+
+export { getFoodRow, getDailyMacroStats, getFoodList, upDateTrackerItems, deleteFoodFromDB, addFoodToLogs };

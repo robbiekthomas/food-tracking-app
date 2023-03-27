@@ -152,16 +152,16 @@ router.get("/trackerDashboardMacros", (req, res) => {
 
 router.post("/food-log", (req, res) => {
   console.log("receiving data...");
-
-  let insertQueryStr = `INSERT INTO food_logs (user_id, meal_id, food_id, servings) VALUES `;
-  let queryParams = [];
-  let count = 1;
-  for (let i = 0; i < req.body.length; i++) {
+  console.log(req.body);
+  let insertQueryStr = `INSERT INTO food_logs (meal_date, user_id, meal_id, food_id, servings) VALUES `;
+  let queryParams = [req.body[0]];
+  let count = 2;
+  for (let i = 1; i < req.body.length; i++) {
     if (i < req.body.length - 1) {
-      insertQueryStr += `($${count}, $${count + 1}, $${count + 2}, $${count + 3
-        }),`;
+      insertQueryStr += `($1, $${count}, $${count + 1}, $${count + 2}, $${count + 3
+        }, ),`;
     } else {
-      insertQueryStr += `($${count}, $${count + 1}, $${count + 2}, $${count + 3
+      insertQueryStr += `($1, $${count}, $${count + 1}, $${count + 2}, $${count + 3
         });`;
     }
 
@@ -187,14 +187,20 @@ router.post("/food-log", (req, res) => {
 
 router.delete("/food-log", (req, res) => {
   console.log("deleting data... ");
-  console.log("req.body", req.body);
+  const food = req.query.food;
+  const meal = req.query.meal;
+  const date = req.query.date;
+
+  const params = [food, meal, date];
+ 
   const deleteQueryStr = `
   DELETE FROM food_logs 
-  WHERE food_id = $1 AND meal_id = $2;
+  WHERE food_id = $1 AND meal_id = $2 AND meal_date = $3;
   `;
 
-  db.query(deleteQueryStr, req.body)
+  db.query(deleteQueryStr, params)
     .then((result) => {
+      console.log(result.rows)
       res.json(result.rows);
     })
     .catch((err) => {

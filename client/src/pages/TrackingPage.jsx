@@ -74,7 +74,6 @@ const TrackingPage = () => {
 
   }
 
-  console.log('jhsgdshjd', new Date())
   const maintenanceCalories = getMaintenanceCalories(inputs.weight, inputs.body_fat_percentage);
   const targetCalories = getTargetCalories(inputs.weight_change_goal, maintenanceCalories);
   const protein = getProtein(inputs.weight, inputs.sex, inputs.body_fat_percentage);

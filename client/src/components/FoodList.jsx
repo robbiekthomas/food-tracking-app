@@ -3,17 +3,19 @@ import axios from "axios";
 
 import { Button, Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-
-import { getFoodRow } from "../api-requests/tracker";
+import { useDateContext } from "../contexts/date-context";
+import { getFoodRow, addFoodToLogs } from "../api-requests/tracker";
+import { format } from 'date-fns';
 
 const FoodList = (props) => {
   const [foodData, setfoodData] = useState([]);
   const [rowSelectionModel, setRowSelectionModel] = useState([]);
 
+  const { selectedContextDate } = useDateContext();
+
   useEffect(() => {
     getFoodRow()
       .then((res) => {
-        console.log('res',res.data);
         setfoodData(res);
       })
       .catch((err) => {
@@ -64,7 +66,8 @@ const FoodList = (props) => {
   ];
 
   const createFoodValues = () => {
-    let values = [];
+    const str = format(selectedContextDate, 'yyyy-MM-dd')
+    let values = [str];
 
     for (const item of rowSelectionModel) {
       values.push({
@@ -74,6 +77,8 @@ const FoodList = (props) => {
         servings: foodData[item - 1].servings || 1,
       });
     }
+
+   
 
     const url = "http://localhost:8000/api/tracker/food-log";
     axios
@@ -96,7 +101,7 @@ const FoodList = (props) => {
   };
 
   return (
-    <div class="flex flex-col items-center">
+    <div className="flex flex-col items-center">
       <div style={{ height: 500, width: "100%" }}>
         <DataGrid
           rows={rows}

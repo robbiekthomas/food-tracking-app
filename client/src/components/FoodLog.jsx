@@ -10,46 +10,45 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import axios from "axios";
-import {  upDateTrackerItems } from '../api-requests/tracker';
+import { upDateTrackerItems, deleteFoodFromDB } from '../api-requests/tracker';
 import { useDateContext } from "../contexts/date-context";
+import { format } from 'date-fns';
 
 
 
-export const FoodLog = ({meal, mealID, mealSummary, showList, onUpdate, selectedDate}) => {
+export const FoodLog = ({ meal, mealID, mealSummary, showList, onUpdate, selectedDate }) => {
   const [foodLog, setFoodLog] = useState([]);
   const [foodDelete, setFoodDelete] = useState(false);
 
   const { selectedContextDate } = useDateContext();
 
-
+  console.log('FoodLog')
   useEffect(() => {
     const m = Number(mealID)
+    const str = format(selectedContextDate, 'yyyy-MM-dd')
 
-    upDateTrackerItems(m, selectedContextDate)
+    upDateTrackerItems(m, str)
       .then((res) => {
-        console.log('klklkl',res)
         setFoodLog(res);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [showList, foodDelete, selectedContextDate]);
-console.log('selectedContextDate', selectedContextDate)
+
   //params.id is the selected row food ID
   const handleDeleteClick = (params) => () => {
 
     foodLog.splice((params.id), 1);
     setFoodLog([...foodLog]);
-    const values = [params.id, props.mealID];
+    setFoodDelete((prev) => !prev);
 
-    axios
-      .delete(`http://localhost:8000/api/tracker/food-log`, { data: values })
-      .then((response) => {
-        setFoodDelete((prev) => !prev);
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
+    const str = format(selectedContextDate, 'yyyy-MM-dd')
+    deleteFoodFromDB(params.id, mealID, str)
+    .then((res) => {
+      
+    })
+    
   };
 
 
@@ -58,7 +57,7 @@ console.log('selectedContextDate', selectedContextDate)
   //made in order to change the values on the table once a new date is selected
 
 
-  console.log('props', foodLog)
+  
 
   return (
     <TableContainer component={Paper} style={{ minHeight: 400, maxHeight: 400 }}>
