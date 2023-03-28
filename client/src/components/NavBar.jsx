@@ -17,7 +17,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Link } from "react-router-dom";
 import EditAvatar from "./EditAvatar";
-import mercury from "../assets/bg/mercury.png";
+import mercury from "../assets/bg/mercurybg.png";
 
 import ThemeSettings from "./ThemeSettings";
 import { useLoginContext } from "../contexts/login-status";

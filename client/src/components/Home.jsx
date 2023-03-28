@@ -3,8 +3,6 @@ import styles from "../style";
 import { discount, robot } from "../assets";
 import {useStateContext} from "../contexts/ContextProvider";
 import foodPlanet from "../assets/foodPlanet.png";
-import nebula from "../assets/bg/nebula.gif";
-
 
 const Home = () => {
   const {currentMode} = useStateContext();
@@ -14,7 +12,7 @@ const Home = () => {
       id="home"
       className={`flex flex-col items-stretch ${styles.paddingY} ${styles.paddingX} ${styles.flexCenter}`}
     >
-      {/* <img src={nebula} alt="nebula"  /> */}
+      
     <div
         className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 ml-10`}
       >
@@ -43,7 +41,7 @@ const Home = () => {
         </p>
       </div>
       <div className={`flex-1 flex flex justify-end items-center md:my-0 my-10 relative`}> 
-        {/* <img src={robot} alt="sample" className="max-w-4xl w-[80%] h-[80%] relative z-[5] mr-0"/> */}
+        <img src={robot} alt="sample" className="max-w-4xl w-[80%] h-[80%] relative z-[5] mr-0"/>
         <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
         <div className="absolute z-[1] w-[80%] h-[80%] rounded-full bottom-40 white__gradient" />
         <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
