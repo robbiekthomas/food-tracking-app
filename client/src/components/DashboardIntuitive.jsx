@@ -150,7 +150,7 @@ const DashboardIntuitive = ({
               <div className={`w align-center pb-2 pt-2 pl-6 pr-6 ${gradientStyling} z-10 ${classNames(
                 "row-span-2"
               )}`}>
-                <p className="mt-5 mb-5 w-full text-center font-bold text-white text-xl">
+                <p className="mt-5 mb-5 w-full text-center font-bold text-white text-xl opacity-75">
                   Top 3 Feelings After Eating
                 </p>
                 <TableContainer

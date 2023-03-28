@@ -79,7 +79,7 @@ const DashboardStandard = ({
         <div className={classNames('mt-3', 'w-full', 'grid', 'grid-cols-2', 'grid-rows-1, gap-3')}>
           {/* HABIT GOALS*/}
           {currentHabits && currentHabits.length > 0 &&
-            <div className={`shadow-sm relative rounded-lg pl-2 ${gradientStyling} z-10`}>
+            <div className={`shadow-sm relative rounded-lg pl-2 pt-[35px] ${gradientStyling} z-10`}>
               <HabitCard
                 dataSource={currentHabits}
                 title='Habit Goals'

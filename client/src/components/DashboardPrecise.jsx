@@ -127,7 +127,7 @@ const DashboardPrecise = ({
             {lineChartData && lineChartData.length > 0 && (
               <div
 
-                className={`col-span-1 row-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-[80px] w-full ${gradientStyling} ${classNames(
+                className={`col-span-1 row-span-1 shadow-sm relative rounded-lg align-center pb-2 pt-[80px] w-full ${gradientStyling} ${classNames(
                   "col-span-1",
                   
                 )}`}
