@@ -11,11 +11,6 @@ import { format } from "date-fns";
 import MealToggle from "./MealToggle";
 
 const TrackingPrecise = ({
-  targetCalories,
-  stringifiedDate,
-  allTimeStats,
-  dailyMealSummary,
-  setDailyMealSummary,
   mealToggle,
   setMealToggle,
 }) => {
@@ -24,8 +19,6 @@ const TrackingPrecise = ({
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
 
-  // const mealToggle=props.mealToggle;
-  // const handleToggle=props.handleToggle;
 
   const handleClose = (value) => {
     setOpen(false);
@@ -56,9 +49,10 @@ const TrackingPrecise = ({
 
         {mealToggle === "breakfast" && (
           <div
-            className={`shadow-sm relative rounded-lg text-dimWhite align-center .w-1/2 px-8 pt-5 pb-5 ${gradientStyling}`}
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full  px-7 pt-5 pb-5 ${gradientStyling}`}
           >
             <h1>Breakfast</h1>
+            <FoodLog meal={"breakfast"} mealID={1} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
@@ -66,55 +60,54 @@ const TrackingPrecise = ({
             >
               Add Breakfast
             </Button>
-            <FoodLog meal={"breakfast"} mealID={1} showList={showList} />
           </div>
         )}
 
         {mealToggle === "lunch" && (
           <div
-            className={`shadow-sm relative rounded-lg text-dimWhite align-center .w-1/2 px-8 pt-5 pb-5 ${gradientStyling}`}
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
             <h1>Lunch</h1>
+            <FoodLog meal={"lunch"} mealID={2} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
-              onClick={() => showFoodList(1)}
+              onClick={() => showFoodList(2)}
             >
               Add Lunch
             </Button>
-            <FoodLog meal={"lunch"} mealID={2} showList={showList} />
           </div>
         )}
 
         {mealToggle === "dinner" && (
           <div
-            className={`shadow-sm relative rounded-lg text-dimWhite align-center .w-1/2 px-8 pt-5 pb-5 ${gradientStyling}`}
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
             <h1>Dinner</h1>
+            <FoodLog meal={"dinner"} mealID={4} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
-              onClick={() => showFoodList(1)}
+              onClick={() => showFoodList(4)}
             >
               Add Dinner
             </Button>
-            <FoodLog meal={"dinner"} mealID={4} showList={showList} />
           </div>
         )}
 
         {mealToggle === "snack" && (
           <div
-            className={`shadow-sm relative rounded-lg text-dimWhite align-center .w-1/2 px-8 pt-5 pb-5 ${gradientStyling}`}
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
             <h1>Snack</h1>
+            <FoodLog meal={"snack"} mealID={3} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
-              onClick={() => showFoodList(1)}
+              onClick={() => showFoodList(3)}
             >
               Add Snack
             </Button>
-            <FoodLog meal={"snack"} mealID={3} showList={showList} />
           </div>
         )}
       </div>
