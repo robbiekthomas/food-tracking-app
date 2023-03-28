@@ -124,9 +124,9 @@ const DashboardPrecise = ({
             {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 && (
               <div
-                className={`col-span-1 shadow-sm relative rounded-lg align-center pb-2 pt-2 ${gradientStyling} ${classNames(
+                className={`col-span-1 row-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-3 w-full ${gradientStyling} ${classNames(
                   "col-span-1",
-                  "row-span-1"
+                  
                 )}`}
               >
                 <LineChart datapoints={lineChartData} />

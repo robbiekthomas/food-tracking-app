@@ -87,38 +87,8 @@ const DashboardStandard = ({
             </div>
           }
 
-          {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
-          {barChartData && barChartData.length > 0 &&
-            <div className={`shadow-sm relative rounded-lg align-center pb-2 pt-2 ${gradientStyling} z-10`}>
-              <ChartHeader title="Protein Distribution over Time (%)" />
-              <Stacked
-                data={proteinBarChartData}
-                name1="protein"
-                name2="calories"
-              />
-            </div>
-          }
-        </div>
-
-
-
-        <div className="mt-3">
-          <div className={classNames('w-full', 'grid', 'grid-cols-3', 'grid-rows-1 gap-3')}>
-
-
-
-
-
-
-            {/* LINE CHART FOR WEIGHT AND BODY FAT */}
-            {lineChartData && lineChartData.length > 0 &&
-              < div className={`h-72 col-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-3 w-full ${gradientStyling} z-10`}>
-                <LineChart datapoints={lineChartData} />
-              </div>
-            }
-
-            {/* MACROS*/}
-            <div className={`shadow-sm relative rounded-lg align-center px-2 ${gradientStyling} z-10`}>
+           {/* MACROS*/}
+            <div className={`shadow-sm relative rounded-lg align-center col-span-1 row-span-1 px-2 ${gradientStyling} z-10`}>
               <ChartHeader title={' Protein Percent of Total Calories'} />
               {/* Target Macro Distribution From Diet */}
               <div className="flex justify-around">
@@ -139,6 +109,38 @@ const DashboardStandard = ({
                 </div>
               </div>
             </div>
+        </div>
+
+
+
+        <div className="mt-3">
+          <div className={classNames('w-full', 'grid', 'grid-cols-2', 'grid-rows-1 gap-3')}>
+
+
+
+
+
+
+            {/* LINE CHART FOR WEIGHT AND BODY FAT */}
+            {lineChartData && lineChartData.length > 0 &&
+              < div className={`h-full col-span-1 shadow-sm relative rounded-lg align-center pb-2 pt-3 w-full ${gradientStyling} z-10`}>
+                <LineChart datapoints={lineChartData} />
+              </div>
+            }
+
+           
+
+            {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
+          {barChartData && barChartData.length > 0 &&
+            <div className={`shadow-sm relative rounded-lg align-center pb-2 pt-2 ${gradientStyling} z-10`}>
+              <ChartHeader title="Protein Distribution over Time (%)" />
+              <Stacked
+                data={proteinBarChartData}
+                name1="protein"
+                name2="calories"
+              />
+            </div>
+          }
 
           </div>
         </div>
