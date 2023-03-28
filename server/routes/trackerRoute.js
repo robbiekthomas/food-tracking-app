@@ -182,7 +182,9 @@ router.post("/food-log", (req, res) => {
   for (let i = 1; i < req.body.length; i++) {
     if (i < req.body.length - 1) {
       insertQueryStr += `($1, $${count}, $${count + 1}, $${count + 2}, $${count + 3
+
         }),`;
+
     } else {
       insertQueryStr += `($1, $${count}, $${count + 1}, $${count + 2}, $${count + 3
         });`;

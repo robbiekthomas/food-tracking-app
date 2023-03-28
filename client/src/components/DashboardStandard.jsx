@@ -69,7 +69,7 @@ const DashboardStandard = ({
             title={'Protein'}
             target={`${protein - 10} - ${protein + 10} grams`}
             unit='grams'
-            color='#CB4141'
+            color='#ffb114'
             performance={Math.round(proteinWeeklyAverage / protein * 100)}
           />
         </div>
@@ -132,7 +132,7 @@ const DashboardStandard = ({
 
             {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
           {barChartData && barChartData.length > 0 &&
-            <div className={`shadow-sm relative rounded-lg align-center pb-2 pt-2 ${gradientStyling} z-10`}>
+            <div className={`shadow-sm relative rounded-lg align-center pb-2 pt-[55px] ${gradientStyling} z-10`}>
               <ChartHeader title="Protein Distribution over Time (%)" />
               <Stacked
                 data={proteinBarChartData}

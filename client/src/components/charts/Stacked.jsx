@@ -30,6 +30,7 @@ const Stacked = ({ data, name1, name2, name3 }) => {
   }
 
   let options = {
+    colors: ["#ffb114", "#0dc955", '#48a1e6'],
     series: [
       {
         name: name1,

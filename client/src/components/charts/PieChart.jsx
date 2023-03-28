@@ -8,12 +8,18 @@ ChartJS.register(ArcElement, Tooltip);
 
 const PieChart = ({ series, labels, title }) => {
   const options = {
-    cutout: "75%",
+    cutout: "85%",
     plugins: {
       legend: {
         display: false,
       },
     },
+    elements: {
+      arc: {
+        borderWidth: 1, // <-- Set this to derired value
+        borderColor:'#333'
+      }
+    }
   };
 
   const data = {
@@ -21,7 +27,7 @@ const PieChart = ({ series, labels, title }) => {
     datasets: [
       {
         data: [series[0], series[1], series[2]],
-        backgroundColor: ["#CB4141", "#48b2c1", "#cbcb41"],
+        backgroundColor: ["#ffb114", "#0dc955", '#48a1e6'],
       },
     ],
   };
@@ -33,7 +39,7 @@ const PieChart = ({ series, labels, title }) => {
           height = chart.height,
           ctx = chart.ctx;
         ctx.restore();
-        var fontSize = (height / 160).toFixed(2);
+        var fontSize = (height / 120).toFixed(2);
         ctx.font = fontSize + "em sans-serif";
         ctx.textBaseline = "top";
         var text = title,

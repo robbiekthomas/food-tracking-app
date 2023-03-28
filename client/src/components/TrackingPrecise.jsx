@@ -8,7 +8,9 @@ import FoodList from "./FoodList";
 import HabitGoalTracker from "./HabitGoalTracker";
 import { format } from "date-fns";
 import MealToggle from "./MealToggle";
+
 import dab from "../assets/dab.png";
+
 
 const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
   const [meal, setMeal] = useState("");

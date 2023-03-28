@@ -28,7 +28,9 @@ const DashboardPrecise = ({
   date,
 }) => {
   const gradientStyling =
-  "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+
+
 
   return (
     <div className="flex bg-primary">
@@ -61,7 +63,7 @@ const DashboardPrecise = ({
         >
           <Card
             title="Calories"
-            color="#666666"
+            color="#9d1bec"
             target={`${targetCalories - 100} - ${targetCalories + 100} kcal`}
             performance={Math.round(
               (calorieWeeklyAverage / targetCalories) * 100
@@ -72,7 +74,7 @@ const DashboardPrecise = ({
             title={"Protein"}
             target={`${protein - 10} - ${protein + 10} grams`}
             unit="grams"
-            color="#CB4141"
+            color="#ffb114"
             performance={Math.round((proteinWeeklyAverage / protein) * 100)}
           />
 
@@ -92,9 +94,9 @@ const DashboardPrecise = ({
                 <PieChart
                   title="Actual"
                   series={[
-                    weelkyMacroDistribution[0] * 4,
-                    weelkyMacroDistribution[1] * 9,
-                    weelkyMacroDistribution[2] * 4,
+                    Math.round(weelkyMacroDistribution[0] * 4 / 100),
+                    Math.round(weelkyMacroDistribution[1] * 9 / 100),
+                    Math.round(weelkyMacroDistribution[2] * 4 / 100),
                   ]}
                   labels={["Protein (%)", "Fat (%)", "Carbohydrates (%)"]}
                 />
@@ -106,7 +108,7 @@ const DashboardPrecise = ({
             title={"Carbohydrates"}
             target={`${carbs - 10} - ${carbs + 10} grams`}
             unit="grams"
-            color="#feaf1a"
+            color='#48a1e6'
             performance={Math.round((carbsWeeklyAverage / carbs) * 100)}
           />
 
@@ -114,7 +116,7 @@ const DashboardPrecise = ({
             title={"Fat"}
             target={`${fat - 10} - ${fat + 10} grams`}
             unit="grams"
-            color="#00e396"
+            color="#0dc955"
             performance={Math.round((fatWeeklyAverage / fat) * 100)}
           />
         </div>
@@ -124,7 +126,8 @@ const DashboardPrecise = ({
             {/* LINE CHART FOR WEIGHT AND BODY FAT */}
             {lineChartData && lineChartData.length > 0 && (
               <div
-                className={`col-span-1 row-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-3 w-full ${gradientStyling} ${classNames(
+
+                className={`col-span-1 row-span-2 shadow-sm relative rounded-lg align-center pb-2 pt-[80px] w-full ${gradientStyling} ${classNames(
                   "col-span-1",
                   
                 )}`}
