@@ -29,7 +29,7 @@ const DashboardStandard = ({
 
 }) => {
 
-  const gradientStyling = "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.1]";
+  const gradientStyling = "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.01] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.1]";
 
   return (
     <div className="flex bg-primary">
@@ -132,7 +132,7 @@ const DashboardStandard = ({
 
             {/* MACRONUTRIENTS OVER TIME STACKED CHART */}
           {barChartData && barChartData.length > 0 &&
-            <div className={`shadow-sm relative rounded-lg align-center pb-2 pt-2 ${gradientStyling} z-10`}>
+            <div className={`shadow-sm relative rounded-lg align-center pb-2 pt-[55px] ${gradientStyling} z-10`}>
               <ChartHeader title="Protein Distribution over Time (%)" />
               <Stacked
                 data={proteinBarChartData}

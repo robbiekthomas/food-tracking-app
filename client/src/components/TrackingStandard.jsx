@@ -8,14 +8,11 @@ import FoodList from "./FoodList";
 import MealToggle from "./MealToggle";
 import HabitGoalTracker from "./HabitGoalTracker";
 
-const TrackingStandard = (props) => {
+const TrackingStandard = ({ mealToggle, setMealToggle }) => {
   const [meal, setMeal] = useState("");
   const [showList, setShowList] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
-
-  const mealToggle = props.mealToggle;
-  const handleToggle = props.handleToggle;
 
   const handleClose = (value) => {
     setOpen(false);
@@ -27,152 +24,93 @@ const TrackingStandard = (props) => {
     setOpen(true);
   };
 
-
-
+  const gradientStyling =
+    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
   return (
 
-    // <Box>
-    //   <Typography variant="h4" gutterBottom>
-    //     March 26, 2023
-    //   </Typography>
-
-    //   <Box
-    //     sx={{
-    //       display: "flex",
-    //       flexDirection: "row",
-    //       justifyContent: "space-evenly",
-    //       p: 1,
-    //       m: 1,
-    //       borderRadius: 1,
-    //     }}
-    //   >
-    //     <Dialog
-    //       onClose={handleClose}
-    //       open={open}
-    //       maxWidth="l"
-    //       PaperProps={{
-    //         sx: {
-    //           width: 900,
-    //           maxHeight: "90vh",
-    //           height: 600,
-    //         },
-    //       }}
-    //     >
-    //       <FoodList
-    //         meal={meal}
-    //         setShowList={setShowList}
-    //         handleClose={handleClose}
-    //       />
-    //     </Dialog>
-
-    //     <div>
-    //       <div className="ml-4">
-    //       <MealToggle mealToggle handleToggle={handleToggle} />
-    //       </div>
-    //       {mealToggle === "breakfast" && (
-
-    //           <Card
-    //           variant="outlined"
-    //           sx={{ width: 790, p: 2, m: 2, borderRadius: "16px" }}
-    //         >
-    //           <Typography variant="h6">Breakfast</Typography>
-    //           <Button
-    //             sx={{ width: "100%", p: 1 }}
-    //             variant="outlined"
-    //             onClick={() => showFoodList(1)}
-    //           >
-    //             Add Breakfast
-    //           </Button>
-    //           <FoodLogStandard meal={"breakfast"} mealID={1} showList={showList} />
-    //         </Card>
-
-    //       )}
-    //       {mealToggle === "lunch" && (
-    //         <Card
-    //           variant="outlined"
-    //           sx={{ width: 790, p: 2, m: 2, borderRadius: "16px" }}
-    //         >
-    //           <Typography variant="h6">Lunch</Typography>
-    //           <Button
-    //             sx={{ width: "100%", p: 1 }}
-    //             variant="outlined"
-    //             onClick={() => showFoodList(2)}
-    //           >
-    //             Add Lunch
-    //           </Button>
-    //           <FoodLogStandard meal={"lunch"} mealID={2} showList={showList} />
-    //         </Card>
-    //       )}
-
-    //       {mealToggle === "dinner" && (
-    //         <Card
-    //           variant="outlined"
-    //           sx={{ width: 790, p: 2, m: 2, borderRadius: "16px" }}
-    //         >
-    //           <Typography variant="h6">Dinner</Typography>
-    //           <Button
-    //             sx={{ width: "100%", p: 1 }}
-    //             variant="outlined"
-    //             onClick={() => showFoodList(4)}
-    //           >
-    //             Add Dinner
-    //           </Button>
-    //           <FoodLogStandard meal={"dinner"} mealID={4} showList={showList} />
-    //         </Card>
-    //       )}
-    //       {mealToggle === "snack" && (
-    //         <Card
-    //           variant="outlined"
-    //           sx={{ width: 790, p: 2, m: 2, borderRadius: "16px" }}
-    //         >
-    //           <Typography variant="h6">Snack</Typography>
-    //           <Button
-    //             sx={{ width: "100%", p: 1 }}
-    //             variant="outlined"
-    //             onClick={() => showFoodList(3)}
-    //           >
-    //             Add Snack
-    //           </Button>
-    //           <FoodLogStandard meal={"snack"} mealID={3} showList={showList} />
-    //         </Card>
-    //       )}
-    //     </div>
-    //     <HabitGoalTracker />
-    //   </Box>
-    // </Box>
-
-    <div>
-      <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xl">
+    <div className="flex justify-around bg-primary ">
+      <Dialog onClose={handleClose} open={open} sx={{width: '100%'}} maxWidth="xl">
         <FoodList
           meal={meal}
           setShowList={setShowList}
           handleClose={handleClose}
         />
       </Dialog>
-      <h1>Breakfast</h1>
-      <FoodLogStandard meal={"breakfast"} mealID={1} showList={showList} />
-      <Button variant="outlined" onClick={() => showFoodList(1)}>
-        Add Breakfast
-      </Button>
-      <h1>Lunch</h1>
-      <FoodLogStandard meal={"lunch"} mealID={2} showList={showList} />
-      <Button variant="outlined" onClick={() => showFoodList(2)}>
-        Add Lunch
-      </Button>
-      <h1>Dinner</h1>
-      <FoodLogStandard meal={"dinner"} mealID={4} showList={showList} />
-      <Button variant="outlined" onClick={() => showFoodList(4)}>
-        Add Dinner
-      </Button>
-      <h1>Snack</h1>
-      <FoodLogStandard meal={"snack"} mealID={3} showList={showList} />
-      <Button variant="outlined" onClick={() => showFoodList(3)}>
-        Add Snack
-      </Button>
+
+      <div className="flex flex-col">
+        <MealToggle mealToggle={mealToggle} setMealToggle={setMealToggle} />
+
+        {mealToggle === "breakfast" && (
+          <div
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full  px-7 pt-5 pb-5 ${gradientStyling}`}
+          >
+            <h1>Breakfast</h1>
+            <FoodLogStandard
+              meal={"breakfast"}
+              mealID={1}
+              showList={showList}
+            />
+            <Button
+              sx={{ width: "100%", p: 1 }}
+              variant="outlined"
+              onClick={() => showFoodList(1)}
+            >
+              Add Breakfast
+            </Button>
+          </div>
+        )}
+
+        {mealToggle === "lunch" && (
+          <div
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
+          >
+            <h1>Lunch</h1>
+            <FoodLogStandard meal={"lunch"} mealID={2} showList={showList} />
+            <Button
+              sx={{ width: "100%", p: 1 }}
+              variant="outlined"
+              onClick={() => showFoodList(1)}
+            >
+              Add Lunch
+            </Button>
+          </div>
+        )}
+
+        {mealToggle === "dinner" && (
+          <div
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
+          >
+            <h1>Dinner</h1>
+            <FoodLogStandard meal={"dinner"} mealID={4} showList={showList} />
+            <Button
+              sx={{ width: "100%", p: 1 }}
+              variant="outlined"
+              onClick={() => showFoodList(1)}
+            >
+              Add Dinner
+            </Button>
+          </div>
+        )}
+
+        {mealToggle === "snack" && (
+          <div
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
+          >
+            <h1>Snack</h1>
+            <FoodLogStandard meal={"snack"} mealID={3} showList={showList} />
+            <Button
+              sx={{ width: "100%", p: 1 }}
+              variant="outlined"
+              onClick={() => showFoodList(1)}
+            >
+              Add Snack
+            </Button>
+          </div>
+        )}
+      </div>
+
+      <HabitGoalTracker />
     </div>
-
-
-
   );
 };
 

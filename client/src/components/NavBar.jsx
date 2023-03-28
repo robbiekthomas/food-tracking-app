@@ -17,7 +17,7 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Link } from "react-router-dom";
 import EditAvatar from "./EditAvatar";
-import mercury from "../assets/bg/mercurybg.png";
+
 
 import ThemeSettings from "./ThemeSettings";
 import { useLoginContext } from "../contexts/login-status";
@@ -92,10 +92,10 @@ function NavBar() {
               justifyContent: "space-between",
             }}
           >
-            <AdbIcon sx={{ mr: 1 }} />
+            <AdbIcon sx={{ mr: 1, color: 'white' }} />
             <Link
               onClick={() => setLandingActive(true)}
-              className="text-xl"
+              className="text-xl text-white"
               to="/"
             >
               NutritionShip
@@ -193,7 +193,7 @@ function NavBar() {
                       }}
                       className="text-blue-700"
                     >
-                      <Typography sx={{ fontSize: "14px" }}>LOGOUT</Typography>
+                      <Typography sx={{ fontSize: "14px", color: 'white', paddingLeft: '14px' }}>LOGOUT</Typography>
                     </Link>
                   </MenuItem>
                 </Menu>

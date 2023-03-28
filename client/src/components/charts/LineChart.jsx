@@ -64,6 +64,10 @@ const LineChart = ({ datapoints }) => {
   const options = {
     onClick: handleClick,
 
+    // responsive: true,
+    // maintainAspectRatio: false,
+    // height: 400,
+
     plugins: {
       legend: {
         display: true,
