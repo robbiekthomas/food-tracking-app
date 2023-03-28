@@ -5,6 +5,7 @@ const getUserRow = () => {
 
     return axios.get('http://localhost:8000/api/dashboard')
       .then((response) => {
+        console.log('getting user data HI', response.data);
         return response.data;
       });
 
