@@ -20,6 +20,7 @@ import { useLoginContext } from "../contexts/login-status";
 import { useStateContext } from "../contexts/ContextProvider";
 import { BsCheck } from "react-icons/bs";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
+import mercury from "../assets/nasa/mercury.jpg"
 
 export default function EditAvatar() {
   const [open, setOpen] = useState(false);
@@ -64,8 +65,7 @@ export default function EditAvatar() {
     {
       name: "Mercury",
       color: "#757473",
-      image:
-        "https://www.pngitem.com/pimgs/m/200-2009791_mercury-planet-png-actual-photo-of-mercury-transparent.png",
+      image: mercury,
     },
     {
       name: "Mars",
