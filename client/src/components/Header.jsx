@@ -140,7 +140,7 @@ const Header = ({
               id="before"
             />
           </div>
-          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-3`}>
+          <div className={`shadow-sm relative rounded-lg text-dim White flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-3`}>
             <ScoreCard
               title="Average Hunger After Eating"
               score={hungerAfter}
@@ -150,7 +150,7 @@ const Header = ({
 
           {mood && mood.length > 0 && (
             <div
-              className={`shadow-sm relative rounded-lg text-dimWhitew align-center pb-2 pt-2 pl-6 pr-6 ${gradientStyling} z-10 ${classNames(
+              className={`shadow-sm relative rounded-lg text-dim White align-center pb-2 pt-2 pl-6 pr-6 ${gradientStyling} z-10 ${classNames(
                 "row-span-2"
               )}`}
             >

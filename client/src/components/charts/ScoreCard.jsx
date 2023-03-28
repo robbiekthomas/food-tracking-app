@@ -9,9 +9,16 @@ const ScoreCard = ({ title, score, id }) => {
   if (id === 'before') {
     if (score <= 3 || score > 7) {
       color = '#007bff';
+      feedback = 'insert some feedback'
     } else {
       color = '#28a745';
+      feedback = 'insert some feedback'
     }
+  }
+
+  if (score < 1) {
+    color = '#fff';
+    feedback = 'No Entries Yet!'
   }
 
   //give feedback based on score
@@ -35,10 +42,23 @@ const ScoreCard = ({ title, score, id }) => {
   var b = parseInt(hex.substring(4, 6), 16);
 
   return (
-    <div style={{ width: 100, height: 100 }}>
+    <div className="flex-column w-full" style={{ height: 100 }}>
       <ChartsHeader title={title} />
-      <div style={{color: color}}>{Math.round(score)}</div>
-      <div style={{color: color}}>{feedback}</div>
+      <div className='flex center items-center justify-center '>
+
+        {Math.round(score) > 0 &&
+          <>
+            <div className='text-center w-4/5' style={{ color: color }}>{feedback}</div>
+            <div className='text-center w-1/5 text-4xl' style={{ color: color }}>{Math.round(score)}</div>
+          </>
+        }
+
+        {Math.round(score) === 0 &&
+            <div className='text-center w-5/5 opacity-60' style={{ color: color }}>{feedback}</div>
+        }
+      </div>
+
+
     </div>
 
   )
