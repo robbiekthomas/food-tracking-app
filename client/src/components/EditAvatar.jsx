@@ -111,7 +111,7 @@ export default function EditAvatar() {
     },
     {
       name: "Earth",
-      color: "#65a30d",
+      color: "#3C6255",
       image: earth,
       background: earthbg,
     },
