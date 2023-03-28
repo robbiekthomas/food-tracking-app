@@ -7,6 +7,7 @@ import 'react-circular-progressbar/dist/styles.css';
 const Card = ({ title, target, performance, color }) => {
 
   //color will change to be more vibrant to less vibrant as they get closer/farther from the target
+  console.log('performance',performance);
 
   let pathValue = performance;
 
@@ -55,6 +56,7 @@ const Card = ({ title, target, performance, color }) => {
                 <div className='flex justify-between'>
                   <div className='flex'>
                     <h5 className="mb-0 text-s">{target}</h5>
+                    <h5 className="mb-0 text-s">{performance}</h5>
                   </div>
                 </div>
               </div>

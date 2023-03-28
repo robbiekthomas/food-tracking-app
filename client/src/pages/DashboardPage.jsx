@@ -111,7 +111,7 @@ const DashboardPage = () => {
   const calorieWeeklyAverage = getCalorieWeeklyAverage(weelkyMacroDistribution);
   const avgWeeklyHungerBefore = getHunger(hungerScore, 7, 0); //data, days, index
   const avgWeeklyHungerAfter = getHunger(hungerScore, 7, 1); //data, days, index
-
+console.log('hungerScore',hungerScore)
   //gets user details and habit goals from the database
   useEffect(() => {
     getUserRow()
@@ -174,42 +174,6 @@ const DashboardPage = () => {
         console.log("getHungerScore", err);
       });
   }, []);
-
-  //get habit consistency data
-  useEffect(() => {
-    console.log('habitGoal1.goal_id',habitGoal1.goal_id)
-    getConsistencyStreak(habitGoal1.goal_id)
-      .then((res) => {
-        //setHungerScore(res);
-      })
-      .catch((err) => {
-        console.log("getConsistencyStreak", err);
-      });
-  }, [habitGoal1]);
-
-  
-  useEffect(() => {
-    console.log('habitGoal2.goal_id',habitGoal2.goal_id)
-    getConsistencyStreak(habitGoal2.goal_id)
-      .then((res) => {
-        //setHungerScore(res);
-      })
-      .catch((err) => {
-        console.log("getConsistencyStreak", err);
-      });
-  }, [habitGoal2]);
-
-  useEffect(() => {
-    console.log('habitGoal3.goal_id',habitGoal3.goal_id)
-    getConsistencyStreak(habitGoal3.goal_id)
-      .then((res) => {
-        //setHungerScore(res);
-      })
-      .catch((err) => {
-
-         console.log('getConsistencyStreak', err);
-      })
-  }, [habitGoal3]);
 
 
   //get mood data
