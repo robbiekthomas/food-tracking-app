@@ -118,7 +118,7 @@ const FoodList = (props) => {
         />
       </div>
       <Button
-        sx={{ width: "80%", p: 1, m: 2 }}
+        sx={{ width: "20%", p: 1, m: 2 }}
         variant="contained"
         onClick={() => createFoodValues()}
       >
