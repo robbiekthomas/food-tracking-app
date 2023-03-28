@@ -50,8 +50,7 @@ const IntuitiveList = (props) => {
 
     axios
       .post("http://localhost:8000/api/tracker/intuitive/", values)
-      .then((res) => {
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -59,13 +58,6 @@ const IntuitiveList = (props) => {
 
   return (
     <div>
-      <Button
-        sx={{ width: "100%", p: 1 }}
-        variant="outlined"
-        onClick={handleClickOpen}
-      >
-        Add {props.meal}
-      </Button>
       <Dialog
         PaperProps={{
           sx: {
@@ -146,6 +138,13 @@ const IntuitiveList = (props) => {
           </DialogActions>
         </DialogContent>
       </Dialog>
+      <Button
+        sx={{ width: "100%", p: 1 }}
+        variant="outlined"
+        onClick={handleClickOpen}
+      >
+        Add {props.meal}
+      </Button>
     </div>
   );
 };

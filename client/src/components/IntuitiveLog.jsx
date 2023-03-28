@@ -54,7 +54,7 @@ const IntuitiveLog = (props) => {
   const rows = feelings;
 
   return (
-    <TableContainer component={Paper} style={{ minHeight: 400, maxHeight: 400 }}>
+    <TableContainer style={{ minHeight: 400, maxHeight: 400 }}>
       <Table sx={{ minWidth: 650 }} aria-label="Food Log">
         <TableHead>
           <TableRow>

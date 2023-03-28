@@ -5,17 +5,11 @@ import IntuitiveLog from "./IntuitiveLog";
 import MealToggle from "./MealToggle";
 import { Button, Typography, Box, Card } from "@mui/material";
 
-
-
-const TrackingIntuitive = (props) => {
+const TrackingIntuitive = ({ mealToggle, setMealToggle }) => {
   const [toggle, setToggle] = useState(false);
 
-  const mealToggle = props.mealToggle;
-  const handleToggle = props.handleToggle;
-
-
-
-
+  const gradientStyling =
+    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
   return (
     // <div>
 
@@ -97,8 +91,7 @@ const TrackingIntuitive = (props) => {
     //       )}
     //       {mealToggle === "snack" && (
     //         <Card
-    //           variant="outlined"
-    //           sx={{ width: 790, p: 2, m: 2, borderRadius: "16px" }}
+    //           variant="outlined"{mealToggle === "breakfast" && (dius: "16px" }}
     //         >
     //           <Typography variant="h6" gutterBottom>
     //             Snack
@@ -118,24 +111,78 @@ const TrackingIntuitive = (props) => {
     //     <HabitGoalTracker />
     //   </Box>
     // </div>
-    <div>
+    <div className="flex justify-around bg-primary ">
       <h1 className="font-xl">Intuitive Food Tracker</h1>
+
+      <div className="flex flex-col">
+        <MealToggle mealToggle={mealToggle} setMealToggle={setMealToggle} />
+
+        {mealToggle === "breakfast" && (
+          <div
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full  px-7 pt-5 pb-5 ${gradientStyling}`}
+          >
+            <h1>Breakfast</h1>
+            <IntuitiveLog
+              toggle={toggle}
+              setToggle={setToggle}
+              meal={"breakfast"}
+              mealId={1}
+            />
+            <IntuitiveList
+              setToggle={setToggle}
+              mealId={1}
+              meal={"Breakfast"}
+            />
+          </div>
+        )}
+
+        {mealToggle === "lunch" && (
+          <div
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full  px-7 pt-5 pb-5 ${gradientStyling}`}
+          >
+            <h1>Lunch</h1>
+            <IntuitiveLog
+              toggle={toggle}
+              setToggle={setToggle}
+              meal={"lunch"}
+              mealId={2}
+            />
+            <IntuitiveList setToggle={setToggle} mealId={2} meal={"Lunch"} />
+          </div>
+        )}
+
+        {mealToggle === "dinner" && (
+          <div
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full  px-7 pt-5 pb-5 ${gradientStyling}`}
+          >
+            <h1>Dinner</h1>
+            <IntuitiveLog
+              toggle={toggle}
+              setToggle={setToggle}
+              meal={"dinner"}
+              mealId={4}
+            />
+            <IntuitiveList setToggle={setToggle} mealId={4} meal={"Dinner"} />
+          </div>
+        )}
+
+        {mealToggle === "snack" && (
+          <div
+            className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full  px-7 pt-5 pb-5 ${gradientStyling}`}
+          >
+            <h1>Snack</h1>
+            <IntuitiveLog
+              toggle={toggle}
+              setToggle={setToggle}
+              meal={"snack"}
+              mealId={3}
+            />
+            <IntuitiveList setToggle={setToggle} mealId={3} meal={"Snack"} />
+          </div>
+        )}
+      </div>
+
       <HabitGoalTracker />
-      <h1>Breakfast</h1>
-      <IntuitiveList setToggle={setToggle} mealId={1} meal={"Breakfast"} />
-      <IntuitiveLog toggle={toggle} setToggle={setToggle} meal={"breakfast"} mealId={1} />
-
-      <h1>Lunch</h1>
-      <IntuitiveList setToggle={setToggle} mealId={2} meal={"Lunch"} />
-      <IntuitiveLog toggle={toggle} setToggle={setToggle} meal={"lunch"} mealId={2} />
-
-      <h1>Dinner</h1>
-      <IntuitiveList setToggle={setToggle} mealId={4} meal={"Dinner"} />
-      <IntuitiveLog toggle={toggle} setToggle={setToggle} meal={"dinner"} mealId={4} />
-
-      <h1>Snack</h1>
-      <IntuitiveList setToggle={setToggle} mealId={3} meal={"Snack"} />
-      <IntuitiveLog toggle={toggle} setToggle={setToggle} meal={"snack"} mealId={3} />
     </div>
   );
 };
