@@ -12,13 +12,16 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     const colorMode = localStorage.getItem("colorMode");
     setCurrentColor(colorMode);
+    const backgroundMode = localStorage.getItem("planet");
+    setBackground(backgroundMode);
   }, []);
 
   const setColor = (mode, image, background) => {
     setCurrentColor(mode);
     localStorage.setItem("colorMode", mode);
-    setPlanet(image);
+    // setPlanet(image);
     setBackground(background);
+    localStorage.setItem("planet", background);
   };
 
   return (
