@@ -246,7 +246,7 @@ const EditProfileForm = ({
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "50%",
-    bgcolor: "#1a1721",
+    bgcolor: "#1d1c1f",
     border: "2px solid rgba(128, 128, 128, 0.5)",
     borderRadius: "40px",
     boxShadow: 24,
@@ -294,7 +294,7 @@ const EditProfileForm = ({
               defaultValue={inputs.name}
               sx={{
                 width: "80%",
-                bgcolor: "#363042",
+                bgcolor: "#4d4c4f",
                 borderRadius: "5px",
               }}
               size="small"
@@ -313,7 +313,7 @@ const EditProfileForm = ({
               Email
             </InputLabel>
             <TextField
-              sx={{ width: "80%", bgcolor: "#363042", borderRadius: "5px" }}
+              sx={{ width: "80%", bgcolor: "#4d4c4f", borderRadius: "5px" }}
               margin="normal"
               size="small"
               name="email"
@@ -334,7 +334,7 @@ const EditProfileForm = ({
             <TextField
               sx={{
                 width: "80%",
-                bgcolor: "#363042",
+                bgcolor: "#4d4c4f",
                 borderRadius: "5px",
               }}
               margin="normal"
@@ -431,7 +431,7 @@ const EditProfileForm = ({
             <Select
               sx={{
                 width: "70%",
-                bgcolor: "#363042",
+                bgcolor: "#4d4c4f",
                 borderRadius: "20px",
                 ".Mui-focused": {
                   borderRadius: "20px",
@@ -447,7 +447,7 @@ const EditProfileForm = ({
                   key={index}
                   value={item}
                   sx={{
-                    bgcolor: "#363042",
+                    bgcolor: "#4d4c4f",
                   }}
                 >
                   {item}
@@ -467,7 +467,7 @@ const EditProfileForm = ({
               margin="normal"
               sx={{
                 width: "70%",
-                bgcolor: "#363042",
+                bgcolor: "#4d4c4f",
                 borderRadius: "20px",
                 ".Mui-focused": {
                   borderRadius: "20px",
@@ -478,7 +478,13 @@ const EditProfileForm = ({
               defaultValue={currentHabits[1].goal_name}
             >
               {habitsList.map((item, index) => (
-                <MenuItem key={index} value={item}>
+                <MenuItem
+                  key={index}
+                  value={item}
+                  sx={{
+                    bgcolor: "#4d4c4f",
+                  }}
+                >
                   {item}
                 </MenuItem>
               ))}
@@ -495,7 +501,7 @@ const EditProfileForm = ({
             <Select
               sx={{
                 width: "70%",
-                bgcolor: "#363042",
+                bgcolor: "#4d4c4f",
                 borderRadius: "20px",
                 ".Mui-focused": {
                   borderRadius: "20px",
@@ -507,7 +513,13 @@ const EditProfileForm = ({
               defaultValue={currentHabits[2].goal_name}
             >
               {habitsList.map((item, index) => (
-                <MenuItem key={index} value={item}>
+                <MenuItem
+                  key={index}
+                  value={item}
+                  sx={{
+                    bgcolor: "#4d4c4f",
+                  }}
+                >
                   {item}
                 </MenuItem>
               ))}
@@ -540,7 +552,7 @@ const EditProfileForm = ({
                 <TextField
                   sx={{
                     width: "60%",
-                    bgcolor: "#363042",
+                    bgcolor: "#4d4c4f",
                     borderRadius: "5px",
                   }}
                   margin="normal"
@@ -564,7 +576,7 @@ const EditProfileForm = ({
                 <TextField
                   sx={{
                     width: "60%",
-                    bgcolor: "#363042",
+                    bgcolor: "#4d4c4f",
                     borderRadius: "5px",
                   }}
                   margin="normal"
@@ -588,7 +600,7 @@ const EditProfileForm = ({
                   margin="normal"
                   sx={{
                     width: "60%",
-                    bgcolor: "#363042",
+                    bgcolor: "#4d4c4f",
                     borderRadius: "5px",
                   }}
                   defaultValue={inputs.neck_circumference}
@@ -613,7 +625,7 @@ const EditProfileForm = ({
                     margin="normal"
                     sx={{
                       width: "60%",
-                      bgcolor: "#363042",
+                      bgcolor: "#4d4c4f",
                       borderRadius: "5px",
                     }}
                     defaultValue={inputs.hip_circumference}
@@ -639,7 +651,7 @@ const EditProfileForm = ({
               </InputLabel>
               <TextField
                 margin="normal"
-                sx={{ width: "70%", bgcolor: "#363042", borderRadius: "5px" }}
+                sx={{ width: "70%", bgcolor: "#4d4c4f", borderRadius: "5px" }}
                 defaultValue={inputs.body_fat_percentage}
                 name="bodyFat"
                 size="small"
@@ -664,7 +676,7 @@ const EditProfileForm = ({
             </InputLabel>
             <TextField
               margin="normal"
-              sx={{ width: "70%", bgcolor: "#363042", borderRadius: "5px" }}
+              sx={{ width: "70%", bgcolor: "#4d4c4f", borderRadius: "5px" }}
               size="small"
               name="weight"
               type="number"
@@ -690,7 +702,7 @@ const EditProfileForm = ({
                 Weight Change Goal (lbs / week)
               </InputLabel>
               <Slider
-                sx={{ color: "#73658f" }}
+                sx={{ color: "#aeacb0" }}
                 margin="normal"
                 aria-label="Custom marks"
                 defaultValue={inputs.weight_change_goal}
@@ -703,7 +715,7 @@ const EditProfileForm = ({
               />
 
               <TextField
-                sx={{ bgcolor: "#363042", borderRadius: "5px" }}
+                sx={{ bgcolor: "#4d4c4f", borderRadius: "5px" }}
                 margin="normal"
                 halfWidth
                 defaultValue={inputs.weight_change_goal}
