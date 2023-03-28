@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { Button, Typography, Box, Card, Slide } from "@mui/material";
-import { makeStyles } from '@material-ui/core/styles';
 import Dialog from "@mui/material/Dialog";
 import { FoodLog } from "./FoodLog";
 import FoodList from "./FoodList";
