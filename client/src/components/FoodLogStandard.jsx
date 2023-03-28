@@ -82,7 +82,7 @@ export const FoodLogStandard = ({ meal, mealID, mealSummary, showList, onUpdate,
                     handleDeleteClick(row)
                   }
                 >
-                  <DeleteIcon fontSize="small" />
+                  <DeleteIcon color="primary" fontSize="small" />
                 </IconButton>
               </TableCell>
             </TableRow>

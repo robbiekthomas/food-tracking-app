@@ -80,7 +80,7 @@ const IntuitiveLog = (props) => {
                     handleDeleteClick(row)
                   }
                 >
-                  <DeleteIcon fontSize="small" />
+                  <DeleteIcon color="primary" fontSize="small" />
                 </IconButton>
               </TableCell>
             </TableRow>

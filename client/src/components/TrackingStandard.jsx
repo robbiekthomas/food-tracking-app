@@ -7,6 +7,7 @@ import { FoodLogStandard } from "./FoodLogStandard";
 import FoodList from "./FoodList";
 import MealToggle from "./MealToggle";
 import HabitGoalTracker from "./HabitGoalTracker";
+import DateSelector from "./DateSelector";
 
 const TrackingStandard = ({ mealToggle, setMealToggle }) => {
   const [meal, setMeal] = useState("");
@@ -28,7 +29,7 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
     "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
   return (
 
-    <div className="flex justify-around bg-primary ">
+    <div className="flex justify-around">
       <Dialog onClose={handleClose} open={open} sx={{width: '100%'}} maxWidth="xl">
         <FoodList
           meal={meal}
@@ -36,6 +37,17 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
           handleClose={handleClose}
         />
       </Dialog>
+
+      <div className="flex flex-col">
+        {/**DATE PICKER */}
+        <div
+          className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-center items-center ${gradientStyling} w-[410px] py-1 mb-5`}
+        >
+          <DateSelector />
+        </div>
+
+      <HabitGoalTracker />
+      </div>
 
       <div className="flex flex-col">
         <MealToggle mealToggle={mealToggle} setMealToggle={setMealToggle} />
@@ -69,7 +81,7 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
-              onClick={() => showFoodList(1)}
+              onClick={() => showFoodList(2)}
             >
               Add Lunch
             </Button>
@@ -85,7 +97,7 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
-              onClick={() => showFoodList(1)}
+              onClick={() => showFoodList(4)}
             >
               Add Dinner
             </Button>
@@ -101,7 +113,7 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
-              onClick={() => showFoodList(1)}
+              onClick={() => showFoodList(3)}
             >
               Add Snack
             </Button>
@@ -109,7 +121,6 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
         )}
       </div>
 
-      <HabitGoalTracker />
     </div>
   );
 };

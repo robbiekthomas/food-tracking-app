@@ -34,7 +34,6 @@ const HabitGoalTracker = (props) => {
       habitGoal3[1],
       checked3,
     ];
-    
 
 
     axios
