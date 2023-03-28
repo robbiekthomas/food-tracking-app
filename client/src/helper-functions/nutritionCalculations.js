@@ -116,7 +116,7 @@ const getCalorieWeeklyAverage = (macros) => {
 const getHunger = (data, n, i) => {
   let sum = 0;
 
-  if (!data[i]) return
+  if (!data[i]) return 'No Data'
 
   if (data[i].length < n) {
     n = data[i].length;

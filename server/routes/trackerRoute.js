@@ -212,6 +212,7 @@ router.delete("/food-log", (req, res) => {
   const food = req.query.food;
   const meal = req.query.meal;
   const date = req.query.date;
+  console.log('lllll',food, meal, date)
 
   const params = [food, meal, date];
  
@@ -328,7 +329,7 @@ router.post("/intuitive", (req, res) => {
 
 router.delete("/intuitive", (req, res) => {
   console.log("deleting data... ");
- 
+ console.log(req.body)
   const deleteQueryStr = `
   DELETE FROM food_logs 
   WHERE id = $1 AND meal_id = $2 and meal_date = $3;
@@ -444,7 +445,7 @@ router.get('/hungerHistory', (req, res) => {
   console.log('hjgdlhgdhkj', date, meal)
 
   params = [date, meal];
-  str = `SELECT hunger_before, hunger_after, feeling_after_eating
+  str = `SELECT id,  hunger_before, hunger_after, feeling_after_eating
   FROM food_logs
   WHERE user_id = 1 AND meal_date = $1 AND meal_id = $2 AND hunger_before is NOT NULL`
 
