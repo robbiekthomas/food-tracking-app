@@ -69,7 +69,7 @@ const HabitGoalTracker = () => {
 
   return (
     <div>
-      <Card variant="outlined" sx={{ width: '100%', maxWidth: 500, p: 2, m: 2, borderRadius: '16px' }}>
+  
         <Typography variant="h6" color="text.secondary" gutterBottom>
           Habit Tracker
         </Typography>
@@ -109,7 +109,7 @@ const HabitGoalTracker = () => {
           />
         </FormGroup>
         <Button variant="outlined" onClick={() => handleSubmit()}>Submit</Button>
-      </Card>
+
     </div>
   );
 };
