@@ -3,8 +3,13 @@ import { Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/mate
 import ChartHeader from './ChartsHeader';
 
 
+
 const HabitCard = ({ title, dataSource }) => {
   const text = '\u2605';
+
+ 
+ 
+  
 
   return (
     <div className='w-12/12 pl-2 pr-2 pt-2'>

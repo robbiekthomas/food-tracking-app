@@ -41,10 +41,10 @@ const LineChart = ({ datapoints }) => {
         yAxisID: "left",
         spanGaps: true,
         data: bodyFat,
-        backgroundColor: "rgb(45, 149, 147, 1)",
-        borderColor: "rgb(45, 149, 147, 1)",
-        pointBorderColor: "rgb(45, 149, 147, 1)",
-        borderWidth: 4,
+        backgroundColor: "#23ccc8",
+        borderColor: "#23ccc8",
+        pointBorderColor: "#23ccc8",
+        borderWidth: 2,
         tension: 0.4,
       },
       {
@@ -52,10 +52,10 @@ const LineChart = ({ datapoints }) => {
         yAxisID: "right",
         spanGaps: true,
         data: weight,
-        backgroundColor: "rgba(0, 0, 255, 0.1)",
-        borderColor: "rgba(0, 0, 255, 0.1)",
-        pointBorderColor: "rgba(0, 0, 255, 0.1)",
-        borderWidth: 4,
+        backgroundColor: "#695cfb",
+        borderColor: "#695cfb",
+        pointBorderColor: "#695cfb",
+        borderWidth: 2,
         tension: 0.2,
       },
     ],
@@ -68,6 +68,7 @@ const LineChart = ({ datapoints }) => {
       legend: {
         display: true,
         position: "bottom",
+        labels: {color:'#fff'},
         legend: {
           onClick: (legendItem) => {
             const chartInstance = legendItem.chart;
@@ -86,13 +87,23 @@ const LineChart = ({ datapoints }) => {
       },
     },
     scales: {
-      // xAxes: [{
-      //   ticks: {
-      //     min: min, // set the minimum value to display
-      //     max: max // set the maximum value to display
-      //   }
-      // }],
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: 'rgba(255,255,255,1)'
+        }
+      },
       left: {
+        grid: {
+          color: 'rgba(255,255,255,0.75)'
+        },
+        title: {
+          display: true,
+          // text: 'Weight (lbs)',
+          color:'rgba(255,255,255,1)'
+        },
         id: "left",
         type: "linear",
         position: "left",
@@ -102,6 +113,8 @@ const LineChart = ({ datapoints }) => {
           display: true,
           labelString: "My X-Axis Label",
         },
+        ticks: {
+          color: 'rgba(255,255,255,1)'}
       },
       right: {
         id: "right",
@@ -111,8 +124,14 @@ const LineChart = ({ datapoints }) => {
         grid: {
           drawOnChartArea: false,
         },
+        title: {
+          display: true,
+          // text: 'Body Fat (%)',
+          color:'rgba(255,255,255,1)'
+        },
         ticks: {
-          callback: function (value) {
+         color: 'rgba(255,255,255,1)',
+          callback: function(value) {
             return `${value} %`;
           },
         },
@@ -122,7 +141,7 @@ const LineChart = ({ datapoints }) => {
 
   return (
     <>
-      <ChartHeader title="Weight Change" />
+      <ChartHeader title="Body Composition" />
       <Line data={data} options={options}></Line>
     </>
   );
