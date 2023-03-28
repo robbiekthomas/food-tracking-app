@@ -43,6 +43,7 @@ const IntuitiveLog = (props) => {
 
     axios.delete(`http://localhost:8000/api/tracker/intuitive`, { data: values })
     .then(response => {
+      console.log('hi', response)
       setToggle(prev => !prev);
     })
     .catch(error => {
