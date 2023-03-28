@@ -69,7 +69,7 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
-              onClick={() => showFoodList(1)}
+              onClick={() => showFoodList(2)}
             >
               Add Lunch
             </Button>
@@ -85,7 +85,7 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
-              onClick={() => showFoodList(1)}
+              onClick={() => showFoodList(4)}
             >
               Add Dinner
             </Button>
@@ -101,7 +101,7 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
             <Button
               sx={{ width: "100%", p: 1 }}
               variant="outlined"
-              onClick={() => showFoodList(1)}
+              onClick={() => showFoodList(3)}
             >
               Add Snack
             </Button>

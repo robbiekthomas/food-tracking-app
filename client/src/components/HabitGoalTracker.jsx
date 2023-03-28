@@ -34,8 +34,6 @@ const HabitGoalTracker = (props) => {
       habitGoal3[1],
       checked3,
     ];
-    
-    props.handleChange()
 
     axios
       .post("http://localhost:8000/api/tracker/habitGoals", values)

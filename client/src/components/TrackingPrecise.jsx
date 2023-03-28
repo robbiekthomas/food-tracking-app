@@ -120,12 +120,8 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
         )}
       </div>
 
-      <Box ref={containerRef}>
         <HabitGoalTracker checked={checked} handleChange={handleChange} />
-        <Slide in={checked} container={containerRef.current}>
-          {dab}
-        </Slide>
-      </Box>
+       
     </div>
   );
 };
