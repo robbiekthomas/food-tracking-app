@@ -42,10 +42,10 @@ const Card = ({ title, target, performance, color }) => {
           {(title !== 'Maintenance Calories' && title !== 'Hunger Before Eating' && title !== 'Hunger After Eating') &&
             <div className="flex-none w-2/3 max-w-full px-5">
               <div>
-                <p className="opacity-50 mb-2 font-sans font-semibold leading-normal text-l">{title}</p>
+                <p className="opacity-75 mb-2 font-sans font-semibold leading-normal text-l">{title}</p>
                 <div className='flex justify-between'>
                   <div className='flex'>
-                    <h5 className="mb-0 text-s">{target}</h5>
+                    <h5 className="mb-0 text-s"><strong>{target}</strong></h5>
                   </div>
                 </div>
               </div>
@@ -81,7 +81,7 @@ const Card = ({ title, target, performance, color }) => {
                   pathColor: color,
                   textColor: textColor,
                   backgroundColor: color,
-                  trailColor: 'rgba(0,0,0, 0.3)'
+                  trailColor: 'rgba(255,255,255, 0.3)'
                 })}
               />
             </div>

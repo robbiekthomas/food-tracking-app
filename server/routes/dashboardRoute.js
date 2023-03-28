@@ -6,8 +6,36 @@ const differenceInDays = require("date-fns/differenceInDays");
 
 require("dotenv").config();
 
+// //
+// //get user data and habit goal data
+// //
+// router.get("/", (req, res) => {
+//   console.log("getting user data!");
+
+//   const userQueryStr = `
+//   SELECT userDetails.*, users.*, habitGoal_logs.*, habitGoals.*
+//   FROM users
+//   LEFT JOIN userDetails ON users.id = userDetails.user_id
+//   LEFT JOIN habitGoal_logs ON users.id = habitGoal_logs.user_id
+//   LEFT JOIN habitGoals ON habitGoal_logs.goal_id = habitGoals.id
+//   WHERE users.id = 1
+ 
+//       `;
+//   db.query(userQueryStr)
+//     .then((result) => {
+//       console.log(result.rows)
+//       res.json(result.rows);
+//     })
+
+//     .catch((err) => {
+//       console.error(err);
+//     });
+// });
+
+
+
 //
-//get user data and habit goal data
+//get updates to user data for dashboard
 //
 router.get("/", (req, res) => {
   console.log("getting user data!");
@@ -15,13 +43,16 @@ router.get("/", (req, res) => {
   const userQueryStr = `
   SELECT userDetails.*, users.*, habitGoal_logs.*, habitGoals.*
   FROM users
-  LEFT JOIN userDetails ON users.id = userDetails.user_id
-  LEFT JOIN habitGoal_logs ON users.id = habitGoal_logs.user_id
+  LEFT JOIN userDetails ON users.id = userDetails.user_id AND userDetails.date_updated = (SELECT MAX(date_updated) FROM userDetails)
+  LEFT JOIN habitGoal_logs ON users.id = habitGoal_logs.user_id AND habitGoal_logs.insert_time = (SELECT MAX(insert_time) FROM habitGoal_logs)
   LEFT JOIN habitGoals ON habitGoal_logs.goal_id = habitGoals.id
   WHERE users.id = 1
+  LIMIT 3
+
       `;
   db.query(userQueryStr)
     .then((result) => {
+      console.log('jhsgdhsg', result.rows.length);
       res.json(result.rows);
     })
 
@@ -31,31 +62,6 @@ router.get("/", (req, res) => {
 });
 
 
-//
-//get goal streak for current goals
-//
-router.get("/goal", (req, res) => {
-  console.log('getting habit streak')
-
-
-
-  const str = `Select habitGoal_logs.*, habitGoals.goal_name
-  FROM habitGoal_logs 
-  JOIN habitGoals ON habitGoal_logs.goal_id = habitGoals.id
-  ORDER BY date DESC
-
- `
-
-  db.query(str)
-    .then((result) => {
-      
-      res.json(result.rows);
-    })
-
-    .catch((err) => {
-      console.error(err);
-    });
-});
 //
 //get data for the weight graph on the dashboard.
 //
@@ -253,6 +259,7 @@ router.post("/user/insert", (req, res) => {
     });
 });
 
+
 router.post("/habitGoals/insert", (req, res) => {
   const habitQueryStr = `
     INSERT INTO habitGoal_logs (goal_id, goal_number, user_id)
@@ -268,9 +275,9 @@ router.post("/habitGoals/insert", (req, res) => {
     params.push(goal.goal_number);
   }
 
-  console.log("params", params)
   db.query(habitQueryStr, params)
     .then((result) => {
+      console.log(result.rows)
       return result.rows;
     })
     .catch((err) => {
@@ -336,6 +343,10 @@ router.get("/foodReflection", (req, res) => {
     });
 });
 
+
+//
+//get feeling after eating data for the foodReflection on the dashboard.
+//
 router.get("/mood", (req, res) => {
   console.log("getting mood data!");
 
