@@ -59,10 +59,10 @@ const Header = ({
   }, [proActual, fatActual, choActual]);
 
   const gradientStyling =
-    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.01] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
   return (
-    <div className="bg-black">
+    <div className="bg-black flex items-center justify-items-center justify-evenly my-5">
       {/**HEADINGS */}
       {mode === "precise" && <h1 className="font-xl">Precise Food Tracker</h1>}
       {mode === "intuitive" && (
@@ -82,11 +82,12 @@ const Header = ({
             "w-full",
             "grid",
             "grid-cols-4",
-            "grid-rows-2, gap-3"
+            "grid-rows-2, gap-3",
+  
           )}
         >
           {caloriesActual && (
-            <div className="flex-column justify-center align-center">
+            <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2 ml-10`}>
               <ChartHeader title={"Calories"} />
               <CircularProgress
                 title="Calories"
@@ -98,7 +99,7 @@ const Header = ({
             </div>
           )}
 
-          <div className="flex-column justify-center align-center">
+          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2 ml-6`}>
             <ChartHeader title={"Protein"} />
             <CircularProgress
               title='Protein'
@@ -106,7 +107,7 @@ const Header = ({
               performance={Math.round(proActual / protein * 100)}
             />
           </div>
-          <div className="flex-column justify-center align-center">
+          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2 ml-3`}>
             <ChartHeader title={"Fat"} />
             <CircularProgress
               title="Fat"
@@ -114,7 +115,7 @@ const Header = ({
               performance={Math.round((fatActual / fat) * 100)}
             />
           </div>
-          <div className="flex-column justify-center align-center">
+          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2`}>
             <ChartHeader title={"Carbs"} />
             <CircularProgress
               title='Carbs'
@@ -134,7 +135,7 @@ const Header = ({
             "grid-rows-2, gap-3"
           )}
         >
-          <div className="flex-column justify-center align-center">
+          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2`}>
             <ScoreCard
               title="Average Hunger Before Eating"
               score={hungerBefore}
@@ -219,7 +220,7 @@ const Header = ({
             "grid-rows-2, gap-3"
           )}
         >
-          <div className="flex-column justify-center align-center">
+          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2`}>
             <ChartHeader title={"Calories"} />
             <CircularProgress
               title="Calories"
@@ -227,7 +228,7 @@ const Header = ({
               performance={Math.round((caloriesActual / targetCalories) * 100)}
             />
           </div>
-          <div className="flex-column justify-center align-center">
+          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2`}>
             <ChartHeader title={"Protein"} />
             <CircularProgress
               title='Protein'
