@@ -3,11 +3,13 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 const MealToggle = (props) => {
+  const gradientStyling =
+  "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
  
 
   return (
-    <div>
+    <div className={`my-3 shadow-sm relative rounded-lg text-dimWhite align-center flex justify-center w-1/2  px-5 ${gradientStyling}`}>
       <ToggleButtonGroup
         value={props.mealToggle}
         exclusive
@@ -18,7 +20,7 @@ const MealToggle = (props) => {
           backgroundColor: "rgba(0, 0, 0, 0.25)",
           color: "white",
           width: "600px",
-          height: "40px",
+          height: "50px",
 
         }}
       >

@@ -29,7 +29,7 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
   return (
 
     <div className="flex justify-around bg-primary ">
-      <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xl">
+      <Dialog onClose={handleClose} open={open} sx={{width: '100%'}} maxWidth="xl">
         <FoodList
           meal={meal}
           setShowList={setShowList}
