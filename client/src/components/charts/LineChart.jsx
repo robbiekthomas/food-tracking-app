@@ -44,7 +44,7 @@ const LineChart = ({ datapoints }) => {
         backgroundColor: "#23ccc8",
         borderColor: "#23ccc8",
         pointBorderColor: "#23ccc8",
-        borderWidth: 2,
+        borderWidth: 4,
         tension: 0.4,
       },
       {
@@ -55,7 +55,7 @@ const LineChart = ({ datapoints }) => {
         backgroundColor: "#695cfb",
         borderColor: "#695cfb",
         pointBorderColor: "#695cfb",
-        borderWidth: 2,
+        borderWidth: 4,
         tension: 0.2,
       },
     ],

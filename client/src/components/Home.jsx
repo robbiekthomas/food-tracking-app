@@ -1,28 +1,33 @@
 import React from "react";
 import styles from "../style";
 import { discount, robot } from "../assets";
-import {useStateContext} from "../contexts/ContextProvider";
+import { useStateContext } from "../contexts/ContextProvider";
 import foodPlanet from "../assets/foodPlanet.png";
+import { Box } from "@mui/system";
+import earthbg from "../assets/bg/earthbg.png"
+import landing1 from "../assets/bg/landing1.jpg"
+import landing2 from "../assets/bg/landing2.jpg"
+import landing4 from "../assets/bg/landing4.jpg"
+import landing5 from "../assets/bg/landing5.jpg"
+import landing6 from "../assets/bg/landing6.jpg"
 
 const Home = () => {
-  const {currentMode} = useStateContext();
+  const { currentMode } = useStateContext();
 
   return (
     <section
       id="home"
-      className={`flex flex-col items-stretch ${styles.paddingY} ${styles.paddingX} ${styles.flexCenter}`}
+      className={`flex flex-col items-stretch ${styles.paddingY}  ${styles.flexCenter}`}
     >
-      
-    <div
-        className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 ml-10`}
+      <div
+        className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 ml-10 mt-[150px]`}
       >
-        <div className="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2">
+        <div className="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2 mt-2">
           <img src={discount} alt="discount" className="w-[32px] h-[32px]" />
 
-          <p className={`${styles.paragraph} ml-2`}>
-            <span className="text-white">20% </span>
-            Discount For <span className="text-white">1 Month </span>
-            Account
+          <p className={`${styles.paragraph} ml-2 text-white`}>
+            The <span className="text-white">Sky </span>
+            is <span className="text-white">not </span> the limit
           </p>
         </div>
 
@@ -34,18 +39,17 @@ const Home = () => {
             of Food Tracking
           </h1>
         </div>
-        <p className={`${styles.paragraph} max-w-[500px] mt-5`}>
-          Our team of experts uses a methodology to identify your nutrition
-          tracking needs by allowing for a flexible tracking applicaiton that
-          suits your everyday life.
+        <p className={`${styles.paragraph} max-w-[500px] mt-5 text-xl`}>
+          Transforming your diet into an odyssey
         </p>
       </div>
-      <div className={`flex-1 flex flex justify-end items-center md:my-0 my-10 relative`}> 
-        <img src={robot} alt="sample" className="max-w-4xl w-[80%] h-[80%] relative z-[5] mr-0"/>
-        <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
-        <div className="absolute z-[1] w-[80%] h-[80%] rounded-full bottom-40 white__gradient" />
-        <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
-      </div>
+      <Box
+        position="fixed"
+        bottom={20}
+        sx={{ zIndex: -1, width: "100vw", height: "100vh"}}
+      >
+        <img src={landing6} alt="mercury" />
+      </Box>
     </section>
   );
 };

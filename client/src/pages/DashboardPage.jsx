@@ -117,7 +117,7 @@ const DashboardPage = () => {
   const calorieWeeklyAverage = getCalorieWeeklyAverage(weelkyMacroDistribution);
   const avgWeeklyHungerBefore = getHunger(hungerScore, 7, 0); //data, days, index
   const avgWeeklyHungerAfter = getHunger(hungerScore, 7, 1); //data, days, index
-console.log('hungerScore',hungerScore)
+
   //gets user details and habit goals from the database
   useEffect(() => {
     getUserRow()
@@ -131,6 +131,7 @@ console.log('hungerScore',hungerScore)
         console.log("getUserRow", err);
       });
   }, []);
+  
 
   useEffect(() => {
     const d = createHabitGridData(habitGoal1, habitGoal2, habitGoal3);
