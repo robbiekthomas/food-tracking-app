@@ -142,6 +142,7 @@ const TrackingStandard = (props) => {
     // </Box>
 
     <div>
+      
       <Dialog onClose={handleClose} open={open} fullWidth maxWidth="xl">
         <FoodList
           meal={meal}
