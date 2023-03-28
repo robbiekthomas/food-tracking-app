@@ -9,7 +9,7 @@ const MealToggle = (props) => {
  
 
   return (
-    <div className={`my-3 shadow-sm relative rounded-lg text-dimWhite align-center flex justify-center w-1/2  px-5 ${gradientStyling}`}>
+    <div className={`my-3 shadow-sm relative rounded-lg text-dimWhite align-center flex justify-center w-fit  px-2`}>
       <ToggleButtonGroup
         value={props.mealToggle}
         exclusive
@@ -19,7 +19,7 @@ const MealToggle = (props) => {
           borderRadius: "16px",
           backgroundColor: "rgba(0, 0, 0, 0.25)",
           color: "white",
-          width: "600px",
+
           height: "50px",
 
         }}

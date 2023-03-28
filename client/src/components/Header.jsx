@@ -59,27 +59,25 @@ const Header = ({
   }, [proActual, fatActual, choActual]);
 
   const gradientStyling =
-    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.01] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.01] to-[#f8fafc]/[0.1] border-t-2 border-b-1 border-[#f8fafc]/[0.1] z-10";
 
   return (
-    <div className="bg-black flex items-center justify-items-center justify-evenly my-5">
+    <div className="flex items-center justify-items-end justify-evenly my-5">
       {/**HEADINGS */}
-      {mode === "precise" && <h1 className="font-xl">Precise Food Tracker</h1>}
+      {/* {mode === "precise" && <h1 className="font-xl">Precise Food Tracker</h1>}
       {mode === "intuitive" && (
         <h1 className="font-xl">Intuitive Food Tracker</h1>
       )}
       {mode === "standard" && (
         <h1 className="font-xl">Standard Food Tracker</h1>
-      )}
+      )} */}
 
-      {/**DATE PICKER */}
-      <DateSelector />
 
       {/**PRECISE */}
       {mode === "precise" && (
         <div
           className={classNames(
-            "w-full",
+            
             "grid",
             "grid-cols-4",
             "grid-rows-2, gap-3",
@@ -87,11 +85,11 @@ const Header = ({
           )}
         >
           {caloriesActual && (
-            <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2 ml-10`}>
+            <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
               <ChartHeader title={"Calories"} />
               <CircularProgress
                 title="Calories"
-                color="#666666"
+                color="#9d1bec"
                 performance={Math.round(
                   (caloriesActual / targetCalories) * 100
                 )}
@@ -99,7 +97,7 @@ const Header = ({
             </div>
           )}
 
-          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2 ml-6`}>
+          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
             <ChartHeader title={"Protein"} />
             <CircularProgress
               title='Protein'
@@ -107,15 +105,15 @@ const Header = ({
               performance={Math.round(proActual / protein * 100)}
             />
           </div>
-          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2 ml-3`}>
+          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
             <ChartHeader title={"Fat"} />
             <CircularProgress
               title="Fat"
-              color="#666666"
+              color="#0dc955"
               performance={Math.round((fatActual / fat) * 100)}
             />
           </div>
-          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2`}>
+          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
             <ChartHeader title={"Carbs"} />
             <CircularProgress
               title='Carbs'
@@ -135,14 +133,14 @@ const Header = ({
             "grid-rows-2, gap-3"
           )}
         >
-          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2`}>
+          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-3`}>
             <ScoreCard
               title="Average Hunger Before Eating"
               score={hungerBefore}
               id="before"
             />
           </div>
-          <div className="flex-column justify-center align-center">
+          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-3`}>
             <ScoreCard
               title="Average Hunger After Eating"
               score={hungerAfter}
@@ -152,7 +150,7 @@ const Header = ({
 
           {mood && mood.length > 0 && (
             <div
-              className={`w align-center pb-2 pt-2 pl-6 pr-6 ${gradientStyling} z-10 ${classNames(
+              className={`shadow-sm relative rounded-lg text-dimWhitew align-center pb-2 pt-2 pl-6 pr-6 ${gradientStyling} z-10 ${classNames(
                 "row-span-2"
               )}`}
             >
@@ -220,15 +218,15 @@ const Header = ({
             "grid-rows-2, gap-3"
           )}
         >
-          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2`}>
+          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
             <ChartHeader title={"Calories"} />
             <CircularProgress
               title="Calories"
-              color="#666666"
+              color="#9d1bec"
               performance={Math.round((caloriesActual / targetCalories) * 100)}
             />
           </div>
-          <div className={`flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-2`}>
+          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
             <ChartHeader title={"Protein"} />
             <CircularProgress
               title='Protein'

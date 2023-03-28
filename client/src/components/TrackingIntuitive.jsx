@@ -3,6 +3,7 @@ import HabitGoalTracker from "./HabitGoalTracker";
 import IntuitiveList from "./IntuitiveList";
 import IntuitiveLog from "./IntuitiveLog";
 import MealToggle from "./MealToggle";
+import DateSelector from "./DateSelector";
 import { Button, Typography, Box, Card } from "@mui/material";
 
 const TrackingIntuitive = ({ mealToggle, setMealToggle }) => {
@@ -11,9 +12,19 @@ const TrackingIntuitive = ({ mealToggle, setMealToggle }) => {
   const gradientStyling =
     "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
   return (
-  
-    <div className="flex justify-around bg-primary ">
+    <div className="flex justify-around">
       <h1 className="font-xl">Intuitive Food Tracker</h1>
+
+      <div className="flex flex-col">
+        {/**DATE PICKER */}
+        <div
+          className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-center items-center ${gradientStyling} w-[410px] py-1 mb-5`}
+        >
+          <DateSelector />
+        </div>
+
+      <HabitGoalTracker />
+      </div>
 
       <div className="flex flex-col">
         <MealToggle mealToggle={mealToggle} setMealToggle={setMealToggle} />
@@ -82,8 +93,6 @@ const TrackingIntuitive = ({ mealToggle, setMealToggle }) => {
           </div>
         )}
       </div>
-
-      <HabitGoalTracker />
     </div>
   );
 };
