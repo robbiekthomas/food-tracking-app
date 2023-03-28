@@ -7,9 +7,8 @@ import 'react-circular-progressbar/dist/styles.css';
 const Card = ({ title, target, performance, color }) => {
 
   //color will change to be more vibrant to less vibrant as they get closer/farther from the target
-  console.log('performance',performance);
-
   let pathValue = performance;
+  let textColor = `rgba(255, 255, 255, 0.4)`;
 
   if (performance > 100) {
     pathValue = 200 - performance;
@@ -17,21 +16,24 @@ const Card = ({ title, target, performance, color }) => {
 
   //color will change to gold if there is a score within 10%
   let text = `${performance}%`;
-  let textSize = '20px';
+  let textSize = '25px';
 
   if (Math.abs(performance - 100) <= 10) {
-    color = '#D4A537'
+    color = '#fece21'
     text = '\u2605';
-    textSize = '30px';
+    textSize = '45px';
+    textColor = '#fece21';
   };
 
-  //customize colors
-  const hex = color.replace('#', '');
+  // //customize colors
+  // const hex = color.replace('#', '');
 
-  // Convert the hex color code to a decimal value
-  var r = parseInt(hex.substring(0, 2), 16);
-  var g = parseInt(hex.substring(2, 4), 16);
-  var b = parseInt(hex.substring(4, 6), 16);
+  // // Convert the hex color code to a decimal value
+  // const r = parseInt(hex.substring(0, 2), 16);
+  // const g = parseInt(hex.substring(2, 4), 16);
+  // const b = parseInt(hex.substring(4, 6), 16);
+
+  
 
   return (
     <div className="shadow-sm relative flex-col  break-words text-dimWhite rounded-lg bg-clip-border bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10 " >
@@ -40,7 +42,7 @@ const Card = ({ title, target, performance, color }) => {
           {(title !== 'Maintenance Calories' && title !== 'Hunger Before Eating' && title !== 'Hunger After Eating') &&
             <div className="flex-none w-2/3 max-w-full px-5">
               <div>
-                <p className="mb-2 font-sans font-semibold leading-normal text-l">{title}</p>
+                <p className="opacity-50 mb-2 font-sans font-semibold leading-normal text-l">{title}</p>
                 <div className='flex justify-between'>
                   <div className='flex'>
                     <h5 className="mb-0 text-s">{target}</h5>
@@ -76,9 +78,10 @@ const Card = ({ title, target, performance, color }) => {
                   strokeLinecap: 'round',
                   textSize: textSize,
                   pathTransitionDuration: 0.5,
-                  pathColor: `rgba(${r}, ${g}, ${b}, ${pathValue / 80})`,
-                  textColor: color,
+                  pathColor: color,
+                  textColor: textColor,
                   backgroundColor: color,
+                  trailColor: 'rgba(0,0,0, 0.3)'
                 })}
               />
             </div>

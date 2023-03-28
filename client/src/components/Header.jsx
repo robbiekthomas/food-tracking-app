@@ -87,7 +87,7 @@ const Header = (
             <ChartHeader title={'Protein'} />
             <CircularProgress
               title='Protein'
-              color='#666666'
+              color='#ffb114'
               performance={Math.round(proActual / protein * 100)}
             />
           </div>
@@ -103,7 +103,7 @@ const Header = (
             <ChartHeader title={'Carbs'} />
             <CircularProgress
               title='Carbs'
-              color='#666666'
+              color='#48a1e6'
               performance={Math.round(choActual / carbs * 100)}
             />
           </div>
@@ -201,8 +201,8 @@ const Header = (
           <div className='flex-column justify-center align-center'>
             <ChartHeader title={'Protein'} />
             <CircularProgress
-              title='Calories'
-              color='#666666'
+              title='Protein'
+              color='#ffb114'
               performance={Math.round(proActual / protein * 100)}
             />
           </div>

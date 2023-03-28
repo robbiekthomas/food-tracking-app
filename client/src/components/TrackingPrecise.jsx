@@ -10,8 +10,6 @@ import HabitGoalTracker from "./HabitGoalTracker";
 import { format } from "date-fns";
 import MealToggle from "./MealToggle";
 
-// import mercury from "../assets/bg/mercury.png";
-
 import dab from "../assets/dab.png";
 
 
@@ -130,11 +128,8 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
         bottom={20}
         sx={{ zIndex: 0, width: "100vw", height: "100vh" }}
       >
-        
 
-      
         <HabitGoalTracker checked={checked} handleChange={handleChange} />
-        
 
       </Box>
     </div>

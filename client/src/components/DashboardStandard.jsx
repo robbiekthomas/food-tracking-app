@@ -69,7 +69,7 @@ const DashboardStandard = ({
             title={'Protein'}
             target={`${protein - 10} - ${protein + 10} grams`}
             unit='grams'
-            color='#CB4141'
+            color='#ffb114'
             performance={Math.round(proteinWeeklyAverage / protein * 100)}
           />
         </div>
