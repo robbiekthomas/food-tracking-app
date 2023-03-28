@@ -170,20 +170,7 @@ const TrackingPage = () => {
 
   return (
     <div>
-      <Box
-        component="img"
-        sx={{
-          height: "100%",
-          width: "60%",
-          position: "absolute",
-          top: 0,
-          right: "-500px",
-          "z-index": "-1",
-          opacity: 0.2,
-        }}
-        src={planet}
-      />
-
+      
       <Header
         dailyStats={dailyStats}
         targetCalories={targetCalories}

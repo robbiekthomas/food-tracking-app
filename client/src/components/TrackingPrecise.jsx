@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import DateSelector from "./DateSelector";
 import { Button, Typography, Box, Card, Slide } from "@mui/material";
-
 import Dialog from "@mui/material/Dialog";
 import { FoodLog } from "./FoodLog";
 import FoodList from "./FoodList";
@@ -11,7 +10,6 @@ import { format } from "date-fns";
 import MealToggle from "./MealToggle";
 
 import dab from "../assets/dab.png";
-
 
 const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
   const [meal, setMeal] = useState("");
@@ -40,7 +38,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
     "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
   return (
-    <div className="flex justify-around bg-primary ">
+    <div className="flex justify-evenly items-start">
       <Dialog
         onClose={handleClose}
         open={open}
@@ -55,6 +53,19 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
       </Dialog>
 
       <div className="flex flex-col">
+        {/**DATE PICKER */}
+        <div
+          className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-center items-center ${gradientStyling} w-[410px] py-1 mb-5`}
+        >
+          <DateSelector />
+        </div>
+
+      <HabitGoalTracker />
+      </div>
+
+      <div
+        className={`flex flex-col items-center shadow-sm relative rounded-lg "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-[#f8fafc]/[0.2] z-10"`}
+      >
         <MealToggle mealToggle={mealToggle} setMealToggle={setMealToggle} />
 
         {mealToggle === "breakfast" && (
@@ -121,17 +132,6 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
           </div>
         )}
       </div>
-
-
-      <Box
-        position="fixed"
-        bottom={20}
-        sx={{ zIndex: 0, width: "100vw", height: "100vh" }}
-      >
-
-        <HabitGoalTracker checked={checked} handleChange={handleChange} />
-
-      </Box>
     </div>
   );
 };
