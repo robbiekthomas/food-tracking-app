@@ -256,7 +256,7 @@ const EditProfileForm = ({
 
   return (
     <div className="mt-2">
-      <Button sx={{ border: "solid" }} onClick={handleOpen}>
+      <Button sx={{ border: 1, mt: 2, mb: 1 }} onClick={handleOpen}>
         <span className="text-right text-white material-symbols-outlined">
           EDIT PROFILE
         </span>

@@ -40,8 +40,8 @@ const TrackingPage = () => {
 
   const [mealToggle, setMealToggle] = useState("breakfast");
 
-  const handleToggle = (event, meal) => {
-    setMealToggle(meal);
+  const handleToggle = (event) => {
+    setMealToggle(event.target.value);
   };
 
 
@@ -160,7 +160,7 @@ const TrackingPage = () => {
     dailyMealSummary,
     setDailyMealSummary,
     mealToggle,
-    handleToggle
+    setMealToggle
   }
 
 

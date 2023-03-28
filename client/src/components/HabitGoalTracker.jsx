@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
-const HabitGoalTracker = () => {
+const HabitGoalTracker = (props) => {
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
@@ -34,6 +34,8 @@ const HabitGoalTracker = () => {
       habitGoal3[1],
       checked3,
     ];
+    
+    props.handleChange()
 
     axios
       .post("http://localhost:8000/api/tracker/habitGoals", values)
@@ -67,13 +69,16 @@ const HabitGoalTracker = () => {
       });
   }, []);
 
+  const gradientStyling =
+  "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+
   return (
-    <div>
+    <div className={`text-white ${gradientStyling} shadow-sm relative rounded-lg align-center px-7 py-5 h-64`}>
   
-        <Typography variant="h6" color="text.secondary" gutterBottom>
+        <Typography variant="h6" color="white" gutterBottom>
           Habit Tracker
         </Typography>
-        <FormGroup>
+        <FormGroup sx={{mb:2}}>
           <FormControlLabel
             control={
               <Checkbox
