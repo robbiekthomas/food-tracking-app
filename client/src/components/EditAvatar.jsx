@@ -20,7 +20,22 @@ import { useLoginContext } from "../contexts/login-status";
 import { useStateContext } from "../contexts/ContextProvider";
 import { BsCheck } from "react-icons/bs";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-import mercury from "../assets/nasa/mercury.jpg"
+import mercury from "../assets/planets/mercury.png";
+import earth from "../assets/planets/earth.png";
+import jupiter from "../assets/planets/jupiter.png";
+import mars from "../assets/planets/mars.png";
+import neptune from "../assets/planets/neptune.png";
+import saturn from "../assets/planets/saturn.png";
+import uranus from "../assets/planets/uranus.png";
+import venus from "../assets/planets/venus.png";
+import venusbg from "../assets/bg/venusbg.png";
+import earthbg from "../assets/bg/earthbg.png";
+import jupiterbg from "../assets/bg/jupiterbg.png";
+import mercurybg from "../assets/bg/mercurybg.png";
+import marsbg from "../assets/bg/marsbg.png";
+import neptunebg from "../assets/bg/neptunebg.png";
+import saturnbg from "../assets/bg/saturnbg.png";
+import uranusbg from "../assets/bg/uranusbg.png";
 
 export default function EditAvatar() {
   const [open, setOpen] = useState(false);
@@ -54,60 +69,59 @@ export default function EditAvatar() {
     {
       name: "Uranus",
       color: "#99e3f2",
-      image: "https://nineplanets.org/wp-content/uploads/2019/09/uranus.png",
+      image: uranus,
+      background: uranusbg,
     },
     {
       name: "Jupiter",
       color: "#b07954",
-      image:
-        "https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/DK_192970_jupiter_aw_wbzzsf.jpg",
+      image: jupiter,
+      background: jupiterbg,
     },
     {
       name: "Mercury",
       color: "#757473",
       image: mercury,
+      background: mercurybg,
     },
     {
       name: "Mars",
       color: "#ed653b",
-      image:
-        "https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/Mars_ICE_CAP_BACK0000_ozkwko.jpg",
+      image: mars,
+      background: marsbg,
     },
     {
       name: "Neptune",
       color: "#1f45f0",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Neptune_cutout.png/776px-Neptune_cutout.png",
+      image: neptune,
+      background: neptunebg,
     },
     {
       name: "Venus",
       color: "#ed8611",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/9/93/Venus_globe_-_transparent_background.png",
+      image: venus,
+      background: venusbg,
     },
     {
       name: "Saturn",
       color: "#f0ca89",
-      image:
-        "https://www.pngitem.com/pimgs/m/427-4272061_planet-saturn-clipart-hd-png-download.png",
+      image: saturn,
+      background: saturnbg,
     },
     {
       name: "Earth",
       color: "#65a30d",
-      image: "https://www.freepnglogos.com/uploads/earth-png/planet-earth-png-page-pics-about-space-0.png"
-    }
+      image: earth,
+      background: earthbg,
+    },
   ];
 
   return (
     <div className="">
-      <Button
-        
-        onClick={handleClickOpen}
-        sx={{ }}
-      >
+      <Button onClick={handleClickOpen} sx={{}}>
         Settings
       </Button>
-      
+
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
         <DialogTitle>Choose a new Alien!</DialogTitle>
         <DialogContent>
@@ -124,14 +138,14 @@ export default function EditAvatar() {
             {avatars.map((avatar, index) => {
               return (
                 <Box
-                key={index}
+                  key={index}
                   component="img"
                   sx={{
                     height: 100,
                     width: 100,
                     maxHeight: { xs: 233, md: 167 },
                     maxWidth: { xs: 350, md: 250 },
-                    cursor: 'pointer'
+                    cursor: "pointer",
                   }}
                   src={avatar}
                   onClick={() => changeAvatar(avatar)}
@@ -161,7 +175,9 @@ export default function EditAvatar() {
                       height: "5rem",
                       backgroundSize: "cover",
                     }}
-                    onClick={() => setColor(item.color, item.image)}
+                    onClick={() =>
+                      setColor(item.color, item.image, item.background)
+                    }
                   >
                     <BsCheck
                       className={`ml-4 text-5xl text-white ${

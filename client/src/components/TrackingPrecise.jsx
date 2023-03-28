@@ -9,7 +9,7 @@ import FoodList from "./FoodList";
 import HabitGoalTracker from "./HabitGoalTracker";
 import { format } from "date-fns";
 import MealToggle from "./MealToggle";
-import mercury from "../assets/bg/mercury.png";
+// import mercury from "../assets/bg/mercury.png";
 
 const TrackingPrecise = (
   targetCalories,
@@ -255,7 +255,7 @@ const TrackingPrecise = (
         bottom={20}
         sx={{ zIndex: 0, width: "100vw", height: "100vh" }}
       >
-        <img src={mercury} alt="mercury" />
+        {/* <img src={mercury} alt="mercury" /> */}
       </Box>
     </div>
   );
