@@ -9,7 +9,11 @@ import FoodList from "./FoodList";
 import HabitGoalTracker from "./HabitGoalTracker";
 import { format } from "date-fns";
 import MealToggle from "./MealToggle";
+
+// import mercury from "../assets/bg/mercury.png";
+
 import dab from "../assets/dab.png";
+
 
 const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
   const [meal, setMeal] = useState("");
@@ -120,11 +124,18 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
         )}
       </div>
 
-      <Box ref={containerRef}>
+
+      <Box
+        position="fixed"
+        bottom={20}
+        sx={{ zIndex: 0, width: "100vw", height: "100vh" }}
+      >
+        
+
+      
         <HabitGoalTracker checked={checked} handleChange={handleChange} />
-        <Slide in={checked} container={containerRef.current}>
-          {dab}
-        </Slide>
+        
+
       </Box>
     </div>
   );

@@ -4,9 +4,10 @@ import DashboardIntuitive from "../components/DashboardIntuitive";
 import DashboardPrecise from "../components/DashboardPrecise";
 import DashboardStandard from "../components/DashboardStandard";
 import { useModeContext } from "../contexts/mode-status";
+import { useStateContext } from "../contexts/ContextProvider";
 import "../styles/Dashboard.css";
 import { Box } from "@mui/system";
-import mercury from "../assets/bg/mercurybg.png";
+
 import venusbg from "../assets/bg/venusbg.png"
 
 
@@ -39,6 +40,7 @@ import {
 
 const DashboardPage = () => {
   const { mode, setMode } = useModeContext();
+  const { background } = useStateContext();
   useEffect(() => {}, [mode]);
 
   //will store the users old data technically then get submitted as package for post request
@@ -228,7 +230,7 @@ console.log('hungerScore',hungerScore)
         bottom={20}
         sx={{ zIndex: 0, width: "100vw", height: "100vh" }}
       >
-        <img src={venusbg} alt="mercury" />
+        <img src={background} alt="mercury" />
       </Box>
     </div>
   );
