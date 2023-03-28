@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-import { Button, Typography, Box, Card } from "@mui/material";
-
+import { Button, Typography, Box, Card, Slide } from "@mui/material";
+import { makeStyles } from '@material-ui/core/styles';
 import Dialog from "@mui/material/Dialog";
 import { FoodLog } from "./FoodLog";
 import FoodList from "./FoodList";
@@ -9,16 +9,20 @@ import FoodList from "./FoodList";
 import HabitGoalTracker from "./HabitGoalTracker";
 import { format } from "date-fns";
 import MealToggle from "./MealToggle";
+import dab from "../assets/dab.png";
 
-const TrackingPrecise = ({
-  mealToggle,
-  setMealToggle,
-}) => {
+const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
   const [meal, setMeal] = useState("");
   const [showList, setShowList] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
 
+  const [checked, setChecked] = useState(false);
+  const containerRef = useRef(null);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
 
   const handleClose = (value) => {
     setOpen(false);
@@ -34,9 +38,13 @@ const TrackingPrecise = ({
     "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
   return (
-
     <div className="flex justify-around bg-primary ">
-      <Dialog onClose={handleClose} open={open} sx={{width: '100%'}} maxWidth='xl' >
+      <Dialog
+        onClose={handleClose}
+        open={open}
+        sx={{ width: "100%" }}
+        maxWidth="xl"
+      >
         <FoodList
           meal={meal}
           setShowList={setShowList}
@@ -112,7 +120,12 @@ const TrackingPrecise = ({
         )}
       </div>
 
-      <HabitGoalTracker />
+      <Box ref={containerRef}>
+        <HabitGoalTracker checked={checked} handleChange={handleChange} />
+        <Slide in={checked} container={containerRef.current}>
+          {dab}
+        </Slide>
+      </Box>
     </div>
   );
 };

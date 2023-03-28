@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
-const HabitGoalTracker = () => {
+const HabitGoalTracker = (props) => {
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
   const [checked3, setChecked3] = useState(false);
@@ -34,6 +34,8 @@ const HabitGoalTracker = () => {
       habitGoal3[1],
       checked3,
     ];
+    
+    props.handleChange()
 
     axios
       .post("http://localhost:8000/api/tracker/habitGoals", values)
