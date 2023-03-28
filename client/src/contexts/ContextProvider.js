@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
-import mercury from '../assets/mercury.png'
+
 
 const StateContext = createContext();
 

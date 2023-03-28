@@ -6,6 +6,10 @@ import DashboardStandard from "../components/DashboardStandard";
 import { useModeContext } from "../contexts/mode-status";
 import "../styles/Dashboard.css";
 import { Box } from "@mui/system";
+import mercury from "../assets/bg/mercurybg.png";
+import venusbg from "../assets/bg/venusbg.png"
+
+
 
 import {
   getUserDetails,
@@ -31,7 +35,7 @@ import {
   getHunger,
   getTodaysDate,
 } from "../helper-functions/nutritionCalculations";
-import mercury from "../assets/bg/mercury.png";
+
 
 const DashboardPage = () => {
   const { mode, setMode } = useModeContext();
@@ -260,7 +264,7 @@ const DashboardPage = () => {
         bottom={20}
         sx={{ zIndex: 0, width: "100vw", height: "100vh" }}
       >
-        <img src={mercury} alt="mercury" />
+        <img src={venusbg} alt="mercury" />
       </Box>
     </div>
   );
