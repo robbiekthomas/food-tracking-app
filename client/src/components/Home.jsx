@@ -20,14 +20,14 @@ const Home = () => {
       className={`flex flex-col items-stretch ${styles.paddingY}  ${styles.flexCenter}`}
     >
       <div
-        className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 ml-10 mt-[150px]`}
+        className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 ml-[150px] mt-[110px]`}
       >
         <div className="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2 mt-2">
           <img src={discount} alt="discount" className="w-[32px] h-[32px]" />
 
           <p className={`${styles.paragraph} ml-2 text-white`}>
             The <span className="text-white">Sky </span>
-            is <span className="text-white">not </span> the limit
+            Is <span className="text-white">Not </span> the Limit
           </p>
         </div>
 
@@ -40,7 +40,7 @@ const Home = () => {
           </h1>
         </div>
         <p className={`${styles.paragraph} max-w-[500px] mt-5 text-xl`}>
-          Transforming your diet into an odyssey
+          Transforming your diet into an odyssey.
         </p>
       </div>
       <Box

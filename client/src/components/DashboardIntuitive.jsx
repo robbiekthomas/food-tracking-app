@@ -60,7 +60,7 @@ const DashboardIntuitive = ({
   }, [mood]);
 
   const gradientStyling =
-    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.02] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
     console.log(avgWeeklyHungerBefore, avgWeeklyHungerAfter)
   return (
     <div className="flex bg-primary">
@@ -147,7 +147,7 @@ const DashboardIntuitive = ({
 
             {/* TOP THREE MOODS */}
             {mood && mood.length > 0 && (
-              <div className={`w align-center pb-2 pt-2 pl-6 pr-6 ${gradientStyling} z-10 ${classNames(
+              <div className={`w align-center pb-2 pt-2 pl-6 pr-6 rounded-lg ${gradientStyling} z-10 ${classNames(
                 "row-span-2"
               )}`}>
                 <p className="mt-5 mb-5 w-full text-center font-bold text-white text-xl opacity-75">
