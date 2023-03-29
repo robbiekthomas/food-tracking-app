@@ -693,9 +693,9 @@ const EditProfileForm = ({
           />
           <br />
 
-          {toggleWCC && (
+          {/* {toggleWCC && (
             <h3 className="text-white">Estimated Target: {"todo"}</h3>
-          )}
+          )} */}
           {!toggleWCC && (
             <>
               <InputLabel sx={{ fontWeight: "medium" }}>
