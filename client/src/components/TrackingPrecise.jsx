@@ -35,7 +35,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
   };
 
   const gradientStyling =
-    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.01] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.02] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
   return (
     <div className="flex justify-center items-start">
@@ -72,7 +72,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full  px-7 pt-5 pb-5 ${gradientStyling}`}
           >
-            <h1>Breakfast</h1>
+            <p className="text-gray-400 text-xl">Breakfast</p>
             <FoodLog meal={"breakfast"} mealID={1} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
@@ -88,7 +88,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
-            <h1>Lunch</h1>
+            <p className="text-gray-400 text-xl">Lunch</p>
             <FoodLog meal={"lunch"} mealID={2} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
@@ -104,7 +104,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
-            <h1>Dinner</h1>
+            <p className="text-gray-400 text-xl">Dinner</p>
             <FoodLog meal={"dinner"} mealID={4} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
@@ -120,7 +120,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
-            <h1>Snack</h1>
+            <p className="text-gray-400 text-xl">Snack</p>
             <FoodLog meal={"snack"} mealID={3} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}

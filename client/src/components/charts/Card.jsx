@@ -36,7 +36,7 @@ const Card = ({ title, target, performance, color }) => {
   
 
   return (
-    <div className="shadow-sm relative flex-col  break-words text-dimWhite rounded-lg bg-clip-border bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10 " >
+    <div className="shadow-sm relative flex-col  break-words text-dimWhite rounded-lg bg-clip-border bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.02] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.1] z-10 " >
       <div className="flex-column pl-1 pr-1 pt-2 pb-2 justify-center items-center">
         <div className="flex flex-wrap">
           {(title !== 'Maintenance Calories' && title !== 'Hunger Before Eating' && title !== 'Hunger After Eating') &&

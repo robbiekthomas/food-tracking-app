@@ -10,7 +10,7 @@ const TrackingIntuitive = ({ getDataIntuitive, mealToggle, setMealToggle }) => {
   const [toggle, setToggle] = useState(false);
 
   const gradientStyling =
-    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.02] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
   return (
     <div className="flex justify-around">
       <h1 className="font-xl">Intuitive Food Tracker</h1>

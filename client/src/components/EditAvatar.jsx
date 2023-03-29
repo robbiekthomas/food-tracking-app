@@ -69,7 +69,7 @@ export default function EditAvatar() {
   const themecolors = [
     {
       name: "Uranus",
-      color: "#99e3f2",
+      color: "#99CCCC",
       image: uranus,
       background: uranusbg,
     },
@@ -93,7 +93,7 @@ export default function EditAvatar() {
     },
     {
       name: "Neptune",
-      color: "#1f45f0",
+      color: "#3f54ba",
       image: neptune,
       background: neptunebg,
     },
@@ -105,13 +105,13 @@ export default function EditAvatar() {
     },
     {
       name: "Saturn",
-      color: "#f0ca89",
+      color: "#f5cf89",
       image: saturn2,
       background: saturnbg,
     },
     {
       name: "Earth",
-      color: "#3C6255",
+      color: "#3b5842",
       image: earth,
       background: earthbg,
     },

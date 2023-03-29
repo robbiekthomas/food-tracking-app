@@ -72,7 +72,7 @@ const HabitGoalTracker = (props) => {
   "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.02] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
   return (
-    <div className={`text-white ${gradientStyling} shadow-sm relative rounded-lg align-center px-5 py-2 h-[240px] w-[400px]`}>
+    <div className={`text-white ${gradientStyling} shadow-sm relative rounded-lg align-center pl-5 py-2 h-[250px] w-[400px]`}>
   
         <Typography variant="h6" color="white" gutterBottom>
           Habit Tracker
