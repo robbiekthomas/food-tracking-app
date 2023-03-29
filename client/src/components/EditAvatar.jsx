@@ -26,6 +26,7 @@ import jupiter from "../assets/planets/jupiter.png";
 import mars from "../assets/planets/mars.png";
 import neptune from "../assets/planets/neptune.png";
 import saturn from "../assets/planets/saturn.png";
+import saturn2 from "../assets/planets/saturn2.png";
 import uranus from "../assets/planets/uranus.png";
 import venus from "../assets/planets/venus.png";
 import venusbg from "../assets/bg/venusbg.png";
@@ -105,12 +106,12 @@ export default function EditAvatar() {
     {
       name: "Saturn",
       color: "#f0ca89",
-      image: saturn,
+      image: saturn2,
       background: saturnbg,
     },
     {
       name: "Earth",
-      color: "#65a30d",
+      color: "#3C6255",
       image: earth,
       background: earthbg,
     },
@@ -159,11 +160,12 @@ export default function EditAvatar() {
           <p>Choose a planet to live on!</p>
           <div className="flex justify-around">
             {themecolors.map((item, index) => (
-              <TooltipComponent
-                key={index}
-                content={item.name}
-                position="TopCenter"
-              >
+              // <TooltipComponent
+              //   key={index}
+              //   content={item.name}
+              //   position="TopCenter"
+              // >
+              <div>
                 <div className="relative mt-2 cursor-pointer flex gap-5 items-center">
                   <button
                     type="button"
@@ -187,7 +189,8 @@ export default function EditAvatar() {
                   </button>
                 </div>
                 <p className="text-center">{item.name}</p>
-              </TooltipComponent>
+              </div>
+              // </TooltipComponent>
             ))}
           </div>
         </div>

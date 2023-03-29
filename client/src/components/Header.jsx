@@ -60,7 +60,7 @@ const Header = ({
   }, [proActual, fatActual, choActual, selectedContextDate]);
 
   const gradientStyling =
-    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.01] to-[#f8fafc]/[0.1] border-t-2 border-b-1 border-[#f8fafc]/[0.1] z-10";
+    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-b-1 border-[#f8fafc]/[0.1] z-10";
 
   return (
     <div className="flex items-center justify-items-end justify-evenly my-5">
@@ -223,10 +223,9 @@ const Header = ({
       {mode === "standard" && (
         <div
           className={classNames(
-            "w-full",
             "grid",
-            "grid-cols-4",
-            "grid-rows-2, gap-3"
+            "grid-cols-2",
+            "gap-3"
           )}
         >
           <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>

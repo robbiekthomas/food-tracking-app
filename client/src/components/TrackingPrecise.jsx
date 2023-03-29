@@ -35,10 +35,10 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
   };
 
   const gradientStyling =
-    "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.1] to-[#f8fafc]/[0.01] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.01] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
   return (
-    <div className="flex justify-evenly items-start">
+    <div className="flex justify-center items-start">
       <Dialog
         onClose={handleClose}
         open={open}
@@ -52,19 +52,19 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
         />
       </Dialog>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mr-3">
         {/**DATE PICKER */}
         <div
-          className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-center items-center ${gradientStyling} w-[410px] py-1 mb-5`}
+          className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-center items-center ${gradientStyling} w-[400px] py-1 mb-3`}
         >
           <DateSelector />
         </div>
 
-      <HabitGoalTracker />
+        <HabitGoalTracker />
       </div>
 
       <div
-        className={`flex flex-col items-center shadow-sm relative rounded-lg "bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-[#f8fafc]/[0.2] z-10"`}
+        className={`flex flex-col items-center shadow-sm relative rounded-lg bg-gradient-to-r from-[#f8fafc]/[0.01] via-[#f8fafc]/[0.15] to-[#f8fafc]/[0.01] border-t-2 border-[#f8fafc]/[0.2] z-10`}
       >
         <MealToggle mealToggle={mealToggle} setMealToggle={setMealToggle} />
 

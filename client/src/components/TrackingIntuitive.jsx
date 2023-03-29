@@ -18,7 +18,7 @@ const TrackingIntuitive = ({ getDataIntuitive, mealToggle, setMealToggle }) => {
       <div className="flex flex-col">
         {/**DATE PICKER */}
         <div
-          className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-center items-center ${gradientStyling} w-[410px] py-1 mb-5`}
+          className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-center items-center ${gradientStyling} w-[400px] py-1 mb-3`}
         >
           <DateSelector />
         </div>
