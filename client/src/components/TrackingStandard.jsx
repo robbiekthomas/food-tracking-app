@@ -63,7 +63,9 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full  px-7 pt-5 pb-5 ${gradientStyling}`}
           >
-            <h1>Breakfast</h1>
+            <p className="w-full text-center font-bold text-gray-400 text-xl mb-1">
+              Breakfast
+            </p>
             <FoodLogStandard
               meal={"breakfast"}
               mealID={1}
@@ -83,7 +85,9 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
-            <h1>Lunch</h1>
+            <p className="w-full text-center font-bold text-gray-400 text-xl mb-1">
+              Lunch
+            </p>
             <FoodLogStandard meal={"lunch"} mealID={2} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
@@ -99,7 +103,9 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
-            <h1>Dinner</h1>
+            <p className="w-full text-center font-bold text-gray-400 text-xl mb-1">
+              Dinner
+            </p>
             <FoodLogStandard meal={"dinner"} mealID={4} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
@@ -115,7 +121,9 @@ const TrackingStandard = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
-            <h1>Snack</h1>
+            <p className="w-full text-center font-bold text-gray-400 text-xl mb-1">
+              Snack
+            </p>
             <FoodLogStandard meal={"snack"} mealID={3} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}

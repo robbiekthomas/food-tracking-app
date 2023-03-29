@@ -14,6 +14,8 @@ const HabitGoalTracker = (props) => {
   const [habitGoal1, setHabitGoal1] = useState("");
   const [habitGoal2, setHabitGoal2] = useState("");
   const [habitGoal3, setHabitGoal3] = useState("");
+  const [flag, setFlag] = useState(true);
+
 
   const handleChange1 = (event) => {
     setChecked1((prev) => !prev);
@@ -35,11 +37,10 @@ const HabitGoalTracker = (props) => {
       checked3,
     ];
 
-
+    setFlag(false);
     axios
       .post("http://localhost:8000/api/tracker/habitGoals", values)
-      .then((res) => {
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -60,8 +61,6 @@ const HabitGoalTracker = (props) => {
           setChecked2(response.data[1].is_complete);
           setChecked1(response.data[2].is_complete);
         }
-
-
       })
       .catch((err) => {
         console.log(err);
@@ -69,50 +68,54 @@ const HabitGoalTracker = (props) => {
   }, []);
 
   const gradientStyling =
-  "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.02] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
+    "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.02] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
 
   return (
-    <div className={`text-white ${gradientStyling} shadow-sm relative rounded-lg align-center pl-5 py-2 h-[250px] w-[400px]`}>
-  
-        <Typography variant="h6" color="white" gutterBottom>
-          Habit Tracker
-        </Typography>
-        <FormGroup sx={{mb:2}}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={checked1}
-                inputProps={{ "aria-label": "controlled" }}
-                onChange={handleChange1}
-                color="secondary"
-              />
-            }
-            label={habitGoal1[0]}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={checked2}
-                inputProps={{ "aria-label": "controlled" }}
-                onChange={handleChange2}
-                color="secondary"
-              />
-            }
-            label={habitGoal2[0]}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={checked3}
-                inputProps={{ "aria-label": "controlled" }}
-                onChange={handleChange3}
-                color="secondary"
-              />
-            }
-            label={habitGoal3[0]}
-          />
-        </FormGroup>
-        <Button variant="outlined" onClick={() => handleSubmit()}>Submit</Button>
+
+    <div
+      className={`text-white ${gradientStyling} shadow-sm relative rounded-lg align-center pl-5 py-2 h-[250px] w-[400px]`}
+    >
+      <p className="w-full text-center font-bold text-gray-400 text-xl mb-1">
+        Habit Tracker
+      </p>
+      <FormGroup sx={{ mb: 2 }}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={checked1}
+              inputProps={{ "aria-label": "controlled" }}
+              onChange={handleChange1}
+              color={flag ? "secondary" : "success"}
+            />
+          }
+          label={habitGoal1[0]}
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={checked2}
+              inputProps={{ "aria-label": "controlled" }}
+              onChange={handleChange2}
+              color={flag ? "secondary" : "success"}
+            />
+          }
+          label={habitGoal2[0]}
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={checked3}
+              inputProps={{ "aria-label": "controlled" }}
+              onChange={handleChange3}
+              color={flag ? "secondary" : "success"}
+            />
+          }
+          label={habitGoal3[0]}
+        />
+      </FormGroup>
+      <Button variant="outlined" onClick={() => handleSubmit()}>
+        Submit
+      </Button>
 
     </div>
   );
