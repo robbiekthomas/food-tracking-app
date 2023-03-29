@@ -6,7 +6,7 @@ import MealToggle from "./MealToggle";
 import DateSelector from "./DateSelector";
 import { Button, Typography, Box, Card } from "@mui/material";
 
-const TrackingIntuitive = ({ mealToggle, setMealToggle }) => {
+const TrackingIntuitive = ({ getDataIntuitive, mealToggle, setMealToggle }) => {
   const [toggle, setToggle] = useState(false);
 
   const gradientStyling =
@@ -39,11 +39,13 @@ const TrackingIntuitive = ({ mealToggle, setMealToggle }) => {
               setToggle={setToggle}
               meal={"breakfast"}
               mealId={1}
+        
             />
             <IntuitiveList
               setToggle={setToggle}
               mealId={1}
               meal={"Breakfast"}
+              getDataIntuitive={getDataIntuitive}
             />
           </div>
         )}
@@ -58,8 +60,9 @@ const TrackingIntuitive = ({ mealToggle, setMealToggle }) => {
               setToggle={setToggle}
               meal={"lunch"}
               mealId={2}
+              
             />
-            <IntuitiveList setToggle={setToggle} mealId={2} meal={"Lunch"} />
+            <IntuitiveList getDataIntuitive={getDataIntuitive} setToggle={setToggle} mealId={2} meal={"Lunch"} />
           </div>
         )}
 
@@ -73,8 +76,9 @@ const TrackingIntuitive = ({ mealToggle, setMealToggle }) => {
               setToggle={setToggle}
               meal={"dinner"}
               mealId={4}
+       
             />
-            <IntuitiveList setToggle={setToggle} mealId={4} meal={"Dinner"} />
+            <IntuitiveList getDataIntuitive={getDataIntuitive} setToggle={setToggle} mealId={4} meal={"Dinner"} />
           </div>
         )}
 
@@ -88,8 +92,9 @@ const TrackingIntuitive = ({ mealToggle, setMealToggle }) => {
               setToggle={setToggle}
               meal={"snack"}
               mealId={3}
+          
             />
-            <IntuitiveList setToggle={setToggle} mealId={3} meal={"Snack"} />
+            <IntuitiveList getDataIntuitive={getDataIntuitive} setToggle={setToggle} mealId={3} meal={"Snack"} />
           </div>
         )}
       </div>

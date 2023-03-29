@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DateSelector from "./DateSelector";
 import { useModeContext } from "../contexts/mode-status";
+import { useDateContext } from '../contexts/date-context'
 import CircularProgress from "./charts/CircularProgressBar";
 import ScoreCard from "./charts/ScoreCard";
 import ChartHeader from "./charts/ChartsHeader";
@@ -26,8 +27,9 @@ const Header = ({
   mood,
 }) => {
   const { mode, setMode } = useModeContext();
+  const { selectedContextDate, setSelectedContextDate } = useDateContext();
 
-  console.log("mood", mood);
+
   const [proActual, setProActual] = useState(0);
   const [fatActual, setFatActual] = useState(0);
   const [choActual, setChoActual] = useState(0);
@@ -51,12 +53,12 @@ const Header = ({
       setHungerBefore(0);
       setHungerAfter(0);
     }
-  }, [dailyStats]);
+  }, [dailyStats, selectedContextDate]);
 
   useEffect(() => {
     const kcal = proActual * 4 + fatActual * 9 + choActual * 4;
     setCaloriesActual(kcal || 0);
-  }, [proActual, fatActual, choActual]);
+  }, [proActual, fatActual, choActual, selectedContextDate]);
 
   const gradientStyling =
     "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.01] to-[#f8fafc]/[0.1] border-t-2 border-b-1 border-[#f8fafc]/[0.1] z-10";
@@ -77,12 +79,14 @@ const Header = ({
       {mode === "precise" && (
         <div
           className={classNames(
-            
+
             "grid",
             "grid-cols-4",
             "grid-rows-2, gap-3",
-  
+
           )}
+
+
         >
           {caloriesActual && (
             <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
@@ -96,6 +100,14 @@ const Header = ({
               />
             </div>
           )}
+          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
+            <ChartHeader title={"Carbs"} />
+            <CircularProgress
+              title='Target Calories'
+              color='#48a1e6'
+              performance={Math.round(caloriesActual / targetCalories * 100)}
+            />
+          </div>
 
           <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
             <ChartHeader title={"Protein"} />

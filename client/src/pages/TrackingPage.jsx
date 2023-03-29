@@ -34,7 +34,7 @@ const TrackingPage = () => {
   const { background } = useStateContext();
 
   const { planet } = useStateContext();
-  useEffect(() => {}, [mode]);
+  useEffect(() => { }, [mode]);
 
   const [mealToggle, setMealToggle] = useState("breakfast");
 
@@ -109,6 +109,7 @@ const TrackingPage = () => {
   useEffect(() => {
     getDailyMacroStats()
       .then((res) => {
+        console.log('ljlj', res)
         setAllTimeStats(res);
       })
       .catch((err) => {
@@ -123,7 +124,11 @@ const TrackingPage = () => {
 
       for (const i of allTimeStats) {
         if (i.date === d) {
-          setDailyStats(i); //set stats for dashboard
+          setDailyStats(i);
+          break; //set stats for dashboard
+        } else {
+ 
+          setDailyStats({protein: 0, carbs: 0, fat: 0, calories: 0, hungerBefore: 0, hungerAfter: 0})
         }
       }
 
@@ -137,22 +142,28 @@ const TrackingPage = () => {
     }
   }, [selectedContextDate, allTimeStats]);
 
+
   //get the correct qualitative information from the database
+  const getDataIntuitive = () => {
+    const d = format(selectedContextDate, "yyyy/MM/dd");
+    getQualitativeStats(d)
+      .then((res) => {
+  
+        setMoodArray(res);
+      })
+      .catch((err) => {
+        console.log("getQualitativeStats", err);
+      });
+  }
+
   useEffect(() => {
     if (selectedContextDate) {
-      const d = format(selectedContextDate, "yyyy/MM/dd");
+      getDataIntuitive();
 
-      getQualitativeStats(d)
-        .then((res) => {
-          console.log("getQualitativeStats", res);
-
-          setMoodArray(res);
-        })
-        .catch((err) => {
-          console.log("getQualitativeStats", err);
-        });
     }
   }, [selectedContextDate]);
+
+
 
   const props = {
     inputs,
@@ -170,21 +181,24 @@ const TrackingPage = () => {
 
   return (
     <div>
-      
-      <Header
-        dailyStats={dailyStats}
-        targetCalories={targetCalories}
-        protein={protein}
-        carbs={carbs}
-        fat={fat}
-        mood={moodArray}
-      ></Header>
+     
+        <Header
+          dailyStats={dailyStats}
+          targetCalories={targetCalories}
+          protein={protein}
+          carbs={carbs}
+          fat={fat}
+          mood={moodArray}
+
+        ></Header>
+  
+
 
       {selectedContextDate && mode === "precise" && (
         <TrackingPrecise {...props} />
       )}
       {selectedContextDate && mode === "intuitive" && (
-        <TrackingIntuitive {...props} />
+        <TrackingIntuitive getDataIntuitive={getDataIntuitive} {...props} />
       )}
       {selectedContextDate && mode === "standard" && (
         <TrackingStandard {...props} />

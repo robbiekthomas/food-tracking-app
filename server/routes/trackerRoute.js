@@ -59,18 +59,18 @@ router.get("/foodLogOfSelectedDay", (req, res) => {
 
   db.query(str, params)
     .then((data) => {
-        
-      const arr = data.rows;
-        const sortedMeals = arr.sort((a, b) => a.meal_id - b.meal_id);
 
-        const groupedMeals = sortedMeals.reduce((acc, meal) => {
-          const { meal_id } = meal;
-          if (!acc[meal_id]) {
-            acc[meal_id] = [];
-          }
-          acc[meal_id].push(meal);
-          return acc;
-        }, {});
+      const arr = data.rows;
+      const sortedMeals = arr.sort((a, b) => a.meal_id - b.meal_id);
+
+      const groupedMeals = sortedMeals.reduce((acc, meal) => {
+        const { meal_id } = meal;
+        if (!acc[meal_id]) {
+          acc[meal_id] = [];
+        }
+        acc[meal_id].push(meal);
+        return acc;
+      }, {});
 
       res.json(groupedMeals);
     })
@@ -97,12 +97,12 @@ router.get("/trackerDashboardMacros", (req, res) => {
       let startDate = new Date(result.rows[0].combine_day);
       const endDate = new Date();
       const days = differenceInDays(endDate, startDate) + 1;
-console.log(result.rows, days);
+      console.log(result.rows, days);
       let data = [];
       let idx = 0;
 
       for (let i = 0; i < days; i++) {
-    
+
         let protein = null;
         let fat = null;
         let carbs = null;
@@ -140,7 +140,7 @@ console.log(result.rows, days);
 
         data.push(obj);
 
-        
+
       }
       console.log(1, data)
       res.json(data);
@@ -163,7 +163,7 @@ router.get("/qualitativeTrackerDashboard", (req, res) => {
       `;
   db.query(str, params)
     .then((result) => {
-     // console.log('result', result)
+      // console.log('result', result)
       res.json(result);
     })
 
@@ -183,11 +183,11 @@ router.post("/food-log", (req, res) => {
     if (i < req.body.length - 1) {
       insertQueryStr += `($1, $${count}, $${count + 1}, $${count + 2}, $${count + 3
 
-        }),`;
+      }),`;
 
     } else {
       insertQueryStr += `($1, $${count}, $${count + 1}, $${count + 2}, $${count + 3
-        });`;
+      });`;
     }
 
     queryParams.push(
@@ -201,7 +201,7 @@ router.post("/food-log", (req, res) => {
 
   db.query(insertQueryStr, queryParams)
     .then((result) => {
-   
+
       res.json(result.rows);
     })
     .catch((err) => {
@@ -214,10 +214,10 @@ router.delete("/food-log", (req, res) => {
   const food = req.query.food;
   const meal = req.query.meal;
   const date = req.query.date;
-  console.log('lllll',food, meal, date)
+  console.log('lllll', food, meal, date)
 
   const params = [food, meal, date];
- 
+
   const deleteQueryStr = `
   DELETE FROM food_logs 
   WHERE food_id = $1 AND meal_id = $2 AND meal_date = $3;
@@ -225,7 +225,7 @@ router.delete("/food-log", (req, res) => {
 
   db.query(deleteQueryStr, params)
     .then((result) => {
-    
+
       res.json(result.rows);
     })
     .catch((err) => {
@@ -321,7 +321,7 @@ router.post("/intuitive", (req, res) => {
   `;
   db.query(hungerQueryStr, [req.body[0], req.body[1], req.body[2], req.body[3], req.body[4]])
     .then((result) => {
-    
+
       res.json(result.rows);
     })
     .catch((err) => {
@@ -331,7 +331,7 @@ router.post("/intuitive", (req, res) => {
 
 router.delete("/intuitive", (req, res) => {
   console.log("deleting data... ");
- console.log(req.body)
+  console.log(req.body)
   const deleteQueryStr = `
   DELETE FROM food_logs 
   WHERE id = $1 AND meal_id = $2 and meal_date = $3;
@@ -429,7 +429,7 @@ router.post("/habitGoals", (req, res) => {
   WHERE user_id = 1 AND date = CURRENT_DATE;
   `;
 
-  const queryParams = req.body
+  const queryParams = req.body;
 
   db.query(queryStr, queryParams)
     .then((result) => {
@@ -444,22 +444,22 @@ router.post("/habitGoals", (req, res) => {
 router.get('/hungerHistory', (req, res) => {
   const date = req.query.date;
   const meal = req.query.meal;
-  console.log('hjgdlhgdhkj', date, meal)
+  console.log('hjgdlhgdhkj', date, meal);
 
-  params = [date, meal];
-  str = `SELECT id,  hunger_before, hunger_after, feeling_after_eating
+  const params = [date, meal];
+  const str = `SELECT id,  hunger_before, hunger_after, feeling_after_eating
   FROM food_logs
-  WHERE user_id = 1 AND meal_date = $1 AND meal_id = $2 AND hunger_before is NOT NULL`
+  WHERE user_id = 1 AND meal_date = $1 AND meal_id = $2 AND hunger_before is NOT NULL`;
 
   db.query(str, params)
-  .then((result) => {
-    res.json(result.rows);
+    .then((result) => {
+      res.json(result.rows);
     })
     .catch((err) => {
       console.log(err.message);
     });
 })
-
+  ;
 
 
 
