@@ -6,13 +6,16 @@ const ScoreCard = ({ title, score, id }) => {
   let feedback = '';
   let color = '';
   //is score in the ideal range? Depends on b4 or after
-  if (id === 'before') {
-    if (score <= 3 || score > 7) {
-      color = '#007bff';
-      feedback = 'insert some feedback'
+  if (id === 'before' || id === 'after') {
+    if (score < 4) {
+      color = '#ad1deb';
+      feedback = 'Try to eat earlier'
+    } else if (score > 7) {
+      color = '#ffa645';
+      feedback = 'Try to eat less in each sitting'
     } else {
       color = '#28a745';
-      feedback = 'insert some feedback'
+      feedback = 'Gnarly'
     }
   }
 

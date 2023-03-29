@@ -72,7 +72,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full  px-7 pt-5 pb-5 ${gradientStyling}`}
           >
-            <p className="text-gray-400 text-xl">Breakfast</p>
+            <p className="w-full text-center font-bold text-gray-400 text-xl mb-1">Breakfast</p>
             <FoodLog meal={"breakfast"} mealID={1} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
@@ -88,7 +88,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
-            <p className="text-gray-400 text-xl">Lunch</p>
+            <p className="w-full text-center font-bold text-gray-400 text-xl mb-1">Lunch</p>
             <FoodLog meal={"lunch"} mealID={2} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
@@ -104,7 +104,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
-            <p className="text-gray-400 text-xl">Dinner</p>
+            <p className="w-full text-center font-bold text-gray-400 text-xl mb-1">Dinner</p>
             <FoodLog meal={"dinner"} mealID={4} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}
@@ -120,7 +120,7 @@ const TrackingPrecise = ({ mealToggle, setMealToggle }) => {
           <div
             className={`shadow-sm relative rounded-lg text-dimWhite align-center w-full px-8 pt-5 pb-5 ${gradientStyling}`}
           >
-            <p className="text-gray-400 text-xl">Snack</p>
+            <p className="w-full text-center font-bold text-gray-400 text-xl mb-1">Snack</p>
             <FoodLog meal={"snack"} mealID={3} showList={showList} />
             <Button
               sx={{ width: "100%", p: 1 }}

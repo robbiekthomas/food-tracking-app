@@ -99,14 +99,6 @@ const Header = ({
               />
             </div>
           )}
-          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
-            <ChartHeader title={"Carbs"} />
-            <CircularProgress
-              title='Target Calories'
-              color='#48a1e6'
-              performance={Math.round(caloriesActual / targetCalories * 100)}
-            />
-          </div>
 
           <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-1`}>
             <ChartHeader title={"Protein"} />
@@ -138,13 +130,13 @@ const Header = ({
       {mode === "intuitive" && (
         <div
           className={classNames(
-            "w-full",
+           
             "grid",
-            "grid-cols-4",
+            "grid-cols-3",
             "grid-rows-2, gap-3"
           )}
         >
-          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around items-center ${gradientStyling} w-60 px-2 py-3`}>
+          <div className={`shadow-sm relative rounded-lg text-dimWhite flex justify-items-center justify-around align-center items-center ${gradientStyling} w-60 px-2 py-3`}>
             <ScoreCard
               title="Average Hunger Before Eating"
               score={hungerBefore}
@@ -165,7 +157,7 @@ const Header = ({
                 "row-span-2"
               )}`}
             >
-              <p className="mt-5 mb-5 w-full text-center font-bold text-gray-400 text-xl">
+              <p className=" mt-1 w-full text-center font-bold text-gray-400 text-xl">
                 Top Feelings After Eating
               </p>
               <TableContainer
