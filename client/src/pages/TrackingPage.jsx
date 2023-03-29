@@ -7,12 +7,8 @@ import { useModeContext } from "../contexts/mode-status";
 import { useStateContext } from "../contexts/ContextProvider";
 import { getQualitativeStats } from "../api-requests/tracker";
 import { useDateContext } from "../contexts/date-context";
-
-
 import { Box } from "@mui/system";
-
 import Fade from "@mui/material/Fade";
-
 import Header from "../components/Header";
 import { getUserRow } from "../api-requests/dashboard";
 import { getDailyMacroStats, getFoodList } from "../api-requests/tracker";

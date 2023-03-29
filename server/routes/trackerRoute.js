@@ -41,7 +41,7 @@ router.get("/food-log", (req, res) => {
     .catch((err) => {
       console.error(err);
     });
-})
+});
 
 
 
@@ -79,6 +79,8 @@ router.get("/foodLogOfSelectedDay", (req, res) => {
     });
 });
 
+
+
 //Get information needed for all dashboards in the tracking page
 router.get("/trackerDashboardMacros", (req, res) => {
   console.log("getting food Dashboard data!");
@@ -103,16 +105,15 @@ router.get("/trackerDashboardMacros", (req, res) => {
 
       for (let i = 0; i < days; i++) {
 
-        let protein = null;
-        let fat = null;
-        let carbs = null;
-        let hungerBefore = null;
-        let hungerAfter = null;
-        let servings = null;
-
+        let protein = 0;
+        let fat = 0;
+        let carbs = 0;
+        let hungerBefore = 0;
+        let hungerAfter = 0;
+        let servings = 0;
+        console.log(result.rows[idx].combine_day, format(startDate, "yyyy-MM-dd"));
         if (
-          new Date(result.rows[idx].combine_day).getTime() ===
-          startDate.getTime()
+          result.rows[idx].combine_day === format(startDate, "yyyy-MM-dd")
         ) {
           protein = result.rows[idx].protein;
           fat = result.rows[idx].fat;
@@ -128,6 +129,7 @@ router.get("/trackerDashboardMacros", (req, res) => {
 
         startDate = add(startDate, { days: 1 });
         const date = format(startDate, "yyyy/MM/dd");
+
         let obj = {
           date,
           protein,
@@ -142,7 +144,7 @@ router.get("/trackerDashboardMacros", (req, res) => {
 
 
       }
-      console.log(1, data)
+      console.log(1, data);
       res.json(data);
     })
 
@@ -183,11 +185,11 @@ router.post("/food-log", (req, res) => {
     if (i < req.body.length - 1) {
       insertQueryStr += `($1, $${count}, $${count + 1}, $${count + 2}, $${count + 3
 
-      }),`;
+        }),`;
 
     } else {
       insertQueryStr += `($1, $${count}, $${count + 1}, $${count + 2}, $${count + 3
-      });`;
+        });`;
     }
 
     queryParams.push(
@@ -331,7 +333,7 @@ router.post("/intuitive", (req, res) => {
 
 router.delete("/intuitive", (req, res) => {
   console.log("deleting data... ");
-  console.log(req.body)
+  console.log(req.body);
   const deleteQueryStr = `
   DELETE FROM food_logs 
   WHERE id = $1 AND meal_id = $2 and meal_date = $3;
@@ -458,8 +460,7 @@ router.get('/hungerHistory', (req, res) => {
     .catch((err) => {
       console.log(err.message);
     });
-})
-  ;
+});
 
 
 

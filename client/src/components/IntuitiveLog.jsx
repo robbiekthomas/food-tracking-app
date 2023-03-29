@@ -12,12 +12,12 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import {  getIntuitiveLogHistory } from '../api-requests/tracker';
 import { useDateContext } from "../contexts/date-context";
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 
 
 const IntuitiveLog = (props) => {
   const [feelings, setFeelings] = useState([]);
-  const { selectedContextDate } = useDateContext();
+  const { selectedContextDate, setSelectedContextDate } = useDateContext();
   
   const setToggle = props.setToggle;
 
@@ -28,11 +28,19 @@ const IntuitiveLog = (props) => {
     .then((res) => {
       setFeelings(res);
     })
-
+    
       .catch((err) => {
         console.log(err);
       });
   }, [props.toggle, selectedContextDate]);
+
+
+useEffect(() => {
+  let newDate = format(selectedContextDate, 'yyyy-MM-dd');
+  newDate = parse(newDate, 'yyyy-MM-dd', new Date())
+  setSelectedContextDate( newDate);
+  console.log('lksediwakhef', newDate)
+},[props.toggle])
 
   const handleDeleteClick = (params) => () => {
     const date = format(selectedContextDate, 'yyyy-MM-dd')

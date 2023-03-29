@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import DateSelector from "./DateSelector";
 import { useModeContext } from "../contexts/mode-status";
 import { useDateContext } from '../contexts/date-context'
 import CircularProgress from "./charts/CircularProgressBar";

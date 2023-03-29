@@ -14,6 +14,7 @@ const getDailyMacroStats = () => {
 
   return axios.get('http://localhost:8000/api/tracker/trackerDashboardMacros')
     .then((res) => {
+      console.log('hikinh',res.data)
       return res.data;
     })
 }
