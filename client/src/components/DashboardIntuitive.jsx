@@ -59,6 +59,8 @@ const DashboardIntuitive = ({
     setTotalMoodEntries(e);
   }, [mood]);
 
+  console.log(mood);
+
   const gradientStyling =
     "bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.02] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.2] z-10";
     console.log(avgWeeklyHungerBefore, avgWeeklyHungerAfter)

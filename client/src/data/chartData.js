@@ -1,4 +1,5 @@
 //imports for line chart configuration
+
 import {
   Chart as ChartJS,
   LineElement,
@@ -15,6 +16,8 @@ ChartJS.register(
   PointElement,
   Legend,
 )
+
+const { parse, format } = require('date-fns');
 
 
 export const stackedPrimaryXAxis = {
@@ -127,14 +130,22 @@ export const habitsList =
 
 //format day to weekday from a string
 export const formatDateToWeekday = (dateString) => {
-  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const date = new Date(dateString);
-  return weekdays[date.getDay()];
+
+  let formattedDate = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'short' }).format(date);
+  const day = formattedDate.substring(formattedDate.length-2);
+  const month = formattedDate.substring(0,3);
+  
+  formattedDate= `${day} ${month}`;
+
+
+  return formattedDate;
 }
 
 //get x-axis values and format dates
 export const buildLineXAxis = (datapoints) => {
   let xAxis = [];
+  console.log('weekdays', datapoints)
   datapoints[0].forEach(element => {
     xAxis.push(element.x.slice(0, 10));
   });

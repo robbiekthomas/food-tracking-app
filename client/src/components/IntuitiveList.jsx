@@ -12,9 +12,14 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Slider from "@mui/material/Slider";
 import HungerScore from "./HungerScore";
+import { useDateContext } from "../contexts/date-context";
 import axios from "axios";
+import { format } from 'date-fns';
+  
 
 const IntuitiveList = (props) => {
+  const { selectedContextDate } = useDateContext();
+
   const [hungerBefore, setHungerBefore] = useState();
   const [hungerAfter, setHungerAfter] = useState();
   const [feelingAfter, setFeelingAfter] = useState();
@@ -28,7 +33,6 @@ const IntuitiveList = (props) => {
 
   const handleHungerBeforeChange = (event) => {
     setHungerBefore(event);
-    // console.log("hungerBefore", event);
   };
 
   const handleHungerAfterChange = (event) => {
@@ -46,11 +50,14 @@ const IntuitiveList = (props) => {
   const handleSubmit = () => {
     setOpen(false);
     setToggle((prev) => !prev);
+    const date = format(selectedContextDate, 'yyyy-MM-dd')
     const values = [hungerBefore, hungerAfter, feelingAfter, props.mealId, 1];
-
     axios
       .post("http://localhost:8000/api/tracker/intuitive/", values)
-      .then((res) => {})
+      .then((res) => {
+        props.getDataIntuitive();
+        console.log('res',res.data);
+      })
       .catch((err) => {
         console.log(err);
       });

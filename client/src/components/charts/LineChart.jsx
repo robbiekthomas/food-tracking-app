@@ -96,7 +96,14 @@ const LineChart = ({ datapoints }) => {
           display: false,
         },
         ticks: {
-          color: 'rgba(255,255,255,1)'
+          color: 'rgba(255,255,255,1)',
+  
+          // callback: function(value, index, values) {
+          //   // Display label for every second value
+          //   return index % 4 !== 0 ? value : '';
+          // }
+
+          
         }
       },
       left: {
