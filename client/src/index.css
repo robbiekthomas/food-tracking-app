@@ -169,3 +169,33 @@ code {
   background: rgba(255, 255, 255, 0.6);
   filter: blur(750px);
 }
+
+.numberCircle {
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  padding: 6px;
+
+  background: transparent;
+  border: 3px solid #6d6d6d;
+  color: #f4c4f3;
+  text-align: center;
+
+  font: 32px Arial, sans-serif;
+}
+
+.numberCircle2 {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 3px solid #6d6d6d;
+  color: #f4c4f3;
+  text-align: center;
+
+  font: 32px Arial, sans-serif;
+}

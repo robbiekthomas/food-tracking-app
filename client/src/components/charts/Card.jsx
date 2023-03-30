@@ -12,12 +12,12 @@ const Card = ({ title, target, performance, color }) => {
   }
 
   let hungerColor = "";
-  if (color < 4) {
-    hungerColor = "#ad1deb";
-  } else if (color > 7) {
+  if (performance < 3) {
+    hungerColor = "#ffb114";
+  } else if (performance > 8) {
     hungerColor = "#ffa645";
   } else {
-    hungerColor = "#28a745";
+    hungerColor = "#1dcc2e";
   }
 
   //color will change to gold if there is a score within 10%
@@ -40,9 +40,7 @@ const Card = ({ title, target, performance, color }) => {
   // const b = parseInt(hex.substring(4, 6), 16);
 
   return (
-
     <div className="shadow-sm relative flex-col  break-words text-dimWhite rounded-lg bg-clip-border bg-gradient-to-r from-[#f8fafc]/[0.1] via-[#f8fafc]/[0.02] to-[#f8fafc]/[0.1] border-t-2 border-b-2 border-[#f8fafc]/[0.1] z-10 ">
-
       <div className="flex-column pl-1 pr-1 pt-2 pb-2 justify-center items-center">
         <div className="flex flex-wrap">
           {title !== "Maintenance Calories" &&
@@ -74,9 +72,12 @@ const Card = ({ title, target, performance, color }) => {
                 <h5 className="mb-0 text-s">{target}</h5>
               </div>
 
-              <h1 className={`bold mb-0 text-3xl text-pink-50"`}>
+              <div
+                className="bold mb-0 text-3xl"
+                style={{ color: hungerColor }}
+              >
                 {performance}
-              </h1>
+              </div>
             </div>
           )}
 

@@ -62,7 +62,7 @@ useEffect(() => {
   const rows = feelings;
 
   return (
-    <TableContainer style={{ minHeight: 400, maxHeight: 400 }}>
+    <TableContainer style={{ minHeight: 300, maxHeight: 300 }}>
       <Table sx={{ minWidth: 650 }} aria-label="Food Log">
         <TableHead>
           <TableRow>
